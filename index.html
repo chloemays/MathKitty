@@ -157,6 +157,302 @@
             border: 4px solid #FFD700;
         }
         
+        /* Theme Background Container */
+        .theme-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        /* ===== PIRATE THEME BACKGROUNDS ===== */
+        .pirate-sun {
+            position: absolute;
+            top: 8%;
+            right: 12%;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 50%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px #FFD700, 0 0 60px rgba(255, 165, 0, 0.5);
+        }
+        
+        .pirate-cloud {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.9;
+            animation: cloudDrift 20s linear infinite;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1));
+        }
+        
+        .cloud-1 { top: 5%; left: -60px; animation-duration: 25s; }
+        .cloud-2 { top: 15%; left: -100px; animation-duration: 35s; animation-delay: 10s; font-size: 30px; }
+        .cloud-3 { top: 8%; left: -80px; animation-duration: 30s; animation-delay: 5s; font-size: 35px; }
+        
+        @keyframes cloudDrift {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 150px)); }
+        }
+        
+        .ocean-waves {
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'%3E%3Cpath d='M0 15 Q25 5 50 15 T100 15 L100 20 L0 20 Z' fill='%231B6B93' opacity='0.6'/%3E%3C/svg%3E") repeat-x bottom,
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10 L100 20 L0 20 Z' fill='%232E86AB' opacity='0.5'/%3E%3C/svg%3E") repeat-x bottom 15px left;
+            animation: waveMove 3s ease-in-out infinite;
+            z-index: 3;
+        }
+        
+        @keyframes waveMove {
+            0%, 100% { background-position: 0 bottom, 50px bottom; }
+            50% { background-position: 50px bottom, 0 bottom; }
+        }
+        
+        .island {
+            position: absolute;
+            bottom: 100px;
+            animation: islandPass 18s linear infinite;
+            z-index: 3;
+        }
+        
+        .island-1 { left: -120px; animation-duration: 20s; }
+        .island-2 { left: -150px; animation-duration: 25s; animation-delay: 8s; }
+        
+        @keyframes islandPass {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 200px)); }
+        }
+        
+        .island-base {
+            width: 80px;
+            height: 25px;
+            background: linear-gradient(180deg, #F4D03F 0%, #D4AC0D 50%, #B7950B 100%);
+            border-radius: 50%;
+            position: relative;
+            top: -5px;
+        }
+        
+        .palm-tree {
+            font-size: 45px;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: palmSway 3s ease-in-out infinite;
+        }
+        
+        .palm-2 {
+            font-size: 35px;
+            left: 25%;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes palmSway {
+            0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+            50% { transform: translateX(-50%) rotate(3deg); }
+        }
+        
+        .deck-items {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }
+        
+        .deck-item {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.8;
+        }
+        
+        .floating-item {
+            position: absolute;
+            font-size: 24px;
+            animation: floatItem 4s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes floatItem {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        /* ===== SPACE THEME BACKGROUNDS ===== */
+        .stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        .planet-1 {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #E74C3C 0%, #C0392B 50%, #922B21 100%);
+            top: 10%;
+            right: 10%;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.4), 0 0 20px rgba(231,76,60,0.3);
+        }
+        
+        .planet-2 {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 50%, #6C3483 100%);
+            bottom: 20%;
+            left: 8%;
+            box-shadow: inset -8px -8px 15px rgba(0,0,0,0.4), 0 0 15px rgba(155,89,182,0.3);
+        }
+        
+        .planet-1::after {
+            content: '';
+            position: absolute;
+            width: 90px;
+            height: 15px;
+            background: linear-gradient(90deg, transparent, rgba(255,200,150,0.5), transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-20deg);
+            border-radius: 50%;
+        }
+        
+        .space-item {
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, white, transparent);
+            top: 15%;
+            left: -80px;
+            animation: shootingStar 6s linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes shootingStar {
+            0% { left: -80px; top: 15%; opacity: 0; }
+            10% { opacity: 1; }
+            30% { left: 100%; top: 40%; opacity: 0; }
+            100% { left: 100%; top: 40%; opacity: 0; }
+        }
+        
+        /* Ship deck for pirate theme */
+        .ship-deck {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(180deg, #8B4513 0%, #654321 50%, #4a3520 100%);
+            border-top: 4px solid #A0522D;
+            z-index: 4;
+        }
+        
+        .ship-deck::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10%;
+            right: 10%;
+            height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                #654321 0px,
+                #654321 40px,
+                #5a3a1a 40px,
+                #5a3a1a 42px
+            );
+            border-radius: 2px;
+        }
+        
+        .ship-deck::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                #654321 0px,
+                #654321 40px,
+                #5a3a1a 40px,
+                #5a3a1a 42px
+            );
+            border-radius: 2px;
+        }
+        
+        /* Space platform for space theme */
+        .space-platform {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 40px;
+            background: linear-gradient(180deg, #4a4a6a 0%, #2a2a4a 100%);
+            border-radius: 10px 10px 0 0;
+            border: 2px solid #6a6a8a;
+            border-bottom: none;
+        }
+        
+        .space-platform::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 20px;
+            right: 20px;
+            height: 4px;
+            background: linear-gradient(90deg, #00D4FF, #00FF88, #00D4FF);
+            border-radius: 2px;
+            animation: platformGlow 2s ease-in-out infinite;
+        }
+        
+        .space-platform::after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B9D, #9B59B6, #FF6B9D);
+            border-radius: 2px;
+            animation: platformGlow 2s ease-in-out infinite reverse;
+        }
+        
+        @keyframes platformGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
         /* Overlay panels */
         .overlay-panel {
             position: absolute;
@@ -787,25 +1083,30 @@
             height: 60px;
             background: linear-gradient(180deg, #8BC34A 0%, #689F38 100%);
             border-radius: 0 0 16px 16px;
+            z-index: 3;
         }
         
         .grass {
             position: absolute;
-            bottom: 55px;
+            bottom: 45px;
             left: 0;
             right: 0;
-            height: 20px;
+            height: 30px;
             display: flex;
             justify-content: space-around;
+            align-items: flex-end;
+            z-index: 5;
+            pointer-events: none;
         }
         
         .grass-blade {
             width: 8px;
-            height: 20px;
+            height: 25px;
             background: #7CB342;
             border-radius: 50% 50% 0 0;
             transform-origin: bottom;
             animation: sway 2s ease-in-out infinite;
+            flex-shrink: 0;
         }
         
         @keyframes sway {
@@ -823,6 +1124,7 @@
             border-radius: 50%;
             box-shadow: 0 0 30px #FFD700;
             animation: pulse 3s ease-in-out infinite;
+            z-index: 1;
         }
         
         @keyframes pulse {
@@ -835,6 +1137,7 @@
             background: white;
             border-radius: 50px;
             animation: drift 20s linear infinite;
+            z-index: 1;
         }
         
         @keyframes drift {
@@ -849,6 +1152,7 @@
             left: 50%;
             transform: translateX(-50%);
             transition: all 0.5s ease;
+            z-index: 10;
         }
         
         .cat-svg {
@@ -1596,6 +1900,10 @@
         }
         
         /* Cat trick animations - on container */
+        .cat-container.trick-sit {
+            animation: trickSit 1s ease-in-out;
+        }
+        
         .cat-container.trick-wave {
             animation: trickWave 1s ease-in-out;
         }
@@ -1614,6 +1922,11 @@
         
         .cat-container.trick-backflip {
             animation: trickBackflip 1s ease-in-out;
+        }
+        
+        @keyframes trickSit {
+            0%, 100% { transform: translateX(-50%) scaleY(1); }
+            30%, 70% { transform: translateX(-50%) scaleY(0.85) translateY(10px); }
         }
         
         @keyframes trickWave {
@@ -1787,25 +2100,195 @@
         }
         
         /* Sound toggle */
-        .sound-toggle {
+        /* Top Controls Container */
+        .top-controls {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
-            background: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            display: flex;
+            gap: 10px;
         }
         
-        .sound-toggle:hover {
+        .mode-toggle, .sound-toggle {
+            background: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .mode-toggle:hover, .sound-toggle:hover {
             transform: scale(1.1);
         }
         
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+        }
+        
+        body.dark-mode .game-card {
+            background: rgba(30, 30, 50, 0.95);
+            border-color: #3a3a5a;
+        }
+        
+        body.dark-mode .game-title {
+            color: #e0b0ff;
+        }
+        
+        body.dark-mode .subtitle {
+            color: #b0b0c0;
+        }
+        
+        body.dark-mode .mode-toggle,
+        body.dark-mode .sound-toggle {
+            background: #2a2a4a;
+            color: white;
+        }
+        
+        body.dark-mode .how-to-play-btn {
+            background: linear-gradient(135deg, #1a3a2a, #2a4a3a);
+            border-color: #3a6a4a;
+            color: #90d090;
+        }
+        
+        body.dark-mode .how-to-play-inner {
+            background: linear-gradient(135deg, #1a2a20, #2a3a30);
+            border-color: #3a5a4a;
+            color: #c0d0c0;
+        }
+        
+        body.dark-mode .color-picker-btn {
+            background: linear-gradient(135deg, #2a1a3a, #3a2a4a);
+            border-color: #6a4a8a;
+            color: #c0a0d0;
+        }
+        
+        body.dark-mode .topic-picker-btn {
+            background: linear-gradient(135deg, #1a2a3a, #2a3a4a);
+            border-color: #4a6a8a;
+            color: #a0c0d0;
+        }
+        
+        body.dark-mode .name-input {
+            background: #2a2a4a;
+            color: white;
+            border-color: #6a4a8a;
+        }
+        
+        body.dark-mode .name-input::placeholder {
+            color: #8080a0;
+        }
+        
+        body.dark-mode .theme-btn {
+            background: #2a2a4a;
+            border-color: #4a4a6a;
+        }
+        
+        body.dark-mode .theme-btn .theme-name {
+            color: #e0e0f0;
+        }
+        
+        body.dark-mode .theme-btn .theme-desc {
+            color: #a0a0b0;
+        }
+        
+        body.dark-mode .overlay-panel {
+            background: rgba(30, 30, 50, 0.95);
+        }
+        
+        body.dark-mode .overlay-header,
+        body.dark-mode .cat-name-display {
+            color: #e0b0ff;
+        }
+        
+        body.dark-mode .expanded-panel {
+            background: rgba(30, 30, 50, 0.98);
+            border-color: #4a4a6a;
+        }
+        
+        body.dark-mode .expanded-header h5 {
+            color: #e0b0ff;
+        }
+        
+        body.dark-mode .topic-btn {
+            background: #3a3a5a;
+            color: #e0e0f0;
+        }
+        
+        body.dark-mode .action-btn {
+            background: linear-gradient(135deg, #3a3a5a, #4a4a6a);
+        }
+        
+        body.dark-mode .question-card {
+            background: rgba(40, 40, 60, 0.95);
+            border-color: #5a5a7a;
+        }
+        
+        body.dark-mode .question-text {
+            color: #f0f0ff;
+        }
+        
+        body.dark-mode #answerInput {
+            background: #2a2a4a;
+            color: white;
+            border-color: #6a4a8a;
+        }
+        
+        body.dark-mode .tricks-dropdown {
+            background: rgba(30, 30, 50, 0.98);
+            border-color: #4a4a6a;
+        }
+        
+        body.dark-mode .modal-content {
+            background: #2a2a4a;
+            color: #e0e0f0;
+        }
+        
+        body.dark-mode .modal-header {
+            border-color: #4a4a6a;
+        }
+        
+        body.dark-mode .text-muted {
+            color: #a0a0b0 !important;
+        }
+        
+        body.dark-mode .preview-text {
+            color: #e0e0f0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        body.dark-mode .form-label {
+            color: #c0a0d0 !important;
+        }
+        
+        body.dark-mode .how-to-play-item {
+            color: #c0d0c0;
+            border-color: rgba(100, 180, 100, 0.2);
+        }
+        
+        body.dark-mode .badge {
+            opacity: 0.9;
+        }
+        
+        body.dark-mode .stat-label {
+            color: #a0a0b0;
+        }
+        
+        body.dark-mode .xp-bar {
+            background: #2a2a4a;
+        }
+        
+        body.dark-mode .cat-fact-popup {
+            background: rgba(30, 30, 50, 0.98);
+            border-color: #5a5a7a;
+            color: #e0e0f0;
+        }
+
         /* Confetti container */
         .confetti-container {
             position: fixed;
@@ -1965,6 +2448,240 @@
             box-shadow: 0 0 0 3px white, 0 5px 20px rgba(155, 89, 182, 0.5);
         }
         
+        /* Theme Selector Buttons */
+        .theme-selector {
+            margin-bottom: 1rem;
+        }
+        
+        .theme-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 20px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-purple);
+        }
+        
+        .theme-btn.active {
+            border-color: var(--primary-purple);
+            background: linear-gradient(135deg, #f5f0ff 0%, #fff0f5 100%);
+            box-shadow: 0 0 20px rgba(155, 89, 182, 0.3);
+        }
+        
+        .theme-btn[data-theme="pirate"].active {
+            border-color: #8B4513;
+            background: linear-gradient(135deg, #fff8dc 0%, #ffe4c4 100%);
+            box-shadow: 0 0 20px rgba(139, 69, 19, 0.3);
+        }
+        
+        .theme-btn[data-theme="space"].active {
+            border-color: #4A00E0;
+            background: linear-gradient(135deg, #e8e0ff 0%, #e0f0ff 100%);
+            box-shadow: 0 0 20px rgba(74, 0, 224, 0.3);
+        }
+        
+        .theme-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .theme-name {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        
+        .theme-desc {
+            font-size: 0.7rem;
+            color: #666;
+        }
+        
+        /* How to Play Collapsible */
+        .how-to-play-btn {
+            background: linear-gradient(135deg, #E8F8F5, #D5F5E3);
+            border: 2px solid #2ECC71;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1E8449;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .how-to-play-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        #howToPlayArrow {
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+        
+        .how-to-play-btn.expanded #howToPlayArrow {
+            transform: rotate(180deg);
+        }
+        
+        .how-to-play-content {
+            margin-top: 15px;
+            overflow: hidden;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 300px; }
+        }
+        
+        .how-to-play-inner {
+            background: linear-gradient(135deg, #f8fffe, #f0fff8);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid #d5f5e3;
+        }
+        
+        .how-to-play-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            text-align: left;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(46, 204, 113, 0.1);
+        }
+        
+        .how-to-play-item:last-child {
+            border-bottom: none;
+        }
+        
+        .how-to-play-icon {
+            font-size: 1.3rem;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        /* Color Picker Collapsible */
+        .color-picker-btn {
+            background: linear-gradient(135deg, #fff0f5, #f5f0ff);
+            border: 2px solid var(--primary-purple);
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-purple);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .color-picker-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.2);
+        }
+        
+        .color-preview {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        #colorPickerArrow {
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+        
+        .color-picker-btn.expanded #colorPickerArrow {
+            transform: rotate(180deg);
+        }
+        
+        .color-picker-content {
+            margin-top: 10px;
+            animation: slideDown 0.3s ease;
+        }
+        
+        /* Topic Picker Collapsible */
+        .topic-picker-btn {
+            background: linear-gradient(135deg, #e8f4fd, #d4edff);
+            border: 2px solid #3498db;
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2980b9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .topic-picker-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        #topicPickerArrow {
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+        
+        .topic-picker-btn.expanded #topicPickerArrow {
+            transform: rotate(180deg);
+        }
+        
+        .topic-picker-content {
+            margin-top: 10px;
+            animation: slideDown 0.3s ease;
+        }
+        
+        /* Preview text styling */
+        .preview-text {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c5530;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8), -1px -1px 2px rgba(255,255,255,0.8);
+        }
+        
+        .preview-text.dark-bg {
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8), -1px -1px 3px rgba(0,0,0,0.5);
+        }
+        
+        @media (max-width: 576px) {
+            .theme-btn {
+                min-width: 90px;
+                padding: 10px 12px;
+            }
+            .theme-emoji {
+                font-size: 2rem;
+            }
+            .theme-name {
+                font-size: 0.8rem;
+            }
+        }
+        
         /* Tooltip styling */
         .info-tooltip {
             cursor: help;
@@ -1990,85 +2707,122 @@
     <!-- Confetti container -->
     <div class="confetti-container" id="confetti-container"></div>
     
-    <!-- Sound toggle -->
-    <button class="sound-toggle" id="soundToggle" title="Toggle Sound">
-        🔊
-    </button>
+    <!-- Top controls -->
+    <div class="top-controls">
+        <button class="mode-toggle" id="darkModeToggle" title="Toggle Dark Mode" onclick="toggleDarkMode()">
+            ☀️
+        </button>
+        <button class="sound-toggle" id="soundToggle" title="Toggle Sound" onclick="toggleSound()">
+            🔊
+        </button>
+    </div>
     
     <!-- Main container -->
     <div class="main-container">
         <div class="container">
             <!-- Header -->
             <div class="text-center mb-4">
-                <h1 class="game-title mb-2">🐱 MathKitty 🐱</h1>
-                <p class="subtitle">Solve math problems to care for your cat!</p>
+                <h1 class="game-title mb-2" id="gameHeaderTitle">🐱 MathKitty</h1>
+                <p class="subtitle" id="gameHeaderSubtitle">Solve math problems to care for your cat!</p>
             </div>
             
             <!-- Start Screen -->
             <div id="startScreen" class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="game-card p-4">
-                        <h2 class="text-center mb-4" style="font-family: 'Fredoka', sans-serif; color: var(--primary-purple);">
-                            🌟 Welcome to MathKitty! 🌟
-                        </h2>
-                        
-                        <!-- How to Play Instructions -->
-                        <div class="mb-4 p-3" style="background: linear-gradient(135deg, #E8F8F5, #D5F5E3); border-radius: 15px; border: 2px solid #2ECC71;">
-                            <h5 class="text-center mb-3" style="font-family: 'Fredoka', sans-serif; color: #1E8449;">
-                                📖 How to Play
-                            </h5>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p><strong>🎯 Goal:</strong> Keep your cat happy and healthy by caring for it!</p>
-                                    <p><strong>🐱 Your Cat:</strong> Has 4 needs - Health ❤️, Hunger 🍖, Thirst 💧, and Happiness 😊</p>
-                                    <p><strong>📉 Stats Decay:</strong> Your cat's needs slowly decrease over time</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>🧮 Solve Math:</strong> To feed, water, or play with your cat, answer math questions correctly!</p>
-                                    <p><strong>✅ Correct:</strong> Your cat gets cared for + you earn XP and points!</p>
-                                    <p><strong>❌ Wrong:</strong> Your cat loses health, but you'll learn why!</p>
-                                </div>
-                            </div>
-                            <div class="text-center mt-2">
-                                <p class="mb-0"><strong>⭐ Evolution:</strong> Earn XP to evolve your cat from <span class="badge bg-warning text-dark">Kitten</span> → <span class="badge bg-info text-dark">Teen</span> → <span class="badge bg-success">Adult</span>!</p>
+                        <!-- Theme Selector -->
+                        <div class="mb-4 text-center">
+                            <label class="form-label" style="font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--primary-purple);">
+                                🎨 Choose Your Adventure
+                            </label>
+                            <div class="theme-selector d-flex justify-content-center gap-3 flex-wrap">
+                                <button class="theme-btn active" data-theme="cat" onclick="selectTheme('cat')">
+                                    <span class="theme-emoji">🐱</span>
+                                    <span class="theme-name">MathKitty</span>
+                                    <span class="theme-desc">Care for your cat!</span>
+                                </button>
+                                <button class="theme-btn" data-theme="pirate" onclick="selectTheme('pirate')">
+                                    <span class="theme-emoji">☠️</span>
+                                    <span class="theme-name">MathPirate</span>
+                                    <span class="theme-desc">Find treasure!</span>
+                                </button>
+                                <button class="theme-btn" data-theme="space" onclick="selectTheme('space')">
+                                    <span class="theme-emoji">🚀</span>
+                                    <span class="theme-name">MathSpace</span>
+                                    <span class="theme-desc">Explore the galaxy!</span>
+                                </button>
                             </div>
                         </div>
                         
+                        <!-- How to Play - Collapsible -->
+                        <div class="mb-4 text-center">
+                            <button class="how-to-play-btn" onclick="toggleHowToPlay()" id="howToPlayBtn">
+                                📖 How to Play <span id="howToPlayArrow">▼</span>
+                            </button>
+                            <div class="how-to-play-content" id="howToPlayContent" style="display: none;">
+                                <div class="how-to-play-inner">
+                                    <div class="how-to-play-item">
+                                        <span class="how-to-play-icon">🎯</span>
+                                        <span><strong>Goal:</strong> <span id="goalText">Keep your cat happy and healthy!</span></span>
+                                    </div>
+                                    <div class="how-to-play-item">
+                                        <span class="how-to-play-icon" id="characterEmoji">🐱</span>
+                                        <span><strong>Your <span id="characterType">Cat</span>:</strong> Has 4 stats - ❤️ Health, <span id="hungerEmoji">🍖</span> <span id="hungerName">Hunger</span>, <span id="thirstEmoji">💧</span> <span id="thirstName">Thirst</span>, <span id="happinessEmoji">😊</span> <span id="happinessName">Happiness</span></span>
+                                    </div>
+                                    <div class="how-to-play-item">
+                                        <span class="how-to-play-icon">🧮</span>
+                                        <span><strong>Solve Math:</strong> Answer questions to <span id="actionText">feed, water, or play with your cat</span></span>
+                                    </div>
+                                    <div class="how-to-play-item">
+                                        <span class="how-to-play-icon">⭐</span>
+                                        <span><strong>Evolve:</strong> <span class="badge bg-warning text-dark" id="stage1Badge">Kitten</span> → <span class="badge bg-info text-dark" id="stage2Badge">Teen</span> → <span class="badge bg-success" id="stage3Badge">Adult</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hidden spans for theme updates -->
+                        <span id="characterTypeLower" style="display:none;">cat</span>
+                        <span id="characterTypeLower2" style="display:none;">cat</span>
+                        <span id="characterTypeLower3" style="display:none;">cat</span>
+                        
                         <div class="row align-items-center">
-                            <!-- Cat Preview -->
+                            <!-- Character Preview -->
                             <div class="col-md-5 text-center mb-4 mb-md-0">
-                                <div class="p-3" style="background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%); border-radius: 20px; border: 3px solid #FFD700;">
+                                <div class="p-3" id="previewContainer" style="background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%); border-radius: 20px; border: 3px solid #FFD700;">
                                     <div id="catPreview"></div>
-                                    <p class="mt-2 mb-0 small text-muted">Your new kitten!</p>
+                                    <p class="preview-text mt-2 mb-0" id="previewText">Your New Kitten!</p>
                                 </div>
                             </div>
                             
                             <!-- Name and Color Selection -->
                             <div class="col-md-7">
-                                <div class="mb-4">
+                                <div class="mb-4 text-center">
                                     <label class="form-label" style="font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--primary-purple);">
-                                        ✏️ Name Your Kitten
+                                        ✏️ <span id="nameLabel">Name Your Kitten</span>
                                     </label>
-                                    <input type="text" id="catNameInput" class="name-input w-100" placeholder="Enter cat name..." maxlength="15">
+                                    <input type="text" id="catNameInput" class="name-input" placeholder="Enter name..." maxlength="15" style="max-width: 200px; margin: 0 auto; display: block;">
                                 </div>
                                 
-                                <div class="mb-4">
-                                    <label class="form-label" style="font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--primary-purple);">
-                                        🎨 Choose Cat Color
-                                    </label>
-                                    <div class="d-flex flex-wrap gap-2 justify-content-center" id="colorPicker">
-                                        <button class="color-btn active" data-color="#FFB347" style="background: #FFB347;" title="Orange Tabby" onclick="selectColor('#FFB347')"></button>
-                                        <button class="color-btn" data-color="#A0A0A0" style="background: #A0A0A0;" title="Gray" onclick="selectColor('#A0A0A0')"></button>
-                                        <button class="color-btn" data-color="#3D3D3D" style="background: #3D3D3D;" title="Black" onclick="selectColor('#3D3D3D')"></button>
-                                        <button class="color-btn" data-color="#F5DEB3" style="background: #F5DEB3;" title="Cream" onclick="selectColor('#F5DEB3')"></button>
-                                        <button class="color-btn" data-color="#D2691E" style="background: #D2691E;" title="Brown" onclick="selectColor('#D2691E')"></button>
-                                        <button class="color-btn" data-color="#FFE4B5" style="background: #FFE4B5;" title="White/Cream" onclick="selectColor('#FFE4B5')"></button>
-                                        <button class="color-btn" data-color="#FF8C69" style="background: #FF8C69;" title="Ginger" onclick="selectColor('#FF8C69')"></button>
-                                        <button class="color-btn" data-color="#DDA0DD" style="background: #DDA0DD;" title="Purple (Fantasy)" onclick="selectColor('#DDA0DD')"></button>
-                                        <button class="color-btn" data-color="#87CEEB" style="background: #87CEEB;" title="Blue (Fantasy)" onclick="selectColor('#87CEEB')"></button>
-                                        <button class="color-btn" data-color="#98FB98" style="background: #98FB98;" title="Green (Fantasy)" onclick="selectColor('#98FB98')"></button>
-                                        <button class="color-btn" data-color="#FFB6C1" style="background: #FFB6C1;" title="Pink (Fantasy)" onclick="selectColor('#FFB6C1')"></button>
-                                        <button class="color-btn" data-color="#F0E68C" style="background: #F0E68C;" title="Golden" onclick="selectColor('#F0E68C')"></button>
+                                <div class="mb-4 text-center">
+                                    <button class="color-picker-btn" onclick="toggleColorPicker()" id="colorPickerBtn">
+                                        🎨 <span id="colorLabel">Choose Color</span> <span class="color-preview" id="colorPreview" style="background: #FFB347;"></span> <span id="colorPickerArrow">▼</span>
+                                    </button>
+                                    <div class="color-picker-content" id="colorPickerContent" style="display: none;">
+                                        <div class="d-flex flex-wrap gap-2 justify-content-center p-2" id="colorPicker">
+                                            <button class="color-btn active" data-color="#FFB347" style="background: #FFB347;" title="Orange Tabby" onclick="selectColor('#FFB347')"></button>
+                                            <button class="color-btn" data-color="#A0A0A0" style="background: #A0A0A0;" title="Gray" onclick="selectColor('#A0A0A0')"></button>
+                                            <button class="color-btn" data-color="#3D3D3D" style="background: #3D3D3D;" title="Black" onclick="selectColor('#3D3D3D')"></button>
+                                            <button class="color-btn" data-color="#F5DEB3" style="background: #F5DEB3;" title="Cream" onclick="selectColor('#F5DEB3')"></button>
+                                            <button class="color-btn" data-color="#D2691E" style="background: #D2691E;" title="Brown" onclick="selectColor('#D2691E')"></button>
+                                            <button class="color-btn" data-color="#FFE4B5" style="background: #FFE4B5;" title="White/Cream" onclick="selectColor('#FFE4B5')"></button>
+                                            <button class="color-btn" data-color="#FF8C69" style="background: #FF8C69;" title="Ginger" onclick="selectColor('#FF8C69')"></button>
+                                            <button class="color-btn" data-color="#DDA0DD" style="background: #DDA0DD;" title="Purple (Fantasy)" onclick="selectColor('#DDA0DD')"></button>
+                                            <button class="color-btn" data-color="#87CEEB" style="background: #87CEEB;" title="Blue (Fantasy)" onclick="selectColor('#87CEEB')"></button>
+                                            <button class="color-btn" data-color="#98FB98" style="background: #98FB98;" title="Green (Fantasy)" onclick="selectColor('#98FB98')"></button>
+                                            <button class="color-btn" data-color="#FFB6C1" style="background: #FFB6C1;" title="Pink (Fantasy)" onclick="selectColor('#FFB6C1')"></button>
+                                            <button class="color-btn" data-color="#F0E68C" style="background: #F0E68C;" title="Golden" onclick="selectColor('#F0E68C')"></button>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -2134,16 +2888,21 @@
                     </div>
                 </div>
                 
-                <!-- Topic Selection - Above Cat -->
-                <div class="game-card p-2 mb-2">
-                    <div class="d-flex justify-content-center flex-wrap gap-2">
-                        <button class="topic-btn active" data-topic="addition" onclick="selectTopic('addition')">➕ Add</button>
-                        <button class="topic-btn" data-topic="subtraction" onclick="selectTopic('subtraction')">➖ Sub</button>
-                        <button class="topic-btn" data-topic="multiplication" onclick="selectTopic('multiplication')">✖️ Mult</button>
-                        <button class="topic-btn" data-topic="division" onclick="selectTopic('division')">➗ Div</button>
-                        <button class="topic-btn" data-topic="equations" onclick="selectTopic('equations')">🔢 Eq</button>
-                        <button class="topic-btn" data-topic="fractions" onclick="selectTopic('fractions')">½ Frac</button>
-                        <button class="topic-btn" data-topic="mixed" onclick="selectTopic('mixed')">🎲 Mix</button>
+                <!-- Topic Selection - Collapsible -->
+                <div class="game-card p-2 mb-2 text-center">
+                    <button class="topic-picker-btn" onclick="toggleTopicPicker()" id="topicPickerBtn">
+                        🧮 <span id="currentTopicLabel">➕ Addition</span> <span id="topicPickerArrow">▼</span>
+                    </button>
+                    <div class="topic-picker-content" id="topicPickerContent" style="display: none;">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 p-2">
+                            <button class="topic-btn active" data-topic="addition" onclick="selectTopic('addition')">➕ Add</button>
+                            <button class="topic-btn" data-topic="subtraction" onclick="selectTopic('subtraction')">➖ Sub</button>
+                            <button class="topic-btn" data-topic="multiplication" onclick="selectTopic('multiplication')">✖️ Mult</button>
+                            <button class="topic-btn" data-topic="division" onclick="selectTopic('division')">➗ Div</button>
+                            <button class="topic-btn" data-topic="equations" onclick="selectTopic('equations')">🔢 Eq</button>
+                            <button class="topic-btn" data-topic="fractions" onclick="selectTopic('fractions')">½ Frac</button>
+                            <button class="topic-btn" data-topic="mixed" onclick="selectTopic('mixed')">🎲 Mix</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -2165,19 +2924,19 @@
                             </div>
                             <div class="mini-bars-grid" onclick="toggleStatsExpand()">
                                 <div class="mini-bar-row">
-                                    <span class="mini-bar-icon">❤️</span>
+                                    <span class="mini-bar-icon" id="healthIconMini">❤️</span>
                                     <div class="mini-bar-track"><div class="mini-bar-fill health-mini" id="healthBarMini" style="width: 100%;"></div></div>
                                 </div>
                                 <div class="mini-bar-row">
-                                    <span class="mini-bar-icon">🍖</span>
+                                    <span class="mini-bar-icon" id="hungerIconMini">🍖</span>
                                     <div class="mini-bar-track"><div class="mini-bar-fill hunger-mini" id="hungerBarMini" style="width: 100%;"></div></div>
                                 </div>
                                 <div class="mini-bar-row">
-                                    <span class="mini-bar-icon">💧</span>
+                                    <span class="mini-bar-icon" id="thirstIconMini">💧</span>
                                     <div class="mini-bar-track"><div class="mini-bar-fill thirst-mini" id="thirstBarMini" style="width: 100%;"></div></div>
                                 </div>
                                 <div class="mini-bar-row">
-                                    <span class="mini-bar-icon">😊</span>
+                                    <span class="mini-bar-icon" id="happinessIconMini">😊</span>
                                     <div class="mini-bar-track"><div class="mini-bar-fill happiness-mini" id="happinessBarMini" style="width: 100%;"></div></div>
                                 </div>
                             </div>
@@ -2206,7 +2965,14 @@
                         </div>
                         
                         <!-- Grass -->
-                        <div class="grass" id="grass"></div>
+                        <div class="grass" id="grass">
+                            <!-- Initial grass blades - more added by JS -->
+                            <div class="grass-blade"></div>
+                            <div class="grass-blade"></div>
+                            <div class="grass-blade"></div>
+                            <div class="grass-blade"></div>
+                            <div class="grass-blade"></div>
+                        </div>
                         
                         <!-- Ground -->
                         <div class="ground"></div>
@@ -2239,32 +3005,32 @@
                     </div>
                     <div class="expanded-content">
                         <div class="stat-row-full">
-                            <span class="stat-icon">❤️</span>
-                            <span class="stat-name">Health</span>
+                            <span class="stat-icon" id="healthIconFull">❤️</span>
+                            <span class="stat-name" id="healthNameFull">Health</span>
                             <div class="stat-bar-full">
                                 <div class="stat-fill-full health-fill" id="healthBar" style="width: 100%;"></div>
                             </div>
                             <span class="stat-value" id="healthValue">100</span>
                         </div>
                         <div class="stat-row-full">
-                            <span class="stat-icon">🍖</span>
-                            <span class="stat-name">Hunger</span>
+                            <span class="stat-icon" id="hungerIconFull">🍖</span>
+                            <span class="stat-name" id="hungerNameFull">Hunger</span>
                             <div class="stat-bar-full">
                                 <div class="stat-fill-full hunger-fill" id="hungerBar" style="width: 100%;"></div>
                             </div>
                             <span class="stat-value" id="hungerValue">100</span>
                         </div>
                         <div class="stat-row-full">
-                            <span class="stat-icon">💧</span>
-                            <span class="stat-name">Thirst</span>
+                            <span class="stat-icon" id="thirstIconFull">💧</span>
+                            <span class="stat-name" id="thirstNameFull">Thirst</span>
                             <div class="stat-bar-full">
                                 <div class="stat-fill-full thirst-fill" id="thirstBar" style="width: 100%;"></div>
                             </div>
                             <span class="stat-value" id="thirstValue">100</span>
                         </div>
                         <div class="stat-row-full">
-                            <span class="stat-icon">😊</span>
-                            <span class="stat-name">Happiness</span>
+                            <span class="stat-icon" id="happinessIconFull">😊</span>
+                            <span class="stat-name" id="happinessNameFull">Happiness</span>
                             <div class="stat-bar-full">
                                 <div class="stat-fill-full happiness-fill" id="happinessBar" style="width: 100%;"></div>
                             </div>
@@ -2290,10 +3056,10 @@
                             <div class="stage-indicator locked" id="stage3">🦁</div>
                         </div>
                         <div class="text-center small text-muted mb-2">
-                            <span>Newborn</span>
-                            <span class="mx-3">Kitten</span>
-                            <span class="mx-3">Teen</span>
-                            <span>Adult</span>
+                            <span id="evoLabel0">Newborn</span>
+                            <span class="mx-3" id="evoLabel1">Kitten</span>
+                            <span class="mx-3" id="evoLabel2">Teen</span>
+                            <span id="evoLabel3">Adult</span>
                         </div>
                         <div class="xp-bar">
                             <div class="xp-fill" id="xpBar" style="width: 0%;"></div>
@@ -2365,13 +3131,13 @@
                         <div class="game-card p-3 mb-2">
                             <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
                                 <button class="action-btn btn-feed" id="feedBtn" onclick="selectAction('feed')">
-                                    🍖 Feed
+                                    <span id="feedBtnText">🍖 Feed</span>
                                 </button>
                                 <button class="action-btn btn-water" id="waterBtn" onclick="selectAction('water')">
-                                    💧 Water
+                                    <span id="waterBtnText">💧 Water</span>
                                 </button>
                                 <button class="action-btn btn-play" id="playBtn" onclick="selectAction('play')">
-                                    🧶 Play
+                                    <span id="playBtnText">🧶 Play</span>
                                 </button>
                             </div>
                         </div>
@@ -2432,11 +3198,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white justify-content-center">
-                    <h4 class="modal-title">😿 Oh No!</h4>
+                    <h4 class="modal-title" id="gameOverTitle">😿 Oh No!</h4>
                 </div>
                 <div class="modal-body text-center">
-                    <p class="fs-5">Your cat's health reached zero!</p>
-                    <p>Don't worry, you can try again and help your cat thrive!</p>
+                    <p class="fs-5" id="gameOverMessage">Your cat's health reached zero!</p>
+                    <p id="gameOverEncouragement">Don't worry, you can try again and help your cat thrive!</p>
                     <p class="text-muted">Final Score: <span id="finalScore">0</span></p>
                 </div>
                 <div class="modal-footer border-0 justify-content-center">
@@ -2503,66 +3269,317 @@
             ],
             lastFactIndex: -1,
             miniGameActive: false,
-            miniGameScore: 0
+            miniGameScore: 0,
+            currentTheme: 'cat' // 'cat', 'pirate', or 'space'
         };
         
-        // Tricks data - unlocked as cat grows
-        const tricksData = {
-            sit: { name: 'Sit', emoji: '🐱', unlockStage: 0 },
-            wave: { name: 'Wave', emoji: '👋', unlockStage: 1 },
-            roll: { name: 'Roll Over', emoji: '🔄', unlockStage: 1 },
-            highfive: { name: 'High Five', emoji: '✋', unlockStage: 2 },
-            dance: { name: 'Dance', emoji: '💃', unlockStage: 2 },
-            backflip: { name: 'Backflip', emoji: '🤸', unlockStage: 3 }
-        };
-        
-        // Story mode chapters
-        const storyChapters = [
-            {
-                title: "The Hungry Kitten",
-                description: "Help your kitten collect 5 fish to have dinner!",
-                goal: 5,
-                reward: 50,
-                icon: "🐟"
+        // ============ THEME CONFIGURATIONS ============
+        const themes = {
+            cat: {
+                name: 'MathKitty',
+                emoji: '🐱',
+                subtitle: 'Learn Math, Grow Your Cat!',
+                characterName: 'cat',
+                defaultName: 'Whiskers',
+                
+                // Evolution stages
+                stages: ['😴 Newborn', '🐱 Kitten', '😺 Teen Cat', '🦁 Adult Cat'],
+                stageNames: ['Newborn', 'Kitten', 'Teen Cat', 'Adult Cat'],
+                stageEmojis: ['😴', '🐱', '😺', '🦁'],
+                evolveMessages: [
+                    '',
+                    '{name} woke up! Your kitten is ready to play! 🎉',
+                    '{name} is growing up! Keep practicing!',
+                    '{name} is now a majestic adult cat! 🏆'
+                ],
+                
+                // Actions
+                actions: {
+                    feed: { name: 'Feed', emoji: '🍖', message: '🍖 Answer correctly to feed your cat!' },
+                    water: { name: 'Water', emoji: '💧', message: '💧 Answer correctly to give water!' },
+                    play: { name: 'Play', emoji: '🧶', message: '🎾 Answer correctly to play with your cat!' }
+                },
+                
+                // Stats
+                stats: {
+                    health: { name: 'Health', emoji: '❤️' },
+                    hunger: { name: 'Hunger', emoji: '🍖' },
+                    thirst: { name: 'Thirst', emoji: '💧' },
+                    happiness: { name: 'Happiness', emoji: '😊' }
+                },
+                
+                // Mini-games
+                miniGames: [
+                    { id: 'mice', name: 'Catch the Mice!', emoji: '🐭', target: '🐭', decoys: ['🧀', '🕳️'], caught: 'mice', description: 'Click mice before they escape!', bg: 'linear-gradient(135deg, #8B4513 0%, #D2691E 100%)' },
+                    { id: 'yarn', name: 'Yarn Ball Frenzy!', emoji: '🧶', target: '🧶', decoys: ['🎾', '⚽'], caught: 'yarn balls', description: 'Catch the bouncing yarn balls!', bg: 'linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%)' },
+                    { id: 'fish', name: 'Fishing Fun!', emoji: '🐟', target: '🐟', decoys: ['🐠', '🦀', '🐚'], caught: 'fish', description: 'Catch fish swimming by!', bg: 'linear-gradient(180deg, #87CEEB 0%, #1E90FF 50%, #006994 100%)' },
+                    { id: 'butterfly', name: 'Butterfly Chase!', emoji: '🦋', target: '🦋', decoys: ['🌸', '🌺', '🐝'], caught: 'butterflies', description: 'Catch colorful butterflies!', bg: 'linear-gradient(180deg, #87CEEB 0%, #98FB98 100%)' },
+                    { id: 'treats', name: 'Treat Time!', emoji: '🍗', target: '🍗', decoys: ['🥦', '🥕', '🍋'], caught: 'treats', description: 'Catch yummy cat treats!', bg: 'linear-gradient(135deg, #FFF8DC 0%, #FFDAB9 100%)' },
+                    { id: 'laser', name: 'Laser Pointer!', emoji: '🔴', target: '🔴', decoys: ['🟡', '🟢', '🔵'], caught: 'red dots', description: 'Catch the red laser dots!', bg: 'linear-gradient(135deg, #2C3E50 0%, #4A4A4A 100%)' }
+                ],
+                
+                // Story chapters
+                storyChapters: [
+                    { title: "The Hungry Kitten", description: "Help your kitten collect 5 fish to have dinner!", goal: 5, reward: 50, icon: "🐟" },
+                    { title: "Cross the River", description: "Build a bridge with 8 wooden planks!", goal: 8, reward: 75, icon: "🌉" },
+                    { title: "The Yarn Ball Hunt", description: "Find 10 yarn balls in the garden!", goal: 10, reward: 100, icon: "🧶" },
+                    { title: "Moonlight Adventure", description: "Catch 12 fireflies to light your way!", goal: 12, reward: 125, icon: "✨" },
+                    { title: "The Cat Castle", description: "Collect 15 blocks for your castle!", goal: 15, reward: 150, icon: "🏰" }
+                ],
+                
+                // Boss battles
+                bossData: [
+                    { name: "Grumpy Dog", emoji: "🐕", hp: 5, reward: 100 },
+                    { name: "Sneaky Raccoon", emoji: "🦝", hp: 7, reward: 150 },
+                    { name: "Giant Spider", emoji: "🕷️", hp: 10, reward: 200 },
+                    { name: "Mischief Mouse King", emoji: "🐭👑", hp: 12, reward: 250 },
+                    { name: "The Vacuum Cleaner", emoji: "🌀", hp: 15, reward: 300 }
+                ],
+                
+                // Tricks
+                tricks: {
+                    sit: { name: 'Sit', emoji: '🐱', unlockStage: 0 },
+                    wave: { name: 'Wave', emoji: '👋', unlockStage: 1 },
+                    roll: { name: 'Roll Over', emoji: '🔄', unlockStage: 1 },
+                    highfive: { name: 'High Five', emoji: '✋', unlockStage: 2 },
+                    dance: { name: 'Dance', emoji: '💃', unlockStage: 2 },
+                    backflip: { name: 'Backflip', emoji: '🤸', unlockStage: 3 }
+                },
+                
+                // Fun facts
+                facts: [
+                    "Cats sleep for about 70% of their lives!",
+                    "A group of cats is called a 'clowder'.",
+                    "Cats can rotate their ears 180 degrees!",
+                    "A cat's nose print is unique, like a fingerprint.",
+                    "Cats can jump up to 6 times their length!",
+                    "The oldest known cat lived to be 38 years old!",
+                    "Cats have over 20 different vocalizations.",
+                    "A cat's purr vibrates at 25-150 Hz.",
+                    "Cats spend 30-50% of their day grooming.",
+                    "Cats can run up to 30 miles per hour!"
+                ],
+                
+                // UI colors
+                colors: {
+                    primary: '#9B59B6',
+                    secondary: '#FF6B9D',
+                    accent: '#FFD700',
+                    bgGradient1: '#FFE5EC',
+                    bgGradient2: '#E8F4FD',
+                    bgGradient3: '#E8FFE8',
+                    stageBg: 'linear-gradient(180deg, #87CEEB 0%, #98FB98 100%)'
+                },
+                
+                // Game over message
+                gameOverTitle: '😿 Oh No!',
+                gameOverMessage: "Your cat's health reached zero!"
             },
-            {
-                title: "Cross the River",
-                description: "Build a bridge with 8 wooden planks to cross the river!",
-                goal: 8,
-                reward: 75,
-                icon: "🌉"
+            
+            pirate: {
+                name: 'MathPirate',
+                emoji: '☠️',
+                subtitle: 'Solve Math, Find Treasure!',
+                characterName: 'parrot',
+                defaultName: 'Polly',
+                
+                stages: ['🥒 Egg', '🐣 Hatchling', '🦜 Young Parrot', '🦜 Captain Parrot'],
+                stageNames: ['Egg', 'Hatchling', 'Young Parrot', 'Captain Parrot'],
+                stageEmojis: ['🥚', '🐣', '🦜', '🦜'],
+                evolveMessages: [
+                    '',
+                    '{name} hatched! Ready to sail! ⚓',
+                    '{name} is growing colorful feathers!',
+                    '{name} is now Captain Parrot! 👑'
+                ],
+                
+                actions: {
+                    feed: { name: 'Rations', emoji: '🍖', message: '🍖 Answer correctly to eat rations!' },
+                    water: { name: 'Coconut', emoji: '🥥', message: '🥥 Answer correctly for coconut water!' },
+                    play: { name: 'Shanty', emoji: '🎵', message: '🎵 Answer correctly to sing a shanty!' }
+                },
+                
+                stats: {
+                    health: { name: 'Health', emoji: '❤️' },
+                    hunger: { name: 'Hunger', emoji: '🍖' },
+                    thirst: { name: 'Thirst', emoji: '🥥' },
+                    happiness: { name: 'Morale', emoji: '💪' }
+                },
+                
+                miniGames: [
+                    { id: 'coins', name: 'Gold Rush!', emoji: '🪙', target: '🪙', decoys: ['🔵', '⚫'], caught: 'gold coins', description: 'Catch the gold coins!', bg: 'linear-gradient(135deg, #8B4513 0%, #D2691E 100%)' },
+                    { id: 'treasure', name: 'Treasure Hunt!', emoji: '💎', target: '💎', decoys: ['🪨', '🦴'], caught: 'gems', description: 'Grab the treasures!', bg: 'linear-gradient(135deg, #2C3E50 0%, #4A4A4A 100%)' },
+                    { id: 'fish', name: 'Fishing!', emoji: '🐟', target: '🐟', decoys: ['🐠', '🦈', '🐚'], caught: 'fish', description: 'Catch fish for dinner!', bg: 'linear-gradient(180deg, #87CEEB 0%, #1E90FF 50%, #006994 100%)' },
+                    { id: 'cannonball', name: 'Cannonballs!', emoji: '💣', target: '💣', decoys: ['🥥', '⚽'], caught: 'cannonballs', description: 'Load the cannons!', bg: 'linear-gradient(180deg, #4a4a4a 0%, #2d2d2d 100%)' },
+                    { id: 'parrot', name: 'Parrot Catch!', emoji: '🦜', target: '🦜', decoys: ['🦅', '🐦'], caught: 'parrots', description: 'Catch a parrot friend!', bg: 'linear-gradient(180deg, #87CEEB 0%, #98FB98 100%)' },
+                    { id: 'maps', name: 'Map Pieces!', emoji: '🗺️', target: '🗺️', decoys: ['📜', '📰'], caught: 'map pieces', description: 'Collect map pieces!', bg: 'linear-gradient(135deg, #DEB887 0%, #D2B48C 100%)' }
+                ],
+                
+                storyChapters: [
+                    { title: "Set Sail!", description: "Collect 5 compass pieces to navigate!", goal: 5, reward: 50, icon: "🧭" },
+                    { title: "Storm's Coming", description: "Secure 8 ropes before the storm!", goal: 8, reward: 75, icon: "🌊" },
+                    { title: "Treasure Island", description: "Dig up 10 treasure chests!", goal: 10, reward: 100, icon: "💰" },
+                    { title: "Kraken Attack", description: "Fire 12 cannons to defeat the kraken!", goal: 12, reward: 125, icon: "🦑" },
+                    { title: "The Golden Ship", description: "Collect 15 gold bars for your ship!", goal: 15, reward: 150, icon: "🚢" }
+                ],
+                
+                bossData: [
+                    { name: "Rival Pirate", emoji: "🏴‍☠️", hp: 5, reward: 100 },
+                    { name: "Sea Monster", emoji: "🐙", hp: 7, reward: 150 },
+                    { name: "Ghost Ship", emoji: "👻", hp: 10, reward: 200 },
+                    { name: "The Kraken", emoji: "🦑", hp: 12, reward: 250 },
+                    { name: "Davy Jones", emoji: "💀", hp: 15, reward: 300 }
+                ],
+                
+                tricks: {
+                    sit: { name: 'Salute', emoji: '🫡', unlockStage: 0 },
+                    wave: { name: 'Wave Flag', emoji: '🏴‍☠️', unlockStage: 1 },
+                    roll: { name: 'Barrel Roll', emoji: '🛢️', unlockStage: 1 },
+                    highfive: { name: 'Hook High-Five', emoji: '🪝', unlockStage: 2 },
+                    dance: { name: 'Jig', emoji: '🕺', unlockStage: 2 },
+                    backflip: { name: 'Plank Flip', emoji: '🤸', unlockStage: 3 }
+                },
+                
+                facts: [
+                    "Pirates wore eye patches to see better below deck!",
+                    "Blackbeard put lit fuses in his beard to scare enemies!",
+                    "Pirates had their own code of conduct!",
+                    "The Jolly Roger flag meant 'surrender or else'!",
+                    "Pirates earned vacation time and health insurance!",
+                    "Female pirates like Anne Bonny were fierce fighters!",
+                    "Pirates rarely made people walk the plank!",
+                    "Coconuts were prized on ships for fresh water and food!",
+                    "Pirates used earrings to pay for their funerals!",
+                    "The Caribbean was called the 'Golden Age of Piracy'!"
+                ],
+                
+                colors: {
+                    primary: '#8B4513',
+                    secondary: '#FFD700',
+                    accent: '#DC143C',
+                    bgGradient1: '#DEB887',
+                    bgGradient2: '#87CEEB',
+                    bgGradient3: '#F4A460',
+                    stageBg: 'linear-gradient(180deg, #87CEEB 0%, #1E90FF 50%, #8B4513 100%)'
+                },
+                
+                gameOverTitle: '💀 Arrr!',
+                gameOverMessage: "Ye ship has sunk, matey!"
             },
-            {
-                title: "The Yarn Ball Hunt",
-                description: "Find 10 yarn balls hidden in the garden!",
-                goal: 10,
-                reward: 100,
-                icon: "🧶"
-            },
-            {
-                title: "Moonlight Adventure",
-                description: "Catch 12 fireflies to light your way home!",
-                goal: 12,
-                reward: 125,
-                icon: "✨"
-            },
-            {
-                title: "The Cat Castle",
-                description: "Collect 15 blocks to build your dream cat castle!",
-                goal: 15,
-                reward: 150,
-                icon: "🏰"
+            
+            space: {
+                name: 'MathSpace',
+                emoji: '🚀',
+                subtitle: 'Solve Math, Explore the Galaxy!',
+                characterName: 'ship',
+                defaultName: 'Nova',
+                
+                stages: ['🛰️ Satellite', '🚀 Rocket', '🛸 Spacecraft', '⭐ Starship'],
+                stageNames: ['Satellite', 'Rocket', 'Spacecraft', 'Starship'],
+                stageEmojis: ['🛰️', '🚀', '🛸', '⭐'],
+                evolveMessages: [
+                    '',
+                    '{name} launched! Ready for space! 🚀',
+                    '{name} upgraded to a spacecraft!',
+                    '{name} is now a mighty Starship! ⭐'
+                ],
+                
+                actions: {
+                    feed: { name: 'Fuel', emoji: '⛽', message: '⛽ Answer correctly to refuel!' },
+                    water: { name: 'Oxygen', emoji: '💨', message: '💨 Answer correctly for oxygen!' },
+                    play: { name: 'Explore', emoji: '🔭', message: '🔭 Answer correctly to explore!' }
+                },
+                
+                stats: {
+                    health: { name: 'Health', emoji: '❤️' },
+                    hunger: { name: 'Fuel', emoji: '⛽' },
+                    thirst: { name: 'Oxygen', emoji: '💨' },
+                    happiness: { name: 'Morale', emoji: '🌟' }
+                },
+                
+                miniGames: [
+                    { id: 'stars', name: 'Star Collector!', emoji: '⭐', target: '⭐', decoys: ['💫', '✨'], caught: 'stars', description: 'Collect the stars!', bg: 'linear-gradient(180deg, #0a0a2e 0%, #1a1a4e 100%)' },
+                    { id: 'asteroids', name: 'Asteroid Dodge!', emoji: '☄️', target: '💎', decoys: ['☄️', '🪨'], caught: 'crystals', description: 'Grab crystals, avoid asteroids!', bg: 'linear-gradient(180deg, #1a0a2e 0%, #2a1a4e 100%)' },
+                    { id: 'satellites', name: 'Satellite Repair!', emoji: '🛰️', target: '🛰️', decoys: ['🗑️', '📡'], caught: 'satellites', description: 'Fix the satellites!', bg: 'linear-gradient(180deg, #000022 0%, #000044 100%)' },
+                    { id: 'planets', name: 'Planet Discovery!', emoji: '🪐', target: '🪐', decoys: ['🌑', '☀️'], caught: 'planets', description: 'Discover new planets!', bg: 'linear-gradient(180deg, #0f0f3f 0%, #1f1f5f 100%)' },
+                    { id: 'aliens', name: 'Friendly Aliens!', emoji: '👽', target: '👽', decoys: ['🤖', '👾'], caught: 'aliens', description: 'Make alien friends!', bg: 'linear-gradient(180deg, #1a2a1a 0%, #2a4a2a 100%)' },
+                    { id: 'rockets', name: 'Rocket Parts!', emoji: '🔧', target: '🔧', decoys: ['🔩', '⚙️'], caught: 'parts', description: 'Collect rocket parts!', bg: 'linear-gradient(180deg, #2a2a2a 0%, #4a4a4a 100%)' }
+                ],
+                
+                storyChapters: [
+                    { title: "Launch Day", description: "Collect 5 fuel cells to launch!", goal: 5, reward: 50, icon: "🚀" },
+                    { title: "Moon Mission", description: "Gather 8 moon rocks!", goal: 8, reward: 75, icon: "🌙" },
+                    { title: "Asteroid Belt", description: "Navigate through 10 asteroids!", goal: 10, reward: 100, icon: "☄️" },
+                    { title: "Alien Contact", description: "Send 12 signals to aliens!", goal: 12, reward: 125, icon: "📡" },
+                    { title: "New Home", description: "Collect 15 supplies for the colony!", goal: 15, reward: 150, icon: "🏠" }
+                ],
+                
+                bossData: [
+                    { name: "Space Junk", emoji: "🗑️", hp: 5, reward: 100 },
+                    { name: "Asteroid Storm", emoji: "☄️", hp: 7, reward: 150 },
+                    { name: "Alien Scout", emoji: "👾", hp: 10, reward: 200 },
+                    { name: "Black Hole", emoji: "🕳️", hp: 12, reward: 250 },
+                    { name: "Mothership", emoji: "🛸", hp: 15, reward: 300 }
+                ],
+                
+                tricks: {
+                    sit: { name: 'Float', emoji: '🧘', unlockStage: 0 },
+                    wave: { name: 'Signal', emoji: '📡', unlockStage: 1 },
+                    roll: { name: 'Barrel Roll', emoji: '🔄', unlockStage: 1 },
+                    highfive: { name: 'Alien High-Five', emoji: '👽', unlockStage: 2 },
+                    dance: { name: 'Moon Walk', emoji: '🕺', unlockStage: 2 },
+                    backflip: { name: 'Zero-G Flip', emoji: '🤸', unlockStage: 3 }
+                },
+                
+                facts: [
+                    "A day on Venus is longer than its year!",
+                    "There are more stars than grains of sand on Earth!",
+                    "Footprints on the Moon will last millions of years!",
+                    "The Sun makes up 99.86% of our solar system's mass!",
+                    "Neutron stars spin 600 times per second!",
+                    "Space is completely silent - no air for sound!",
+                    "One million Earths could fit inside the Sun!",
+                    "The International Space Station orbits at 17,500 mph!",
+                    "Astronauts grow up to 2 inches taller in space!",
+                    "There may be a planet made entirely of diamonds!"
+                ],
+                
+                colors: {
+                    primary: '#4A00E0',
+                    secondary: '#00D4FF',
+                    accent: '#FFD700',
+                    bgGradient1: '#0a0a2e',
+                    bgGradient2: '#1a1a4e',
+                    bgGradient3: '#2a1a5e',
+                    stageBg: 'linear-gradient(180deg, #0a0a2e 0%, #1a1a4e 50%, #2a2a6e 100%)'
+                },
+                
+                gameOverTitle: '💥 Mission Failed!',
+                gameOverMessage: "Your ship ran out of power!"
             }
-        ];
+        };
         
-        // Boss data
-        const bossData = [
-            { name: "Grumpy Dog", emoji: "🐕", hp: 5, reward: 100 },
-            { name: "Sneaky Raccoon", emoji: "🦝", hp: 7, reward: 150 },
-            { name: "Giant Spider", emoji: "🕷️", hp: 10, reward: 200 },
-            { name: "Mischief Mouse King", emoji: "🐭👑", hp: 12, reward: 250 },
-            { name: "The Vacuum Cleaner", emoji: "🌀", hp: 15, reward: 300 }
-        ];
+        // Helper function to get current theme
+        function getTheme() {
+            return themes[gameState.currentTheme];
+        }
+        
+        // Dynamic getters that use current theme
+        function getTricksData() {
+            return getTheme().tricks;
+        }
+        
+        function getStoryChapters() {
+            return getTheme().storyChapters;
+        }
+        
+        function getBossData() {
+            return getTheme().bossData;
+        }
+        
+        function getMiniGames() {
+            return getTheme().miniGames;
+        }
         
         // ============ AUDIO CONTEXT ============
         let audioContext = null;
@@ -3098,10 +4115,412 @@
             const B = (num & 0x0000FF) - amt;
             return '#' + (
                 0x1000000 +
-                (R > 0 ? (R < 255 ? R : 255) : 0) * 0x10000 +
-                (G > 0 ? (G < 255 ? G : 255) : 0) * 0x100 +
-                (B > 0 ? (B < 255 ? B : 255) : 0)
+                (R > 0 ? R : 0) * 0x10000 +
+                (G > 0 ? G : 0) * 0x100 +
+                (B > 0 ? B : 0)
             ).toString(16).slice(1);
+        }
+        
+        // ============ PARROT SVG FOR PIRATE THEME ============
+        function getParrotSVG(stage, expression = 'normal', parrotColor = null) {
+            const color = parrotColor || gameState.catColor || '#2ECC71'; // Default green
+            const lighterColor = lightenColor(color, 30);
+            const darkerColor = darkenColor(color, 20);
+            
+            let size, scale;
+            switch(stage) {
+                case 0: size = 160; scale = 0.5; break;  // Baby egg/chick
+                case 1: size = 160; scale = 0.7; break;  // Young parrot
+                case 2: size = 180; scale = 0.85; break; // Teen parrot
+                case 3: size = 200; scale = 1; break;    // Adult captain parrot
+            }
+            
+            const cx = size / 2;
+            const cy = size / 2;
+            
+            // Stage 0: Baby parrot in egg/just hatched
+            if (stage === 0) {
+                return `
+                    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="parrot-svg">
+                        <g transform="translate(${cx}, ${cy + 15}) scale(${scale}) translate(${-cx}, ${-cy})">
+                            <!-- Shadow -->
+                            <ellipse cx="${cx}" cy="${cy + 50}" rx="35" ry="10" fill="rgba(0,0,0,0.1)"/>
+                            
+                            <!-- Cracked egg shell bottom -->
+                            <ellipse cx="${cx}" cy="${cy + 25}" rx="35" ry="25" fill="#F5F5DC"/>
+                            <path d="M${cx-35} ${cy+10} Q${cx-20} ${cy+5} ${cx-10} ${cy+15} Q${cx} ${cy} ${cx+15} ${cy+12} Q${cx+25} ${cy+5} ${cx+35} ${cy+10}" 
+                                  fill="#F5F5DC" stroke="#DDD" stroke-width="2"/>
+                            
+                            <!-- Baby parrot body -->
+                            <ellipse cx="${cx}" cy="${cy}" rx="25" ry="22" fill="${color}"/>
+                            
+                            <!-- Fluffy head feathers -->
+                            <circle cx="${cx}" cy="${cy - 15}" r="18" fill="${color}"/>
+                            <ellipse cx="${cx - 8}" cy="${cy - 28}" rx="5" ry="8" fill="${lighterColor}"/>
+                            <ellipse cx="${cx + 8}" cy="${cy - 28}" rx="5" ry="8" fill="${lighterColor}"/>
+                            
+                            <!-- Big baby eyes -->
+                            <ellipse cx="${cx - 8}" cy="${cy - 15}" rx="8" ry="9" fill="white"/>
+                            <ellipse cx="${cx + 8}" cy="${cy - 15}" rx="8" ry="9" fill="white"/>
+                            <circle cx="${cx - 6}" cy="${cy - 14}" r="5" fill="#2D1B07"/>
+                            <circle cx="${cx + 10}" cy="${cy - 14}" r="5" fill="#2D1B07"/>
+                            <circle cx="${cx - 4}" cy="${cy - 16}" r="2" fill="white"/>
+                            <circle cx="${cx + 12}" cy="${cy - 16}" r="2" fill="white"/>
+                            
+                            <!-- Small beak -->
+                            <path d="M${cx - 5} ${cy - 5} Q${cx} ${cy + 5} ${cx + 5} ${cy - 5} Q${cx} ${cy - 8} ${cx - 5} ${cy - 5}" 
+                                  fill="#F39C12" stroke="#E67E22" stroke-width="1"/>
+                            
+                            <!-- Tiny wings -->
+                            <ellipse cx="${cx - 20}" cy="${cy + 5}" rx="8" ry="12" fill="${darkerColor}" transform="rotate(-20 ${cx-20} ${cy+5})"/>
+                            <ellipse cx="${cx + 20}" cy="${cy + 5}" rx="8" ry="12" fill="${darkerColor}" transform="rotate(20 ${cx+20} ${cy+5})"/>
+                            
+                            <!-- Zzz for sleeping -->
+                            <text x="${cx + 25}" y="${cy - 25}" font-family="Fredoka" font-size="12" fill="#8B4513" opacity="0.7">z</text>
+                            <text x="${cx + 33}" y="${cy - 35}" font-family="Fredoka" font-size="16" fill="#8B4513" opacity="0.5">z</text>
+                        </g>
+                    </svg>
+                `;
+            }
+            
+            // Expressions
+            let eyeContent = '';
+            let beakContent = '';
+            
+            if (expression === 'happy') {
+                eyeContent = `
+                    <path d="M${cx-15} ${cy-18} Q${cx-10} ${cy-28} ${cx-5} ${cy-18}" stroke="#2D1B07" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M${cx+5} ${cy-18} Q${cx+10} ${cy-28} ${cx+15} ${cy-18}" stroke="#2D1B07" stroke-width="3" fill="none" stroke-linecap="round"/>
+                `;
+                beakContent = `
+                    <path d="M${cx - 8} ${cy - 5} Q${cx} ${cy + 10} ${cx + 8} ${cy - 5} Q${cx} ${cy - 12} ${cx - 8} ${cy - 5}" 
+                          fill="#F39C12" stroke="#E67E22" stroke-width="2"/>
+                    <path d="M${cx - 3} ${cy + 3} Q${cx} ${cy + 6} ${cx + 3} ${cy + 3}" stroke="#E67E22" stroke-width="1.5" fill="none"/>
+                `;
+            } else if (expression === 'sad') {
+                eyeContent = `
+                    <ellipse cx="${cx-10}" cy="${cy-18}" rx="8" ry="10" fill="white"/>
+                    <ellipse cx="${cx+10}" cy="${cy-18}" rx="8" ry="10" fill="white"/>
+                    <circle cx="${cx-8}" cy="${cy-16}" r="5" fill="#2D1B07"/>
+                    <circle cx="${cx+12}" cy="${cy-16}" r="5" fill="#2D1B07"/>
+                    <path d="M${cx-18} ${cy-28} L${cx-5} ${cy-24}" stroke="#2D1B07" stroke-width="2"/>
+                    <path d="M${cx+18} ${cy-28} L${cx+5} ${cy-24}" stroke="#2D1B07" stroke-width="2"/>
+                `;
+                beakContent = `
+                    <path d="M${cx - 8} ${cy - 5} Q${cx} ${cy + 8} ${cx + 8} ${cy - 5} Q${cx} ${cy - 12} ${cx - 8} ${cy - 5}" 
+                          fill="#F39C12" stroke="#E67E22" stroke-width="2"/>
+                `;
+            } else {
+                eyeContent = `
+                    <ellipse cx="${cx-10}" cy="${cy-18}" rx="9" ry="11" fill="white"/>
+                    <ellipse cx="${cx+10}" cy="${cy-18}" rx="9" ry="11" fill="white"/>
+                    <circle cx="${cx-8}" cy="${cy-16}" r="6" fill="#2D1B07"/>
+                    <circle cx="${cx+12}" cy="${cy-16}" r="6" fill="#2D1B07"/>
+                    <circle cx="${cx-6}" cy="${cy-18}" r="2" fill="white"/>
+                    <circle cx="${cx+14}" cy="${cy-18}" r="2" fill="white"/>
+                `;
+                beakContent = `
+                    <path d="M${cx - 8} ${cy - 5} Q${cx} ${cy + 10} ${cx + 8} ${cy - 5} Q${cx} ${cy - 12} ${cx - 8} ${cy - 5}" 
+                          fill="#F39C12" stroke="#E67E22" stroke-width="2"/>
+                `;
+            }
+            
+            // Pirate hat for stages 1+
+            const pirateHat = stage >= 1 ? `
+                <g transform="translate(${cx}, ${cy - 45})">
+                    <!-- Hat base -->
+                    <ellipse cx="0" cy="8" rx="${20 + stage * 5}" ry="8" fill="#2C3E50"/>
+                    <!-- Hat top -->
+                    <path d="M${-18 - stage*3} 5 Q${-25 - stage*3} ${-15 - stage*5} 0 ${-20 - stage*6} Q${25 + stage*3} ${-15 - stage*5} ${18 + stage*3} 5" 
+                          fill="#2C3E50" stroke="#1a252f" stroke-width="2"/>
+                    <!-- Skull and crossbones -->
+                    <text x="0" y="${-5 - stage*2}" text-anchor="middle" font-size="${12 + stage*2}" fill="white">☠️</text>
+                    ${stage === 3 ? `
+                        <!-- Gold trim for captain -->
+                        <path d="M${-20} 5 Q${-28} ${-18} 0 ${-25} Q${28} ${-18} ${20} 5" 
+                              fill="none" stroke="#FFD700" stroke-width="3"/>
+                        <!-- Feather -->
+                        <ellipse cx="18" cy="-15" rx="4" ry="15" fill="#E74C3C" transform="rotate(20 18 -15)"/>
+                    ` : ''}
+                </g>
+            ` : '';
+            
+            // Wing detail increases with stage
+            const wingDetail = stage >= 2 ? `
+                <path d="M${cx-35} ${cy+15} Q${cx-45} ${cy+25} ${cx-40} ${cy+40}" stroke="${darkerColor}" stroke-width="3" fill="none"/>
+                <path d="M${cx+35} ${cy+15} Q${cx+45} ${cy+25} ${cx+40} ${cy+40}" stroke="${darkerColor}" stroke-width="3" fill="none"/>
+            ` : '';
+            
+            return `
+                <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="parrot-svg">
+                    <g transform="translate(${cx}, ${cy + 10}) scale(${scale}) translate(${-cx}, ${-cy})">
+                        <!-- Shadow -->
+                        <ellipse cx="${cx}" cy="${cy + 55}" rx="${30 + stage*5}" ry="10" fill="rgba(0,0,0,0.1)"/>
+                        
+                        <!-- Tail feathers -->
+                        <g class="parrot-tail">
+                            <ellipse cx="${cx - 8}" cy="${cy + 45}" rx="6" ry="20" fill="${darkerColor}" transform="rotate(-10 ${cx-8} ${cy+45})"/>
+                            <ellipse cx="${cx}" cy="${cy + 48}" rx="6" ry="22" fill="${color}"/>
+                            <ellipse cx="${cx + 8}" cy="${cy + 45}" rx="6" ry="20" fill="${darkerColor}" transform="rotate(10 ${cx+8} ${cy+45})"/>
+                            ${stage >= 2 ? `
+                                <ellipse cx="${cx - 15}" cy="${cy + 42}" rx="5" ry="18" fill="#E74C3C" transform="rotate(-15 ${cx-15} ${cy+42})"/>
+                                <ellipse cx="${cx + 15}" cy="${cy + 42}" rx="5" ry="18" fill="#3498DB" transform="rotate(15 ${cx+15} ${cy+42})"/>
+                            ` : ''}
+                        </g>
+                        
+                        <!-- Body -->
+                        <ellipse cx="${cx}" cy="${cy + 15}" rx="${25 + stage*3}" ry="${30 + stage*3}" fill="${color}"/>
+                        
+                        <!-- Belly -->
+                        <ellipse cx="${cx}" cy="${cy + 20}" rx="${18 + stage*2}" ry="${22 + stage*2}" fill="${lighterColor}"/>
+                        
+                        <!-- Wings -->
+                        <ellipse cx="${cx - 28 - stage*3}" cy="${cy + 10}" rx="${12 + stage*2}" ry="${22 + stage*3}" fill="${darkerColor}" transform="rotate(-15 ${cx-28-stage*3} ${cy+10})"/>
+                        <ellipse cx="${cx + 28 + stage*3}" cy="${cy + 10}" rx="${12 + stage*2}" ry="${22 + stage*3}" fill="${darkerColor}" transform="rotate(15 ${cx+28+stage*3} ${cy+10})"/>
+                        ${wingDetail}
+                        
+                        <!-- Head -->
+                        <circle cx="${cx}" cy="${cy - 15}" r="${22 + stage*2}" fill="${color}"/>
+                        
+                        <!-- Head feathers/crest -->
+                        <ellipse cx="${cx - 10}" cy="${cy - 35 - stage*2}" rx="6" ry="12" fill="${stage >= 2 ? '#E74C3C' : lighterColor}"/>
+                        <ellipse cx="${cx}" cy="${cy - 38 - stage*2}" rx="5" ry="14" fill="${stage >= 2 ? '#F39C12' : color}"/>
+                        <ellipse cx="${cx + 10}" cy="${cy - 35 - stage*2}" rx="6" ry="12" fill="${stage >= 2 ? '#3498DB' : lighterColor}"/>
+                        
+                        <!-- Eyes -->
+                        ${eyeContent}
+                        
+                        <!-- Beak -->
+                        ${beakContent}
+                        
+                        <!-- Feet -->
+                        <g fill="#F39C12" stroke="#E67E22" stroke-width="1">
+                            <ellipse cx="${cx - 12}" cy="${cy + 48}" rx="8" ry="4"/>
+                            <ellipse cx="${cx + 12}" cy="${cy + 48}" rx="8" ry="4"/>
+                        </g>
+                        
+                        <!-- Pirate hat -->
+                        ${pirateHat}
+                        
+                        ${stage === 3 ? `
+                            <!-- Eye patch for captain (optional flair) -->
+                            <ellipse cx="${cx + 10}" cy="${cy - 18}" rx="10" ry="12" fill="#2C3E50"/>
+                            <line x1="${cx + 20}" y1="${cy - 25}" x2="${cx + 35}" y2="${cy - 40}" stroke="#2C3E50" stroke-width="2"/>
+                            <!-- Gold earring -->
+                            <circle cx="${cx - 28}" cy="${cy - 8}" r="4" fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+                        ` : ''}
+                    </g>
+                </svg>
+            `;
+        }
+        
+        // ============ SPACESHIP SVG FOR SPACE THEME ============
+        function getSpaceshipSVG(stage, expression = 'normal', shipColor = null) {
+            const color = shipColor || gameState.catColor || '#3498DB';
+            const lighterColor = lightenColor(color, 30);
+            const darkerColor = darkenColor(color, 20);
+            
+            let size = 200;
+            const cx = size / 2;
+            const cy = size / 2;
+            
+            // Flame color based on expression
+            const flameColor = expression === 'happy' ? '#2ECC71' : expression === 'sad' ? '#E74C3C' : '#F39C12';
+            const flameColor2 = expression === 'happy' ? '#27AE60' : expression === 'sad' ? '#C0392B' : '#E67E22';
+            
+            // Stage 0: Small satellite probe
+            if (stage === 0) {
+                return `
+                    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="ship-svg">
+                        <g transform="translate(${cx}, ${cy})">
+                            <!-- Orbit ring -->
+                            <ellipse cx="0" cy="0" rx="50" ry="15" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.3" transform="rotate(-20)">
+                                <animateTransform attributeName="transform" type="rotate" from="-20" to="340" dur="10s" repeatCount="indefinite"/>
+                            </ellipse>
+                            
+                            <!-- Main body -->
+                            <rect x="-15" y="-20" width="30" height="40" rx="5" fill="${color}"/>
+                            <rect x="-12" y="-17" width="24" height="20" rx="3" fill="${lighterColor}" opacity="0.5"/>
+                            
+                            <!-- Solar panels -->
+                            <rect x="-45" y="-5" width="25" height="10" fill="#1a1a4e" stroke="#00D4FF" stroke-width="1"/>
+                            <rect x="20" y="-5" width="25" height="10" fill="#1a1a4e" stroke="#00D4FF" stroke-width="1"/>
+                            <!-- Panel lines -->
+                            <line x1="-40" y1="-5" x2="-40" y2="5" stroke="#00D4FF" stroke-width="0.5" opacity="0.5"/>
+                            <line x1="-32" y1="-5" x2="-32" y2="5" stroke="#00D4FF" stroke-width="0.5" opacity="0.5"/>
+                            <line x1="25" y1="-5" x2="25" y2="5" stroke="#00D4FF" stroke-width="0.5" opacity="0.5"/>
+                            <line x1="33" y1="-5" x2="33" y2="5" stroke="#00D4FF" stroke-width="0.5" opacity="0.5"/>
+                            
+                            <!-- Zzz for sleeping/idle -->
+                            <text x="20" y="-30" font-family="Fredoka" font-size="12" fill="#00D4FF" opacity="0.7">z</text>
+                            <text x="30" y="-40" font-family="Fredoka" font-size="16" fill="#00D4FF" opacity="0.5">z</text>
+                        </g>
+                    </svg>
+                `;
+            }
+            
+            // Stage 1: Basic rocket
+            if (stage === 1) {
+                return `
+                    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="ship-svg">
+                        <g transform="translate(${cx}, ${cy + 20})">
+                            <!-- Flame -->
+                            <ellipse cx="0" cy="50" rx="12" ry="20" fill="${flameColor}" opacity="0.9">
+                                <animate attributeName="ry" values="20;28;20" dur="0.3s" repeatCount="indefinite"/>
+                            </ellipse>
+                            <ellipse cx="0" cy="48" rx="8" ry="15" fill="${flameColor2}">
+                                <animate attributeName="ry" values="15;20;15" dur="0.25s" repeatCount="indefinite"/>
+                            </ellipse>
+                            
+                            <!-- Fins -->
+                            <polygon points="-25,40 -15,10 -15,40" fill="${darkerColor}"/>
+                            <polygon points="25,40 15,10 15,40" fill="${darkerColor}"/>
+                            
+                            <!-- Body -->
+                            <ellipse cx="0" cy="20" rx="18" ry="30" fill="${color}"/>
+                            <ellipse cx="-5" cy="15" rx="5" ry="20" fill="${lighterColor}" opacity="0.4"/>
+                            
+                            <!-- Nose cone -->
+                            <ellipse cx="0" cy="-20" rx="12" ry="20" fill="${color}"/>
+                            <ellipse cx="0" cy="-25" rx="8" ry="12" fill="${lighterColor}" opacity="0.4"/>
+                            
+                            <!-- Window -->
+                            <circle cx="0" cy="5" r="8" fill="#1a1a4e" stroke="#00D4FF" stroke-width="2"/>
+                            <circle cx="-2" cy="3" r="3" fill="rgba(255,255,255,0.3)"/>
+                        </g>
+                    </svg>
+                `;
+            }
+            
+            // Stage 2: Medium rocket with boosters
+            if (stage === 2) {
+                return `
+                    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="ship-svg">
+                        <g transform="translate(${cx}, ${cy + 15})">
+                            <!-- Side booster flames -->
+                            <ellipse cx="-30" cy="55" rx="8" ry="15" fill="${flameColor}" opacity="0.8">
+                                <animate attributeName="ry" values="15;22;15" dur="0.35s" repeatCount="indefinite"/>
+                            </ellipse>
+                            <ellipse cx="30" cy="55" rx="8" ry="15" fill="${flameColor}" opacity="0.8">
+                                <animate attributeName="ry" values="15;22;15" dur="0.35s" repeatCount="indefinite"/>
+                            </ellipse>
+                            
+                            <!-- Main flame -->
+                            <ellipse cx="0" cy="55" rx="15" ry="25" fill="${flameColor}" opacity="0.9">
+                                <animate attributeName="ry" values="25;35;25" dur="0.3s" repeatCount="indefinite"/>
+                            </ellipse>
+                            <ellipse cx="0" cy="52" rx="10" ry="18" fill="${flameColor2}">
+                                <animate attributeName="ry" values="18;25;18" dur="0.25s" repeatCount="indefinite"/>
+                            </ellipse>
+                            
+                            <!-- Side boosters -->
+                            <rect x="-38" y="10" width="16" height="45" rx="8" fill="${darkerColor}"/>
+                            <rect x="22" y="10" width="16" height="45" rx="8" fill="${darkerColor}"/>
+                            
+                            <!-- Main fins -->
+                            <polygon points="-30,45 -22,0 -22,45" fill="${darkerColor}"/>
+                            <polygon points="30,45 22,0 22,45" fill="${darkerColor}"/>
+                            
+                            <!-- Main body -->
+                            <rect x="-22" y="-20" width="44" height="70" rx="22" fill="${color}"/>
+                            <rect x="-18" y="-15" width="10" height="55" rx="5" fill="${lighterColor}" opacity="0.3"/>
+                            
+                            <!-- Nose cone -->
+                            <ellipse cx="0" cy="-35" rx="15" ry="25" fill="${color}"/>
+                            <ellipse cx="-4" cy="-40" rx="5" ry="15" fill="${lighterColor}" opacity="0.3"/>
+                            
+                            <!-- Windows -->
+                            <circle cx="0" cy="-5" r="10" fill="#1a1a4e" stroke="#00D4FF" stroke-width="2"/>
+                            <circle cx="-3" cy="-7" r="4" fill="rgba(255,255,255,0.3)"/>
+                            <circle cx="0" cy="20" r="7" fill="#1a1a4e" stroke="#00D4FF" stroke-width="1.5"/>
+                            
+                            <!-- Racing stripes -->
+                            <line x1="-15" y1="-50" x2="-15" y2="45" stroke="#FFD700" stroke-width="2"/>
+                            <line x1="15" y1="-50" x2="15" y2="45" stroke="#FFD700" stroke-width="2"/>
+                        </g>
+                    </svg>
+                `;
+            }
+            
+            // Stage 3: Full spacecraft/shuttle
+            return `
+                <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="ship-svg">
+                    <g transform="translate(${cx}, ${cy + 10})">
+                        <!-- Shield glow effect -->
+                        <ellipse cx="0" cy="0" rx="70" ry="80" fill="none" stroke="#00D4FF" stroke-width="2" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/>
+                        </ellipse>
+                        
+                        <!-- Side booster flames -->
+                        <ellipse cx="-40" cy="60" rx="10" ry="18" fill="${flameColor}" opacity="0.8">
+                            <animate attributeName="ry" values="18;28;18" dur="0.3s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="40" cy="60" rx="10" ry="18" fill="${flameColor}" opacity="0.8">
+                            <animate attributeName="ry" values="18;28;18" dur="0.3s" repeatCount="indefinite"/>
+                        </ellipse>
+                        
+                        <!-- Main engine flames -->
+                        <ellipse cx="-12" cy="58" rx="10" ry="22" fill="${flameColor}" opacity="0.9">
+                            <animate attributeName="ry" values="22;32;22" dur="0.28s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="12" cy="58" rx="10" ry="22" fill="${flameColor}" opacity="0.9">
+                            <animate attributeName="ry" values="22;32;22" dur="0.32s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="0" cy="60" rx="12" ry="28" fill="${flameColor2}">
+                            <animate attributeName="ry" values="28;40;28" dur="0.25s" repeatCount="indefinite"/>
+                        </ellipse>
+                        
+                        <!-- Large side boosters -->
+                        <rect x="-52" y="0" width="20" height="55" rx="10" fill="${darkerColor}"/>
+                        <rect x="32" y="0" width="20" height="55" rx="10" fill="${darkerColor}"/>
+                        <ellipse cx="-42" cy="0" rx="10" ry="15" fill="${darkerColor}"/>
+                        <ellipse cx="42" cy="0" rx="10" ry="15" fill="${darkerColor}"/>
+                        
+                        <!-- Wings -->
+                        <polygon points="-55,50 -28,10 -28,50" fill="${darkerColor}"/>
+                        <polygon points="55,50 28,10 28,50" fill="${darkerColor}"/>
+                        <polygon points="-60,55 -35,25 -35,55" fill="${color}" opacity="0.7"/>
+                        <polygon points="60,55 35,25 35,55" fill="${color}" opacity="0.7"/>
+                        
+                        <!-- Main body -->
+                        <rect x="-28" y="-30" width="56" height="85" rx="28" fill="${color}"/>
+                        <rect x="-22" y="-25" width="12" height="70" rx="6" fill="${lighterColor}" opacity="0.3"/>
+                        
+                        <!-- Nose cone -->
+                        <ellipse cx="0" cy="-50" rx="20" ry="35" fill="${color}"/>
+                        <ellipse cx="-6" cy="-55" rx="6" ry="20" fill="${lighterColor}" opacity="0.3"/>
+                        
+                        <!-- Cockpit windows -->
+                        <ellipse cx="0" cy="-35" rx="12" ry="15" fill="#1a1a4e" stroke="#00D4FF" stroke-width="2"/>
+                        <ellipse cx="-4" cy="-38" rx="5" ry="7" fill="rgba(255,255,255,0.3)"/>
+                        
+                        <!-- Side windows -->
+                        <circle cx="-18" cy="0" r="6" fill="#1a1a4e" stroke="#00D4FF" stroke-width="1.5"/>
+                        <circle cx="18" cy="0" r="6" fill="#1a1a4e" stroke="#00D4FF" stroke-width="1.5"/>
+                        <circle cx="0" cy="15" r="8" fill="#1a1a4e" stroke="#00D4FF" stroke-width="2"/>
+                        
+                        <!-- Admiral stars -->
+                        <text x="-8" y="38" font-size="14" fill="#FFD700">⭐</text>
+                        <text x="2" y="38" font-size="14" fill="#FFD700">⭐</text>
+                        
+                        <!-- Racing stripes -->
+                        <line x1="-18" y1="-75" x2="-18" y2="50" stroke="#FFD700" stroke-width="3"/>
+                        <line x1="18" y1="-75" x2="18" y2="50" stroke="#FFD700" stroke-width="3"/>
+                    </g>
+                </svg>
+            `;
+        }
+        
+        // ============ CHARACTER SVG WRAPPER ============
+        function getCharacterSVG(stage, expression = 'normal', color = null) {
+            const theme = gameState.currentTheme;
+            if (theme === 'pirate') {
+                return getParrotSVG(stage, expression, color);
+            } else if (theme === 'space') {
+                return getSpaceshipSVG(stage, expression, color);
+            } else {
+                return getCatSVG(stage, expression, color);
+            }
         }
         
         // ============ INITIALIZATION ============
@@ -3148,14 +4567,140 @@
             });
             document.querySelector(`[data-color="${color}"]`).classList.add('active');
             
+            // Update the color preview in the button
+            const colorPreview = document.getElementById('colorPreview');
+            if (colorPreview) colorPreview.style.background = color;
+            
             updateCatPreview();
+            playSound('click');
+        }
+        
+        function toggleHowToPlay() {
+            const content = document.getElementById('howToPlayContent');
+            const btn = document.getElementById('howToPlayBtn');
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.classList.add('expanded');
+            } else {
+                content.style.display = 'none';
+                btn.classList.remove('expanded');
+            }
+            playSound('click');
+        }
+        
+        function toggleColorPicker() {
+            const content = document.getElementById('colorPickerContent');
+            const btn = document.getElementById('colorPickerBtn');
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.classList.add('expanded');
+            } else {
+                content.style.display = 'none';
+                btn.classList.remove('expanded');
+            }
+            playSound('click');
+        }
+        
+        function toggleTopicPicker() {
+            const content = document.getElementById('topicPickerContent');
+            const btn = document.getElementById('topicPickerBtn');
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.classList.add('expanded');
+            } else {
+                content.style.display = 'none';
+                btn.classList.remove('expanded');
+            }
+            playSound('click');
+        }
+        
+        function selectTheme(themeName) {
+            gameState.currentTheme = themeName;
+            const theme = getTheme();
+            
+            // Update theme button states
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-theme="${themeName}"]`).classList.add('active');
+            
+            // Update title
+            const titleEl = document.getElementById('gameTitle');
+            if (titleEl) titleEl.innerHTML = `🌟 Welcome to ${theme.name}! 🌟`;
+            
+            // Update instructions based on theme
+            const goalText = document.getElementById('goalText');
+            const characterEmoji = document.getElementById('characterEmoji');
+            const characterType = document.getElementById('characterType');
+            const hungerName = document.getElementById('hungerName');
+            const hungerEmoji = document.getElementById('hungerEmoji');
+            const thirstName = document.getElementById('thirstName');
+            const thirstEmoji = document.getElementById('thirstEmoji');
+            const happinessName = document.getElementById('happinessName');
+            const happinessEmoji = document.getElementById('happinessEmoji');
+            const characterTypeLower = document.getElementById('characterTypeLower');
+            const characterTypeLower2 = document.getElementById('characterTypeLower2');
+            const characterTypeLower3 = document.getElementById('characterTypeLower3');
+            const actionText = document.getElementById('actionText');
+            const previewText = document.getElementById('previewText');
+            const nameLabel = document.getElementById('nameLabel');
+            const colorLabel = document.getElementById('colorLabel');
+            const stage1Badge = document.getElementById('stage1Badge');
+            const stage2Badge = document.getElementById('stage2Badge');
+            const stage3Badge = document.getElementById('stage3Badge');
+            const previewContainer = document.getElementById('previewContainer');
+            
+            if (goalText) goalText.textContent = `Keep your ${theme.characterName} happy and healthy!`;
+            if (characterEmoji) characterEmoji.textContent = theme.emoji;
+            if (characterType) characterType.textContent = theme.characterName.charAt(0).toUpperCase() + theme.characterName.slice(1);
+            if (hungerName) hungerName.textContent = theme.stats.hunger.name;
+            if (hungerEmoji) hungerEmoji.textContent = theme.stats.hunger.emoji;
+            if (thirstName) thirstName.textContent = theme.stats.thirst.name;
+            if (thirstEmoji) thirstEmoji.textContent = theme.stats.thirst.emoji;
+            if (happinessName) happinessName.textContent = theme.stats.happiness.name;
+            if (happinessEmoji) happinessEmoji.textContent = theme.stats.happiness.emoji;
+            if (characterTypeLower) characterTypeLower.textContent = theme.characterName;
+            if (characterTypeLower2) characterTypeLower2.textContent = theme.characterName;
+            if (characterTypeLower3) characterTypeLower3.textContent = theme.characterName;
+            if (actionText) actionText.textContent = `${theme.actions.feed.name.toLowerCase()}, ${theme.actions.water.name.toLowerCase()}, or ${theme.actions.play.name.toLowerCase()} with your ${theme.characterName}`;
+            if (previewText) previewText.textContent = `Your New ${theme.stageNames[1]}!`;
+            if (previewText) {
+                if (themeName === 'space') {
+                    previewText.classList.add('dark-bg');
+                } else {
+                    previewText.classList.remove('dark-bg');
+                }
+            }
+            if (nameLabel) nameLabel.textContent = `Name Your ${theme.stageNames[1]}`;
+            if (colorLabel) colorLabel.textContent = `Choose Color`;
+            if (stage1Badge) stage1Badge.textContent = theme.stageNames[1];
+            if (stage2Badge) stage2Badge.textContent = theme.stageNames[2];
+            if (stage3Badge) stage3Badge.textContent = theme.stageNames[3];
+            if (previewContainer) previewContainer.style.background = theme.colors.stageBg;
+            
+            // Update name input placeholder
+            const nameInput = document.getElementById('catNameInput');
+            if (nameInput) nameInput.placeholder = `Enter ${theme.characterName} name...`;
+            
+            // Update main header title and subtitle
+            const headerTitle = document.getElementById('gameHeaderTitle');
+            const headerSubtitle = document.getElementById('gameHeaderSubtitle');
+            if (headerTitle) headerTitle.innerHTML = `${theme.emoji} ${theme.name}`;
+            if (headerSubtitle) headerSubtitle.textContent = theme.subtitle;
+            
+            // Update the character preview
+            updateCatPreview();
+            
             playSound('click');
         }
         
         function updateCatPreview() {
             const preview = document.getElementById('catPreview');
             if (preview) {
-                preview.innerHTML = getCatSVG(1, 'happy', gameState.catColor);
+                preview.innerHTML = getCharacterSVG(1, 'happy', gameState.catColor);
             }
         }
         
@@ -3194,19 +4739,24 @@
         
         function createGrass() {
             const grass = document.getElementById('grass');
-            for (let i = 0; i < 30; i++) {
-                const blade = document.createElement('div');
-                blade.className = 'grass-blade';
-                blade.style.animationDelay = Math.random() * 2 + 's';
-                blade.style.height = (15 + Math.random() * 15) + 'px';
-                grass.appendChild(blade);
+            if (!grass) return;
+            // Only add blades if not already populated
+            if (grass.children.length < 20) {
+                for (let i = grass.children.length; i < 35; i++) {
+                    const blade = document.createElement('div');
+                    blade.className = 'grass-blade';
+                    blade.style.animationDelay = Math.random() * 2 + 's';
+                    blade.style.height = (15 + Math.random() * 15) + 'px';
+                    grass.appendChild(blade);
+                }
             }
         }
         
         // ============ GAME FUNCTIONS ============
         function startGame() {
+            const theme = getTheme();
             const nameInput = document.getElementById('catNameInput');
-            gameState.catName = nameInput.value.trim() || 'Whiskers';
+            gameState.catName = nameInput.value.trim() || theme.defaultName;
             
             // Save cat data
             saveCatData();
@@ -3216,14 +4766,74 @@
             const catNameEl = document.getElementById('catNameDisplay');
             if (catNameEl) catNameEl.textContent = gameState.catName;
             
+            // Update all themed UI elements
+            updateThemedUI();
+            
             updateCatDisplay();
             updateAllBars();
             updateTricksList();
+            updateEvolutionDisplay();
+            
+            // Create grass blades after display updates
+            createGrass();
             
             playSound('meow');
             
             // Start stat decay
             setInterval(decayStats, 5000);
+        }
+        
+        // Update all UI elements based on current theme
+        function updateThemedUI() {
+            const theme = getTheme();
+            
+            // Update action buttons
+            const feedBtn = document.getElementById('feedBtnText');
+            const waterBtn = document.getElementById('waterBtnText');
+            const playBtn = document.getElementById('playBtnText');
+            
+            if (feedBtn) feedBtn.textContent = `${theme.actions.feed.emoji} ${theme.actions.feed.name}`;
+            if (waterBtn) waterBtn.textContent = `${theme.actions.water.emoji} ${theme.actions.water.name}`;
+            if (playBtn) playBtn.textContent = `${theme.actions.play.emoji} ${theme.actions.play.name}`;
+            
+            // Update mini stat bar icons
+            const healthIconMini = document.getElementById('healthIconMini');
+            const hungerIconMini = document.getElementById('hungerIconMini');
+            const thirstIconMini = document.getElementById('thirstIconMini');
+            const happinessIconMini = document.getElementById('happinessIconMini');
+            
+            if (healthIconMini) healthIconMini.textContent = theme.stats.health.emoji;
+            if (hungerIconMini) hungerIconMini.textContent = theme.stats.hunger.emoji;
+            if (thirstIconMini) thirstIconMini.textContent = theme.stats.thirst.emoji;
+            if (happinessIconMini) happinessIconMini.textContent = theme.stats.happiness.emoji;
+            
+            // Update full stat bar icons and labels
+            const healthIconFull = document.getElementById('healthIconFull');
+            const hungerIconFull = document.getElementById('hungerIconFull');
+            const thirstIconFull = document.getElementById('thirstIconFull');
+            const happinessIconFull = document.getElementById('happinessIconFull');
+            const healthNameFull = document.getElementById('healthNameFull');
+            const hungerNameFull = document.getElementById('hungerNameFull');
+            const thirstNameFull = document.getElementById('thirstNameFull');
+            const happinessNameFull = document.getElementById('happinessNameFull');
+            
+            if (healthIconFull) healthIconFull.textContent = theme.stats.health.emoji;
+            if (hungerIconFull) hungerIconFull.textContent = theme.stats.hunger.emoji;
+            if (thirstIconFull) thirstIconFull.textContent = theme.stats.thirst.emoji;
+            if (happinessIconFull) happinessIconFull.textContent = theme.stats.happiness.emoji;
+            if (healthNameFull) healthNameFull.textContent = theme.stats.health.name;
+            if (hungerNameFull) hungerNameFull.textContent = theme.stats.hunger.name;
+            if (thirstNameFull) thirstNameFull.textContent = theme.stats.thirst.name;
+            if (happinessNameFull) happinessNameFull.textContent = theme.stats.happiness.name;
+            
+            // Update game header title
+            const gameHeaderTitle = document.getElementById('gameHeaderTitle');
+            const gameHeaderSubtitle = document.getElementById('gameHeaderSubtitle');
+            if (gameHeaderTitle) gameHeaderTitle.innerHTML = `${theme.emoji} ${theme.name}`;
+            if (gameHeaderSubtitle) gameHeaderSubtitle.textContent = theme.subtitle;
+            
+            // Update page title
+            document.title = `${theme.emoji} ${theme.name} - ${theme.subtitle}`;
         }
         
         function restartGame() {
@@ -3305,7 +4915,117 @@
         
         function updateCatDisplay(expression = 'normal') {
             const container = document.getElementById('catContainer');
-            container.innerHTML = getCatSVG(gameState.stage, expression);
+            if (container) {
+                container.innerHTML = getCharacterSVG(gameState.stage, expression);
+            }
+            updateStageBackground();
+        }
+        
+        // Update stage background based on theme
+        function updateStageBackground() {
+            const stage = document.getElementById('catStage');
+            if (!stage) return;
+            
+            const theme = gameState.currentTheme;
+            
+            // Remove any existing theme backgrounds
+            const existingBg = stage.querySelector('.theme-background');
+            if (existingBg) existingBg.remove();
+            
+            // Show/hide cat theme elements (grass, sun, clouds, ground)
+            const grass = stage.querySelector('.grass');
+            const ground = stage.querySelector('.ground');
+            const sun = stage.querySelector('.sun');
+            const clouds = stage.querySelectorAll('.cloud');
+            
+            if (theme === 'cat') {
+                if (grass) grass.style.display = 'flex';
+                if (ground) ground.style.display = 'block';
+                if (sun) sun.style.display = 'block';
+                clouds.forEach(c => c.style.display = 'block');
+            } else {
+                if (grass) grass.style.display = 'none';
+                if (ground) ground.style.display = 'none';
+                if (sun) sun.style.display = 'none';
+                clouds.forEach(c => c.style.display = 'none');
+            }
+            
+            // Create new theme background
+            const bgDiv = document.createElement('div');
+            bgDiv.className = 'theme-background';
+            
+            if (theme === 'pirate') {
+                // Sky at top, ocean at bottom
+                stage.style.background = 'linear-gradient(180deg, #87CEEB 0%, #5DADE2 35%, #2E86AB 50%, #1B6B93 70%, #1B4F72 100%)';
+                bgDiv.innerHTML = `
+                    <!-- Sun -->
+                    <div class="pirate-sun"></div>
+                    
+                    <!-- Clouds -->
+                    <div class="pirate-cloud cloud-1">☁️</div>
+                    <div class="pirate-cloud cloud-2">☁️</div>
+                    <div class="pirate-cloud cloud-3">⛅</div>
+                    
+                    <!-- Ocean waves -->
+                    <div class="ocean-waves"></div>
+                    
+                    <!-- Passing islands -->
+                    <div class="island island-1">
+                        <div class="palm-tree">🌴</div>
+                        <div class="island-base"></div>
+                    </div>
+                    <div class="island island-2">
+                        <div class="palm-tree">🌴</div>
+                        <div class="palm-tree palm-2">🌴</div>
+                        <div class="island-base"></div>
+                    </div>
+                    
+                    <!-- Ship deck -->
+                    <div class="ship-deck"></div>
+                    
+                    <!-- Ship details on deck -->
+                    <div class="deck-items">
+                        <span class="deck-item" style="left: 15%;">🪣</span>
+                        <span class="deck-item" style="left: 75%;">🧭</span>
+                    </div>
+                `;
+            } else if (theme === 'space') {
+                // Space background with stars and planets
+                stage.style.background = 'linear-gradient(180deg, #0a0a2e 0%, #1a1a4e 50%, #0f0f3f 100%)';
+                bgDiv.innerHTML = `
+                    <div class="stars-container">
+                        ${generateStars(50)}
+                    </div>
+                    <div class="planet planet-1"></div>
+                    <div class="planet planet-2"></div>
+                    <div class="floating-item space-item" style="left: 5%; top: 20%; animation-delay: 0s;">🌟</div>
+                    <div class="floating-item space-item" style="left: 90%; top: 15%; animation-delay: 1.5s;">✨</div>
+                    <div class="floating-item space-item" style="left: 8%; top: 70%; animation-delay: 0.8s;">🛸</div>
+                    <div class="floating-item space-item" style="left: 88%; top: 75%; animation-delay: 2s;">🌙</div>
+                    <div class="shooting-star"></div>
+                    <div class="space-platform"></div>
+                `;
+            } else {
+                // Default cat theme - restore original
+                stage.style.background = 'linear-gradient(180deg, #87CEEB 0%, #98FB98 100%)';
+                // Don't add theme background for cat - use native elements
+                return;
+            }
+            
+            stage.insertBefore(bgDiv, stage.firstChild);
+        }
+        
+        // Generate random stars for space theme
+        function generateStars(count) {
+            let stars = '';
+            for (let i = 0; i < count; i++) {
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = Math.random() * 3 + 1;
+                const delay = Math.random() * 3;
+                stars += `<div class="star" style="left: ${x}%; top: ${y}%; width: ${size}px; height: ${size}px; animation-delay: ${delay}s;"></div>`;
+            }
+            return stars;
         }
         
         function updateScoreDisplay() {
@@ -3321,6 +5041,7 @@
         }
         
         function updateEvolutionDisplay() {
+            const theme = getTheme();
             const stage0 = document.getElementById('stage0');
             const stage1 = document.getElementById('stage1');
             const stage2 = document.getElementById('stage2');
@@ -3331,6 +5052,32 @@
             const xpBar = document.getElementById('xpBar');
             const xpText = document.getElementById('xpText');
             const stageLabel = document.getElementById('stageLabel');
+            
+            // Update stage emojis from theme
+            if (stage0) stage0.textContent = theme.stageEmojis[0];
+            if (stage1) stage1.textContent = theme.stageEmojis[1];
+            if (stage2) stage2.textContent = theme.stageEmojis[2];
+            if (stage3) stage3.textContent = theme.stageEmojis[3];
+            
+            // Also update the mini evo dots
+            const evo0 = document.getElementById('evo0');
+            const evo1 = document.getElementById('evo1');
+            const evo2 = document.getElementById('evo2');
+            const evo3 = document.getElementById('evo3');
+            if (evo0) evo0.textContent = theme.stageEmojis[0];
+            if (evo1) evo1.textContent = theme.stageEmojis[1];
+            if (evo2) evo2.textContent = theme.stageEmojis[2];
+            if (evo3) evo3.textContent = theme.stageEmojis[3];
+            
+            // Update evolution stage name labels
+            const evoLabel0 = document.getElementById('evoLabel0');
+            const evoLabel1 = document.getElementById('evoLabel1');
+            const evoLabel2 = document.getElementById('evoLabel2');
+            const evoLabel3 = document.getElementById('evoLabel3');
+            if (evoLabel0) evoLabel0.textContent = theme.stageNames[0];
+            if (evoLabel1) evoLabel1.textContent = theme.stageNames[1];
+            if (evoLabel2) evoLabel2.textContent = theme.stageNames[2];
+            if (evoLabel3) evoLabel3.textContent = theme.stageNames[3];
             
             // Reset classes
             [stage0, stage1, stage2, stage3].forEach(s => { if(s) s.className = 'stage-indicator'; });
@@ -3367,26 +5114,25 @@
                 if (stage3) stage3.classList.add('locked');
             }
             
-            // XP bar
+            // XP bar with theme-appropriate text
             let xpProgress;
             if (gameState.stage === 0) {
                 xpProgress = (gameState.xp / gameState.xpToEvolve[0]) * 100;
-                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[0]} XP to wake up! 💤`;
+                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[0]} XP to ${theme.stageNames[1]}`;
             } else if (gameState.stage === 1) {
                 xpProgress = ((gameState.xp - gameState.xpToEvolve[0]) / (gameState.xpToEvolve[1] - gameState.xpToEvolve[0])) * 100;
-                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[1]} XP to Teen`;
+                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[1]} XP to ${theme.stageNames[2]}`;
             } else if (gameState.stage === 2) {
                 xpProgress = ((gameState.xp - gameState.xpToEvolve[1]) / (gameState.xpToEvolve[2] - gameState.xpToEvolve[1])) * 100;
-                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[2]} XP to Adult`;
+                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[2]} XP to ${theme.stageNames[3]}`;
             } else {
                 xpProgress = 100;
                 if (xpText) xpText.textContent = `MAX LEVEL! 🏆`;
             }
             if (xpBar) xpBar.style.width = Math.min(100, Math.max(0, xpProgress)) + '%';
             
-            // Stage label
-            const stages = ['😴 Newborn', '🐱 Kitten', '😺 Teen Cat', '🦁 Adult Cat'];
-            if (stageLabel) stageLabel.textContent = stages[gameState.stage];
+            // Stage label from theme
+            if (stageLabel) stageLabel.textContent = theme.stages[gameState.stage];
         }
         
         function selectTopic(topic) {
@@ -3397,11 +5143,31 @@
             });
             document.querySelector(`[data-topic="${topic}"]`).classList.add('active');
             
+            // Update the topic label
+            const topicNames = {
+                'addition': '➕ Addition',
+                'subtraction': '➖ Subtraction',
+                'multiplication': '✖️ Multiplication',
+                'division': '➗ Division',
+                'equations': '🔢 Equations',
+                'fractions': '½ Fractions',
+                'mixed': '🎲 Mixed'
+            };
+            const currentTopicLabel = document.getElementById('currentTopicLabel');
+            if (currentTopicLabel) currentTopicLabel.textContent = topicNames[topic] || topic;
+            
+            // Collapse the picker
+            const content = document.getElementById('topicPickerContent');
+            const btn = document.getElementById('topicPickerBtn');
+            if (content) content.style.display = 'none';
+            if (btn) btn.classList.remove('expanded');
+            
             playSound('click');
         }
         
         function selectAction(action) {
             gameState.currentAction = action;
+            const theme = getTheme();
             
             const questionArea = document.getElementById('questionArea');
             const feedbackArea = document.getElementById('feedbackArea');
@@ -3416,10 +5182,7 @@
             generateQuestion();
             
             if (actionHint) {
-                actionHint.textContent = 
-                    action === 'feed' ? '🍖 Answer correctly to feed your cat!' :
-                    action === 'water' ? '💧 Answer correctly to give water!' :
-                    '🎾 Answer correctly to play with your cat!';
+                actionHint.textContent = theme.actions[action].message;
             }
             
             playSound('click');
@@ -3739,27 +5502,28 @@
             
             // Perform action
             const catContainer = document.getElementById('catContainer');
+            const theme = getTheme();
             
             switch(gameState.currentAction) {
                 case 'feed':
                     gameState.hunger = Math.min(100, gameState.hunger + 25);
                     gameState.health = Math.min(100, gameState.health + 5);
                     catContainer.classList.add('eating');
-                    showItemAnimation('🍖');
+                    showItemAnimation(theme.actions.feed.emoji);
                     playSound('feed');
                     break;
                 case 'water':
                     gameState.thirst = Math.min(100, gameState.thirst + 30);
                     gameState.health = Math.min(100, gameState.health + 5);
                     catContainer.classList.add('eating');
-                    showItemAnimation('💧');
+                    showItemAnimation(theme.actions.water.emoji);
                     playSound('water');
                     break;
                 case 'play':
                     gameState.happiness = Math.min(100, gameState.happiness + 25);
                     gameState.health = Math.min(100, gameState.health + 3);
                     catContainer.classList.add('playing');
-                    showItemAnimation('🧶');
+                    showItemAnimation(theme.actions.play.emoji);
                     playSound('play');
                     break;
             }
@@ -3835,7 +5599,8 @@
             updateAllBars();
             updateScoreDisplay();
             
-            showFeedback(false, `😢 Not quite! The answer was ${gameState.currentAnswer}. Your cat lost some health!`);
+            const theme = getTheme();
+            showFeedback(false, `😢 Not quite! The answer was ${gameState.currentAnswer}. Your ${theme.characterName} lost some health!`);
             playSound('incorrect');
             
             // Update difficulty based on performance
@@ -4067,12 +5832,13 @@
             playSound('evolution');
             createConfetti();
             
-            const stages = ['Newborn', 'Kitten', 'Teen Cat', 'Adult Cat'];
+            const theme = getTheme();
+            const stages = theme.stageNames;
             const messages = [
                 '',
-                `${gameState.catName} woke up! Your kitten is ready to play! 🎉`,
+                `${gameState.catName} woke up! Your ${stages[1].toLowerCase()} is ready to play! 🎉`,
                 `${gameState.catName} is growing up! Keep practicing!`,
-                `${gameState.catName} is now a majestic adult cat! 🏆`
+                `${gameState.catName} is now a ${stages[3].toLowerCase()}! 🏆`
             ];
             
             const evolutionText = document.getElementById('evolutionText');
@@ -4087,7 +5853,7 @@
                 if (evolutionText) evolutionText.textContent = 
                     `${gameState.catName} evolved into a ${stages[gameState.stage]}!`;
             }
-            if (evolutionCatDisplay) evolutionCatDisplay.innerHTML = getCatSVG(gameState.stage, 'happy');
+            if (evolutionCatDisplay) evolutionCatDisplay.innerHTML = getCharacterSVG(gameState.stage, 'happy');
             if (evolutionMessage) evolutionMessage.textContent = messages[gameState.stage];
             
             const modalEl = document.getElementById('evolutionModal');
@@ -4120,8 +5886,17 @@
         }
         
         function gameOver() {
+            const theme = getTheme();
             const finalScore = document.getElementById('finalScore');
+            const gameOverTitle = document.getElementById('gameOverTitle');
+            const gameOverMessage = document.getElementById('gameOverMessage');
+            const gameOverEncouragement = document.getElementById('gameOverEncouragement');
+            
             if (finalScore) finalScore.textContent = gameState.score;
+            if (gameOverTitle) gameOverTitle.textContent = theme.gameOverTitle || '😿 Oh No!';
+            if (gameOverMessage) gameOverMessage.textContent = theme.gameOverMessage;
+            if (gameOverEncouragement) gameOverEncouragement.textContent = `Don't worry, you can try again and help your ${theme.characterName} thrive!`;
+            
             const modalEl = document.getElementById('gameOverModal');
             if (modalEl) {
                 const modal = new bootstrap.Modal(modalEl);
@@ -4133,6 +5908,14 @@
             gameState.soundEnabled = !gameState.soundEnabled;
             const soundToggle = document.getElementById('soundToggle');
             if (soundToggle) soundToggle.textContent = gameState.soundEnabled ? '🔊' : '🔇';
+        }
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const isDark = document.body.classList.contains('dark-mode');
+            if (darkModeToggle) darkModeToggle.textContent = isDark ? '🌙' : '☀️';
+            playSound('click');
         }
         
         // ============ TRICKS SYSTEM ============
@@ -4250,9 +6033,10 @@
         
         function updateTricksList() {
             const container = document.getElementById('tricksList');
+            if (!container) return;
             let html = '';
             
-            for (const [key, trick] of Object.entries(tricksData)) {
+            for (const [key, trick] of Object.entries(getTricksData())) {
                 const unlocked = gameState.stage >= trick.unlockStage;
                 html += `
                     <div class="trick-item ${unlocked ? '' : 'locked'}" onclick="${unlocked ? `performTrick('${key}')` : ''}">
@@ -4267,13 +6051,13 @@
         
         function performTrick(trickName) {
             const panel = document.getElementById('tricksPanel');
-            panel.classList.remove('show');
+            if (panel) panel.style.display = 'none';
             
             const catContainer = document.getElementById('catContainer');
             if (!catContainer) return;
             
             // Remove any existing trick classes
-            catContainer.classList.remove('trick-wave', 'trick-roll', 'trick-highfive', 'trick-dance', 'trick-backflip');
+            catContainer.classList.remove('trick-wave', 'trick-roll', 'trick-highfive', 'trick-dance', 'trick-backflip', 'trick-sit');
             
             // Add the trick animation class
             setTimeout(() => {
@@ -4326,7 +6110,7 @@
         
         // ============ STORY MODE ============
         function updateStoryBanner() {
-            const chapter = storyChapters[Math.min(gameState.storyProgress, storyChapters.length - 1)];
+            const chapter = getStoryChapters()[Math.min(gameState.storyProgress, getStoryChapters().length - 1)];
             const storyIcon = document.getElementById('storyIcon');
             const storyTitle = document.getElementById('storyTitle');
             const storyDesc = document.getElementById('storyDesc');
@@ -4345,7 +6129,7 @@
         function checkStoryProgress() {
             if (!gameState.storyMode) return;
             
-            const chapter = storyChapters[Math.min(gameState.storyProgress, storyChapters.length - 1)];
+            const chapter = getStoryChapters()[Math.min(gameState.storyProgress, getStoryChapters().length - 1)];
             const collected = gameState.correct % chapter.goal;
             
             updateStoryBanner();
@@ -4357,7 +6141,7 @@
         }
         
         function completeStoryChapter() {
-            const chapter = storyChapters[Math.min(gameState.storyProgress, storyChapters.length - 1)];
+            const chapter = getStoryChapters()[Math.min(gameState.storyProgress, getStoryChapters().length - 1)];
             
             // Reward XP
             gameState.xp += chapter.reward;
@@ -4371,7 +6155,7 @@
             // Move to next chapter
             gameState.storyProgress++;
             
-            if (gameState.storyProgress >= storyChapters.length) {
+            if (gameState.storyProgress >= getStoryChapters().length) {
                 // Completed all chapters!
                 setTimeout(() => {
                     showFeedback(true, `🏆 STORY COMPLETE! You finished all chapters! Amazing!`);
@@ -4388,8 +6172,9 @@
         
         // ============ BOSS BATTLES ============
         function startBossBattle() {
-            const bossIndex = Math.min(Math.floor(gameState.totalCorrect / 20), bossData.length - 1);
-            const boss = bossData[bossIndex];
+            const bossDataArr = getBossData();
+            const bossIndex = Math.min(Math.floor(gameState.totalCorrect / 20), bossDataArr.length - 1);
+            const boss = bossDataArr[bossIndex];
             
             gameState.bossActive = true;
             gameState.bossHealth = boss.hp;
@@ -4463,14 +6248,17 @@
         
         // ============ CAT FACTS ============
         function showCatFact() {
+            const theme = getTheme();
+            const facts = theme.facts;
+            
             // Pick a random fact (different from last one)
             let factIndex;
             do {
-                factIndex = Math.floor(Math.random() * gameState.catFacts.length);
-            } while (factIndex === gameState.lastFactIndex && gameState.catFacts.length > 1);
+                factIndex = Math.floor(Math.random() * facts.length);
+            } while (factIndex === gameState.lastFactIndex && facts.length > 1);
             
             gameState.lastFactIndex = factIndex;
-            const fact = gameState.catFacts[factIndex];
+            const fact = facts[factIndex];
             
             // Create popup if doesn't exist
             let popup = document.getElementById('catFactPopup');
@@ -4480,7 +6268,7 @@
                 popup.className = 'cat-fact-popup';
                 popup.innerHTML = `
                     <div class="d-flex align-items-start">
-                        <span class="fs-3 me-2">🐱</span>
+                        <span class="fs-3 me-2" id="factEmoji">${theme.emoji}</span>
                         <div>
                             <div class="fw-bold text-purple small">Did you know?</div>
                             <div id="catFactText"></div>
@@ -4490,6 +6278,10 @@
                 `;
                 document.body.appendChild(popup);
             }
+            
+            // Update emoji for current theme
+            const factEmoji = document.getElementById('factEmoji');
+            if (factEmoji) factEmoji.textContent = theme.emoji;
             
             document.getElementById('catFactText').textContent = fact;
             popup.classList.add('show');
@@ -4506,17 +6298,9 @@
         }
         
         // ============ MINI-GAMES ============
-        const miniGames = [
-            { id: 'mice', name: 'Catch the Mice!', emoji: '🐭', target: '🐭', decoys: ['🧀', '🕳️'], caught: 'mice', description: 'Click mice before they escape!', bg: 'linear-gradient(135deg, #8B4513 0%, #D2691E 100%)' },
-            { id: 'yarn', name: 'Yarn Ball Frenzy!', emoji: '🧶', target: '🧶', decoys: ['🎾', '⚽'], caught: 'yarn balls', description: 'Catch the bouncing yarn balls!', bg: 'linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%)' },
-            { id: 'fish', name: 'Fishing Fun!', emoji: '🐟', target: '🐟', decoys: ['🐠', '🦀', '🐚'], caught: 'fish', description: 'Catch fish swimming by!', bg: 'linear-gradient(180deg, #87CEEB 0%, #1E90FF 50%, #006994 100%)' },
-            { id: 'butterfly', name: 'Butterfly Chase!', emoji: '🦋', target: '🦋', decoys: ['🌸', '🌺', '🐝'], caught: 'butterflies', description: 'Catch colorful butterflies!', bg: 'linear-gradient(180deg, #87CEEB 0%, #98FB98 100%)' },
-            { id: 'treats', name: 'Treat Time!', emoji: '🍗', target: '🍗', decoys: ['🥦', '🥕', '🍋'], caught: 'treats', description: 'Catch yummy cat treats!', bg: 'linear-gradient(135deg, #FFF8DC 0%, #FFDAB9 100%)' },
-            { id: 'laser', name: 'Laser Pointer!', emoji: '🔴', target: '🔴', decoys: ['🟡', '🟢', '🔵'], caught: 'red dots', description: 'Catch the red laser dots!', bg: 'linear-gradient(135deg, #2C3E50 0%, #4A4A4A 100%)' }
-        ];
-        
         function startMiniGame(specificGame = null) {
-            const game = specificGame || miniGames[Math.floor(Math.random() * miniGames.length)];
+            const miniGamesArr = getMiniGames();
+            const game = specificGame || miniGamesArr[Math.floor(Math.random() * miniGamesArr.length)];
             
             gameState.miniGameActive = true;
             gameState.miniGameScore = 0;
@@ -4751,7 +6535,8 @@
         }
         
         function offerMiniGame() {
-            const game = miniGames[Math.floor(Math.random() * miniGames.length)];
+            const miniGamesArr = getMiniGames();
+            const game = miniGamesArr[Math.floor(Math.random() * miniGamesArr.length)];
             
             const popup = document.createElement('div');
             popup.id = 'miniGameOffer';
@@ -4776,7 +6561,7 @@
             const popup = document.getElementById('miniGameOffer');
             if (popup) popup.remove();
             
-            const game = miniGames.find(g => g.id === gameId);
+            const game = getMiniGames().find(g => g.id === gameId);
             startMiniGame(game);
         }
         
