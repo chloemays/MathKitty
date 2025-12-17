@@ -142,6 +142,643 @@
             border: 4px solid #FFD700;
         }
         
+        /* New large cat display */
+        .cat-main-display {
+            position: relative;
+        }
+        
+        .cat-stage-large {
+            background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%);
+            border-radius: 20px;
+            height: 380px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            border: 4px solid #FFD700;
+        }
+        
+        /* Overlay panels */
+        .overlay-panel {
+            position: absolute;
+            background: rgba(255,255,255,0.92);
+            border-radius: 12px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+        
+        .overlay-panel:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .overlay-panel.top-left {
+            top: 10px;
+            left: 10px;
+        }
+        
+        .overlay-panel.top-right {
+            top: 10px;
+            right: 10px;
+            text-align: center;
+        }
+        
+        .overlay-panel.bottom-left {
+            bottom: 70px;
+            left: 10px;
+        }
+        
+        .overlay-panel.bottom-right {
+            bottom: 70px;
+            right: 10px;
+        }
+        
+        .overlay-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        
+        .cat-name-small {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--primary-purple);
+        }
+        
+        .mini-stats-row {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .stat-pip {
+            font-size: 1rem;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+        
+        .stat-pip.low {
+            animation: pipPulse 1s ease-in-out infinite;
+        }
+        
+        /* Mini health bars in overlay */
+        .mini-bars-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            margin-top: 4px;
+        }
+        
+        .mini-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .mini-bar-icon {
+            font-size: 0.7rem;
+            width: 16px;
+        }
+        
+        .mini-bar-track {
+            flex: 1;
+            height: 6px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            min-width: 60px;
+        }
+        
+        .mini-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .mini-bar-fill.health-mini { background: linear-gradient(90deg, #e74c3c, #ff6b6b); }
+        .mini-bar-fill.hunger-mini { background: linear-gradient(90deg, #e67e22, #f39c12); }
+        .mini-bar-fill.thirst-mini { background: linear-gradient(90deg, #3498db, #5dade2); }
+        .mini-bar-fill.happiness-mini { background: linear-gradient(90deg, #2ecc71, #58d68d); }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            }
+            
+            .game-card, .evolution-card {
+                background: rgba(30, 30, 50, 0.95);
+                color: #e0e0e0;
+            }
+            
+            .overlay-panel {
+                background: rgba(30, 30, 50, 0.95);
+                color: #e0e0e0;
+            }
+            
+            .expanded-panel {
+                background: rgba(30, 30, 50, 0.98);
+                color: #e0e0e0;
+            }
+            
+            .expanded-header h5 {
+                color: #bb86fc;
+            }
+            
+            .cat-name-small, .cat-name-display {
+                color: #bb86fc;
+            }
+            
+            .text-muted {
+                color: #aaa !important;
+            }
+            
+            .expand-hint {
+                color: #888;
+            }
+            
+            .mini-bar-track {
+                background: rgba(255,255,255,0.15);
+            }
+            
+            .stat-bar-full, .evo-bar-mini, .xp-bar {
+                background: rgba(255,255,255,0.15);
+            }
+            
+            .stat-name, .score-desc, .mode-label {
+                color: #aaa;
+            }
+            
+            .topic-btn {
+                background: rgba(255,255,255,0.1);
+                color: #e0e0e0;
+                border-color: rgba(255,255,255,0.2);
+            }
+            
+            .topic-btn:hover {
+                background: rgba(255,255,255,0.2);
+            }
+            
+            .topic-btn.active {
+                background: var(--primary-purple);
+                color: white;
+            }
+            
+            .action-btn {
+                color: white;
+            }
+            
+            .answer-input {
+                background: rgba(255,255,255,0.1);
+                color: #e0e0e0;
+                border-color: rgba(255,255,255,0.3);
+            }
+            
+            .answer-input:focus {
+                background: rgba(255,255,255,0.15);
+                border-color: var(--primary-purple);
+            }
+            
+            .question-text {
+                color: #e0e0e0;
+            }
+            
+            .help-section {
+                background: rgba(46, 204, 113, 0.15);
+                border-color: rgba(46, 204, 113, 0.3);
+            }
+            
+            .close-btn {
+                color: #aaa;
+            }
+            
+            .close-btn:hover {
+                color: #fff;
+            }
+            
+            .mode-btn-large.free {
+                background: linear-gradient(135deg, #2d4a5e 0%, #3d5a6e 100%);
+                color: #e0e0e0;
+            }
+            
+            .score-num {
+                color: #bb86fc;
+            }
+            
+            .badge.bg-warning {
+                background: #f39c12 !important;
+            }
+            
+            .expanded-panel-above {
+                background: rgba(30, 30, 50, 0.98);
+                color: #e0e0e0;
+            }
+            
+            .score-top-panel {
+                background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            }
+        }
+        
+        @keyframes pipPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+        
+        .expand-hint {
+            font-size: 0.6rem;
+            color: #999;
+            text-align: center;
+            margin-top: 2px;
+        }
+        
+        .score-compact {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+        }
+        
+        .score-num {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+        }
+        
+        .score-label {
+            font-size: 0.7rem;
+            color: #666;
+        }
+        
+        .streak-compact {
+            font-size: 0.85rem;
+            color: #e67e22;
+            font-weight: 600;
+        }
+        
+        /* Centered score panel below topics */
+        /* Score top bar - above everything */
+        .score-top-bar {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .score-top-panel {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .score-top-panel:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .score-top-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .score-top-num {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .score-top-num.streak-color {
+            color: #ffd700;
+        }
+        
+        .score-top-num.correct-color {
+            color: #7dffb3;
+        }
+        
+        .score-top-label {
+            font-size: 0.65rem;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .score-top-divider {
+            width: 1px;
+            height: 30px;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .expand-arrow {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-left: 5px;
+        }
+        
+        /* Expanded panel above topics */
+        .expanded-panel-above {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            animation: slideDown 0.3s ease;
+        }
+        
+        /* Small tricks button in stats panel */
+        .tricks-btn-small {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 6px;
+            width: 100%;
+        }
+        
+        .tricks-btn-small:hover {
+            transform: scale(1.02);
+            box-shadow: 0 3px 10px rgba(240, 147, 251, 0.4);
+        }
+        
+        /* Tricks dropdown below cat box */
+        .tricks-dropdown {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            animation: slideDown 0.3s ease;
+        }
+        
+        .tricks-dropdown-content {
+            text-align: center;
+        }
+        
+        .tricks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+        
+        .tricks-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .tricks-grid .trick-item {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 15px;
+            margin: 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f8f9fa;
+            min-width: 70px;
+        }
+        
+        .tricks-grid .trick-item:hover:not(.locked) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .tricks-grid .trick-item.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .tricks-grid .trick-item .emoji {
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+        
+        .tricks-grid .trick-item .name {
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .evo-compact {
+            min-width: 120px;
+        }
+        
+        .evo-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        .evo-dot {
+            font-size: 0.9rem;
+            opacity: 0.3;
+        }
+        
+        .evo-dot.active {
+            opacity: 1;
+        }
+        
+        .evo-dot.completed {
+            opacity: 0.7;
+        }
+        
+        .evo-bar-mini {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .evo-fill-mini {
+            height: 100%;
+            background: linear-gradient(90deg, #f1c40f, #e67e22);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .mode-icon {
+            font-size: 1.2rem;
+        }
+        
+        .mode-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #666;
+            display: block;
+        }
+        
+        /* Expanded panels */
+        .expanded-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            animation: slideDown 0.3s ease;
+        }
+        
+        .expanded-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .expanded-header h5 {
+            margin: 0;
+            font-family: 'Fredoka', sans-serif;
+            color: var(--primary-purple);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #999;
+            padding: 0 5px;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .stat-row-full {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .stat-icon {
+            font-size: 1.2rem;
+            width: 30px;
+        }
+        
+        .stat-name {
+            width: 70px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .stat-bar-full {
+            flex: 1;
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .stat-fill-full {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+        
+        .stat-fill-full.health-fill { background: linear-gradient(90deg, #e74c3c, #ff6b6b); }
+        .stat-fill-full.hunger-fill { background: linear-gradient(90deg, #e67e22, #f39c12); }
+        .stat-fill-full.thirst-fill { background: linear-gradient(90deg, #3498db, #5dade2); }
+        .stat-fill-full.happiness-fill { background: linear-gradient(90deg, #2ecc71, #58d68d); }
+        
+        .stat-value {
+            width: 35px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .score-detail {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        
+        .score-item {
+            padding: 5px 10px;
+        }
+        
+        .score-big {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .score-desc {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        .mode-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .mode-btn-large {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .mode-btn-large.free {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        
+        .mode-btn-large.story {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .mode-btn-large.boss {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+        
+        .mode-btn-large.active {
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+        }
+        
+        .mode-btn-large:hover {
+            transform: scale(1.05);
+        }
+        
+        .mode-emoji {
+            font-size: 1.5rem;
+            display: block;
+        }
+        
+        .mode-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
         .ground {
             position: absolute;
             bottom: 0;
@@ -1448,209 +2085,285 @@
             
             <!-- Game Screen -->
             <div id="gameScreen" style="display: none;">
-                <div class="row g-4">
-                    <!-- Left Column - Cat Display -->
-                    <div class="col-lg-5">
-                        <!-- Cat Name & Stage -->
-                        <div class="game-card p-3 mb-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="cat-name-display" id="catNameDisplay">Whiskers</span>
-                                <span class="badge bg-warning text-dark fs-6" id="stageLabel">🐱 Kitten</span>
-                            </div>
+                <!-- Score Panel - Above Everything -->
+                <div class="score-top-bar mb-2">
+                    <div class="score-top-panel" onclick="toggleScoreExpand()">
+                        <div class="score-top-item">
+                            <span class="score-top-num" id="scoreCompactTop">0</span>
+                            <span class="score-top-label">points</span>
                         </div>
-                        
-                        <!-- Cat Stage with Status Overlay -->
-                        <div class="game-card p-3 mb-3">
-                            <div class="cat-stage" id="catStage">
-                                <!-- Sun -->
-                                <div class="sun"></div>
-                                
-                                <!-- Clouds -->
-                                <div class="cloud" style="top: 20px; left: -50px; width: 80px; height: 30px;"></div>
-                                <div class="cloud" style="top: 50px; left: -100px; width: 60px; height: 25px; animation-delay: 5s;"></div>
-                                
-                                <!-- Status Bars Overlay -->
-                                <div class="status-overlay" id="statusOverlay">
-                                    <div class="mini-status">
-                                        <div class="mini-status-row">
-                                            <span class="mini-icon">❤️</span>
-                                            <div class="mini-bar">
-                                                <div class="mini-fill health-fill" id="healthBar" style="width: 100%;"></div>
-                                            </div>
-                                            <span class="mini-value" id="healthValue">100</span>
-                                        </div>
-                                        <div class="mini-status-row">
-                                            <span class="mini-icon">🍖</span>
-                                            <div class="mini-bar">
-                                                <div class="mini-fill hunger-fill" id="hungerBar" style="width: 100%;"></div>
-                                            </div>
-                                            <span class="mini-value" id="hungerValue">100</span>
-                                        </div>
-                                        <div class="mini-status-row">
-                                            <span class="mini-icon">💧</span>
-                                            <div class="mini-bar">
-                                                <div class="mini-fill thirst-fill" id="thirstBar" style="width: 100%;"></div>
-                                            </div>
-                                            <span class="mini-value" id="thirstValue">100</span>
-                                        </div>
-                                        <div class="mini-status-row">
-                                            <span class="mini-icon">😊</span>
-                                            <div class="mini-bar">
-                                                <div class="mini-fill happiness-fill" id="happinessBar" style="width: 100%;"></div>
-                                            </div>
-                                            <span class="mini-value" id="happinessValue">100</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Grass -->
-                                <div class="grass" id="grass"></div>
-                                
-                                <!-- Ground -->
-                                <div class="ground"></div>
-                                
-                                <!-- Cat Container -->
-                                <div class="cat-container" id="catContainer">
-                                    <!-- Cat SVG will be inserted here -->
-                                </div>
-                            </div>
+                        <div class="score-top-divider"></div>
+                        <div class="score-top-item">
+                            <span class="score-top-num streak-color" id="streakCompactTop">0</span>
+                            <span class="score-top-label">streak 🔥</span>
                         </div>
-                        
-                        <!-- Evolution Progress -->
-                        <div class="evolution-card">
-                            <h6 class="text-center mb-3" style="font-family: 'Fredoka', sans-serif; color: #B7950B;">
-                                ⭐ Evolution Progress ⭐
-                            </h6>
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <div class="stage-indicator active" id="stage0">😴</div>
-                                <div class="stage-line" id="line0"></div>
-                                <div class="stage-indicator locked" id="stage1">🐱</div>
-                                <div class="stage-line" id="line1"></div>
-                                <div class="stage-indicator locked" id="stage2">😺</div>
-                                <div class="stage-line" id="line2"></div>
-                                <div class="stage-indicator locked" id="stage3">🦁</div>
-                            </div>
-                            <div class="text-center small text-muted mb-2" style="font-size: 0.7rem;">
-                                <span>Newborn</span>
-                                <span class="mx-2">Kitten</span>
-                                <span class="mx-2">Teen</span>
-                                <span>Adult</span>
-                            </div>
-                            <div class="xp-bar">
-                                <div class="xp-fill" id="xpBar" style="width: 0%;"></div>
-                            </div>
-                            <div class="text-center mt-2 small">
-                                <span id="xpText">0 / 100 XP to wake up!</span>
-                            </div>
+                        <div class="score-top-divider"></div>
+                        <div class="score-top-item">
+                            <span class="score-top-num correct-color" id="correctCompactTop">0</span>
+                            <span class="score-top-label">correct ✓</span>
                         </div>
-                        
-                        <!-- Game Mode Selector -->
-                        <div class="game-card p-2 mt-3">
-                            <div class="text-center">
-                                <div class="small text-muted mb-2">Game Mode</div>
-                                <button class="mode-btn free active" onclick="setGameMode('free')">🎮 Free</button>
-                                <button class="mode-btn story" onclick="setGameMode('story')">📖 Story</button>
-                                <button class="mode-btn boss" onclick="setGameMode('boss')">👹 Boss</button>
+                        <div class="expand-arrow">▼</div>
+                    </div>
+                </div>
+                
+                <!-- Score Expanded Panel - Shows above topics -->
+                <div class="expanded-panel-above" id="scoreExpanded" style="display: none;">
+                    <div class="expanded-header">
+                        <h5>🏆 Score Details</h5>
+                        <button class="close-btn" onclick="toggleScoreExpand()">✕</button>
+                    </div>
+                    <div class="expanded-content">
+                        <div class="score-detail">
+                            <div class="score-item">
+                                <span class="score-big" id="scoreDisplay">0</span>
+                                <span class="score-desc">Points</span>
                             </div>
-                            
-                            <!-- Story Banner (hidden by default) -->
-                            <div class="story-banner mt-2" id="storyBanner">
-                                <div class="d-flex align-items-center">
-                                    <span class="fs-4 me-2" id="storyIcon">🐟</span>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-bold small" id="storyTitle">The Hungry Kitten</div>
-                                        <div class="small opacity-75" style="font-size: 0.7rem;" id="storyDesc">Collect 5 fish!</div>
-                                    </div>
-                                    <span class="badge bg-light text-dark" id="storyCount">0/5</span>
-                                </div>
-                                <div class="story-progress-bar mt-1">
-                                    <div class="story-progress-fill" id="storyProgressFill" style="width: 0%"></div>
-                                </div>
+                            <div class="score-item">
+                                <span class="score-big text-success" id="streakDisplay">0 🔥</span>
+                                <span class="score-desc">Streak</span>
                             </div>
-                            
-                            <!-- Boss Banner (hidden by default) -->
-                            <div class="boss-banner mt-2" id="bossBanner">
-                                <div class="d-flex align-items-center">
-                                    <span class="boss-emoji me-2" id="bossEmoji" style="font-size: 1.8rem;">🐕</span>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-bold small" id="bossName">Grumpy Dog</div>
-                                        <div class="boss-health-bar">
-                                            <div class="boss-health-fill" id="bossHealthFill" style="width: 100%"></div>
-                                        </div>
-                                    </div>
-                                    <span class="badge bg-light text-dark" id="bossHP">5/5</span>
-                                </div>
+                            <div class="score-item">
+                                <span class="score-big text-info" id="correctDisplay">0</span>
+                                <span class="score-desc">Correct</span>
+                            </div>
+                            <div class="score-item">
+                                <span class="score-big text-warning" id="difficultyDisplay">⭐☆☆☆☆</span>
+                                <span class="score-desc">Level <span id="diffLevel">1</span></span>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Right Column - Math & Actions -->
-                    <div class="col-lg-7">
-                        <!-- Score Display -->
-                        <div class="game-card p-3 mb-3">
-                            <div class="d-flex justify-content-around text-center flex-wrap">
-                                <div class="px-2">
-                                    <div class="score-display" id="scoreDisplay">0</div>
-                                    <small class="text-muted">Score</small>
+                </div>
+                
+                <!-- Topic Selection - Above Cat -->
+                <div class="game-card p-2 mb-2">
+                    <div class="d-flex justify-content-center flex-wrap gap-2">
+                        <button class="topic-btn active" data-topic="addition" onclick="selectTopic('addition')">➕ Add</button>
+                        <button class="topic-btn" data-topic="subtraction" onclick="selectTopic('subtraction')">➖ Sub</button>
+                        <button class="topic-btn" data-topic="multiplication" onclick="selectTopic('multiplication')">✖️ Mult</button>
+                        <button class="topic-btn" data-topic="division" onclick="selectTopic('division')">➗ Div</button>
+                        <button class="topic-btn" data-topic="equations" onclick="selectTopic('equations')">🔢 Eq</button>
+                        <button class="topic-btn" data-topic="fractions" onclick="selectTopic('fractions')">½ Frac</button>
+                        <button class="topic-btn" data-topic="mixed" onclick="selectTopic('mixed')">🎲 Mix</button>
+                    </div>
+                </div>
+                
+                <!-- Main Cat Display - Full Width -->
+                <div class="cat-main-display mb-3">
+                    <div class="cat-stage-large" id="catStage">
+                        <!-- Sun -->
+                        <div class="sun"></div>
+                        
+                        <!-- Clouds -->
+                        <div class="cloud" style="top: 20px; left: -50px; width: 80px; height: 30px;"></div>
+                        <div class="cloud" style="top: 50px; left: -100px; width: 60px; height: 25px; animation-delay: 5s;"></div>
+                        
+                        <!-- Top Left - Cat Name & Stats (clickable) -->
+                        <div class="overlay-panel top-left" id="statsPanel">
+                            <div class="overlay-header" onclick="toggleStatsExpand()">
+                                <span class="cat-name-small" id="catNameDisplay">Whiskers</span>
+                                <span class="badge bg-warning text-dark" id="stageLabel">😴 Newborn</span>
+                            </div>
+                            <div class="mini-bars-grid" onclick="toggleStatsExpand()">
+                                <div class="mini-bar-row">
+                                    <span class="mini-bar-icon">❤️</span>
+                                    <div class="mini-bar-track"><div class="mini-bar-fill health-mini" id="healthBarMini" style="width: 100%;"></div></div>
                                 </div>
-                                <div class="px-2">
-                                    <div class="score-display text-success" id="streakDisplay">0 🔥</div>
-                                    <small class="text-muted">Streak</small>
+                                <div class="mini-bar-row">
+                                    <span class="mini-bar-icon">🍖</span>
+                                    <div class="mini-bar-track"><div class="mini-bar-fill hunger-mini" id="hungerBarMini" style="width: 100%;"></div></div>
                                 </div>
-                                <div class="px-2">
-                                    <div class="score-display text-info" id="correctDisplay">0</div>
-                                    <small class="text-muted">Correct</small>
+                                <div class="mini-bar-row">
+                                    <span class="mini-bar-icon">💧</span>
+                                    <div class="mini-bar-track"><div class="mini-bar-fill thirst-mini" id="thirstBarMini" style="width: 100%;"></div></div>
                                 </div>
-                                <div class="px-2">
-                                    <div class="score-display text-warning" id="difficultyDisplay">Level 1 ⭐☆☆☆☆</div>
-                                    <small class="text-muted">Difficulty</small>
+                                <div class="mini-bar-row">
+                                    <span class="mini-bar-icon">😊</span>
+                                    <div class="mini-bar-track"><div class="mini-bar-fill happiness-mini" id="happinessBarMini" style="width: 100%;"></div></div>
+                                </div>
+                            </div>
+                            <button class="tricks-btn-small" onclick="toggleTricksPanel(event)">🎪 Tricks</button>
+                        </div>
+                        
+                        <!-- Bottom Left - Evolution Progress (clickable) -->
+                        <div class="overlay-panel bottom-left" id="evolutionPanel" onclick="toggleEvolutionExpand()">
+                            <div class="evo-compact">
+                                <div class="evo-icons">
+                                    <span class="evo-dot active" id="evo0">😴</span>
+                                    <span class="evo-dot" id="evo1">🐱</span>
+                                    <span class="evo-dot" id="evo2">😺</span>
+                                    <span class="evo-dot" id="evo3">🦁</span>
+                                </div>
+                                <div class="evo-bar-mini">
+                                    <div class="evo-fill-mini" id="xpBarMini" style="width: 0%;"></div>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Topic Selector -->
-                        <div class="game-card p-3 mb-3">
-                            <h5 class="text-center mb-3" style="font-family: 'Fredoka', sans-serif; color: var(--primary-purple);">
-                                📚 Choose Math Topic
-                            </h5>
-                            <div class="d-flex flex-wrap justify-content-center gap-2">
-                                <button class="topic-btn active" data-topic="addition" onclick="selectTopic('addition')">
-                                    <i class="bi bi-plus-circle d-block mb-1"></i>
-                                    Addition
-                                </button>
-                                <button class="topic-btn" data-topic="subtraction" onclick="selectTopic('subtraction')">
-                                    <i class="bi bi-dash-circle d-block mb-1"></i>
-                                    Subtraction
-                                </button>
-                                <button class="topic-btn" data-topic="multiplication" onclick="selectTopic('multiplication')">
-                                    <i class="bi bi-x-circle d-block mb-1"></i>
-                                    Multiplication
-                                </button>
-                                <button class="topic-btn" data-topic="division" onclick="selectTopic('division')">
-                                    <i class="bi bi-slash-circle d-block mb-1"></i>
-                                    Division
-                                </button>
-                                <button class="topic-btn" data-topic="equations" onclick="selectTopic('equations')">
-                                    <i class="bi bi-question-circle d-block mb-1"></i>
-                                    Equations
-                                </button>
-                                <button class="topic-btn" data-topic="fractions" onclick="selectTopic('fractions')">
-                                    <i class="bi bi-pie-chart d-block mb-1"></i>
-                                    Fractions
-                                </button>
-                                <button class="topic-btn" data-topic="mixed" onclick="selectTopic('mixed')">
-                                    <i class="bi bi-shuffle d-block mb-1"></i>
-                                    Mixed
-                                </button>
+                        <!-- Bottom Right - Game Mode (clickable) -->
+                        <div class="overlay-panel bottom-right" id="modePanel" onclick="toggleModeExpand()">
+                            <span class="mode-icon" id="currentModeIcon">🎮</span>
+                            <span class="mode-label" id="currentModeLabel">Free</span>
+                        </div>
+                        
+                        <!-- Grass -->
+                        <div class="grass" id="grass"></div>
+                        
+                        <!-- Ground -->
+                        <div class="ground"></div>
+                        
+                        <!-- Cat Container -->
+                        <div class="cat-container" id="catContainer">
+                            <!-- Cat SVG will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tricks Dropdown Panel (shows below cat box when opened) -->
+                <div class="tricks-dropdown" id="tricksPanel" style="display: none;">
+                    <div class="tricks-dropdown-content">
+                        <div class="tricks-header">
+                            <span>🎪 Teach Tricks</span>
+                            <button class="close-btn" onclick="toggleTricksPanel(event)">✕</button>
+                        </div>
+                        <div id="tricksList" class="tricks-grid"></div>
+                    </div>
+                </div>
+                
+                <!-- Expanded Panels (hidden by default) -->
+                
+                <!-- Stats Expanded Panel -->
+                <div class="expanded-panel" id="statsExpanded" style="display: none;">
+                    <div class="expanded-header">
+                        <h5>📊 Cat Stats</h5>
+                        <button class="close-btn" onclick="toggleStatsExpand()">✕</button>
+                    </div>
+                    <div class="expanded-content">
+                        <div class="stat-row-full">
+                            <span class="stat-icon">❤️</span>
+                            <span class="stat-name">Health</span>
+                            <div class="stat-bar-full">
+                                <div class="stat-fill-full health-fill" id="healthBar" style="width: 100%;"></div>
+                            </div>
+                            <span class="stat-value" id="healthValue">100</span>
+                        </div>
+                        <div class="stat-row-full">
+                            <span class="stat-icon">🍖</span>
+                            <span class="stat-name">Hunger</span>
+                            <div class="stat-bar-full">
+                                <div class="stat-fill-full hunger-fill" id="hungerBar" style="width: 100%;"></div>
+                            </div>
+                            <span class="stat-value" id="hungerValue">100</span>
+                        </div>
+                        <div class="stat-row-full">
+                            <span class="stat-icon">💧</span>
+                            <span class="stat-name">Thirst</span>
+                            <div class="stat-bar-full">
+                                <div class="stat-fill-full thirst-fill" id="thirstBar" style="width: 100%;"></div>
+                            </div>
+                            <span class="stat-value" id="thirstValue">100</span>
+                        </div>
+                        <div class="stat-row-full">
+                            <span class="stat-icon">😊</span>
+                            <span class="stat-name">Happiness</span>
+                            <div class="stat-bar-full">
+                                <div class="stat-fill-full happiness-fill" id="happinessBar" style="width: 100%;"></div>
+                            </div>
+                            <span class="stat-value" id="happinessValue">100</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Evolution Expanded Panel -->
+                <div class="expanded-panel" id="evolutionExpanded" style="display: none;">
+                    <div class="expanded-header">
+                        <h5>⭐ Evolution Progress</h5>
+                        <button class="close-btn" onclick="toggleEvolutionExpand()">✕</button>
+                    </div>
+                    <div class="expanded-content">
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            <div class="stage-indicator active" id="stage0">😴</div>
+                            <div class="stage-line" id="line0"></div>
+                            <div class="stage-indicator locked" id="stage1">🐱</div>
+                            <div class="stage-line" id="line1"></div>
+                            <div class="stage-indicator locked" id="stage2">😺</div>
+                            <div class="stage-line" id="line2"></div>
+                            <div class="stage-indicator locked" id="stage3">🦁</div>
+                        </div>
+                        <div class="text-center small text-muted mb-2">
+                            <span>Newborn</span>
+                            <span class="mx-3">Kitten</span>
+                            <span class="mx-3">Teen</span>
+                            <span>Adult</span>
+                        </div>
+                        <div class="xp-bar">
+                            <div class="xp-fill" id="xpBar" style="width: 0%;"></div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <span id="xpText">0 / 100 XP to wake up!</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mode Expanded Panel -->
+                <div class="expanded-panel" id="modeExpanded" style="display: none;">
+                    <div class="expanded-header">
+                        <h5>🎮 Game Mode</h5>
+                        <button class="close-btn" onclick="toggleModeExpand()">✕</button>
+                    </div>
+                    <div class="expanded-content">
+                        <div class="mode-buttons">
+                            <button class="mode-btn-large free active" onclick="setGameMode('free')">
+                                <span class="mode-emoji">🎮</span>
+                                <span class="mode-name">Free Play</span>
+                            </button>
+                            <button class="mode-btn-large story" onclick="setGameMode('story')">
+                                <span class="mode-emoji">📖</span>
+                                <span class="mode-name">Story</span>
+                            </button>
+                            <button class="mode-btn-large boss" onclick="setGameMode('boss')">
+                                <span class="mode-emoji">👹</span>
+                                <span class="mode-name">Boss</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Story Banner (hidden by default) -->
+                        <div class="story-banner mt-3" id="storyBanner">
+                            <div class="d-flex align-items-center">
+                                <span class="fs-4 me-2" id="storyIcon">🐟</span>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small" id="storyTitle">The Hungry Kitten</div>
+                                    <div class="small opacity-75" style="font-size: 0.7rem;" id="storyDesc">Collect 5 fish!</div>
+                                </div>
+                                <span class="badge bg-light text-dark" id="storyCount">0/5</span>
+                            </div>
+                            <div class="story-progress-bar mt-1">
+                                <div class="story-progress-fill" id="storyProgressFill" style="width: 0%"></div>
                             </div>
                         </div>
                         
-                        <!-- Action Buttons -->
-                        <div class="game-card p-3 mb-3">
-                            <h5 class="text-center mb-3" style="font-family: 'Fredoka', sans-serif; color: var(--primary-purple);">
-                                🎯 Choose Action
-                            </h5>
-                            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <!-- Boss Banner (hidden by default) -->
+                        <div class="boss-banner mt-3" id="bossBanner">
+                            <div class="d-flex align-items-center">
+                                <span class="boss-emoji me-2" id="bossEmoji" style="font-size: 1.8rem;">🐕</span>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small" id="bossName">Grumpy Dog</div>
+                                    <div class="boss-health-bar">
+                                        <div class="boss-health-fill" id="bossHealthFill" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <span class="badge bg-light text-dark" id="bossHP">5/5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Controls Row -->
+                <div class="row g-3">
+                    <!-- Actions & Math Section -->
+                    <div class="col-12">
+                        <!-- Actions Row -->
+                        <div class="game-card p-3 mb-2">
+                            <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
                                 <button class="action-btn btn-feed" id="feedBtn" onclick="selectAction('feed')">
                                     🍖 Feed
                                 </button>
@@ -1658,44 +2371,21 @@
                                     💧 Water
                                 </button>
                                 <button class="action-btn btn-play" id="playBtn" onclick="selectAction('play')">
-                                    <svg class="yarn-icon" viewBox="0 0 100 100" style="margin-right: 5px;">
-                                        <circle cx="50" cy="50" r="45" fill="#FF6B9D"/>
-                                        <path d="M20 50 Q50 20 80 50 Q50 80 20 50" stroke="#FF8FAB" stroke-width="4" fill="none"/>
-                                        <path d="M30 30 Q50 50 70 30" stroke="#FF8FAB" stroke-width="3" fill="none"/>
-                                        <path d="M30 70 Q50 50 70 70" stroke="#FF8FAB" stroke-width="3" fill="none"/>
-                                        <path d="M50 15 Q60 50 50 85" stroke="#FF8FAB" stroke-width="3" fill="none"/>
-                                        <path d="M85 50 Q70 40 90 25" stroke="#FF6B9D" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                    </svg>
-                                    Play
+                                    🧶 Play
                                 </button>
-                            </div>
-                            <div class="text-center mt-3">
-                                <div class="position-relative d-inline-block">
-                                    <button class="tricks-btn" onclick="toggleTricksPanel()">🎪 Tricks</button>
-                                    <div class="tricks-panel" id="tricksPanel">
-                                        <div class="small mb-2 text-muted fw-bold">Teach Tricks</div>
-                                        <div id="tricksList"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center mt-2 small text-muted" id="actionHint">
-                                Select an action to help your cat!
                             </div>
                         </div>
                         
                         <!-- Question Area -->
-                        <div class="game-card p-3 mb-3" id="questionArea" style="display: none;">
+                        <div class="game-card p-3" id="questionArea" style="display: none;">
                             <div class="question-card text-center">
                                 <div class="mb-2 small text-muted" id="questionType">Addition Problem</div>
-                                <div class="question-text mb-4" id="questionText">5 + 3 = ?</div>
+                                <div class="question-text mb-3" id="questionText">5 + 3 = ?</div>
                                 <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
                                     <input type="number" class="answer-input" id="answerInput" placeholder="?" autocomplete="off">
                                     <button class="submit-btn" onclick="checkAnswer()">
                                         ✓ Check
                                     </button>
-                                </div>
-                                <div class="mt-3 small text-muted">
-                                    Press Enter to submit
                                 </div>
                             </div>
                         </div>
@@ -1706,16 +2396,9 @@
                         </div>
                         
                         <!-- Help Section -->
-                        <div id="helpSection" style="display: none;">
-                            <div class="help-section">
-                                <h5 class="help-title mb-3">
-                                    <i class="bi bi-lightbulb-fill"></i> Let's Learn!
-                                </h5>
-                                <div id="helpContent"></div>
-                                <button class="btn btn-outline-success mt-3" onclick="tryAgain()">
-                                    🔄 Try Again
-                                </button>
-                            </div>
+                        <div class="help-section mt-2" id="helpSection" style="display: none;">
+                            <h6 class="text-center text-info mb-2">💡 Let's Learn!</h6>
+                            <div id="helpContent"></div>
                         </div>
                     </div>
                 </div>
@@ -2530,7 +3213,8 @@
             
             document.getElementById('startScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
-            document.getElementById('catNameDisplay').textContent = gameState.catName;
+            const catNameEl = document.getElementById('catNameDisplay');
+            if (catNameEl) catNameEl.textContent = gameState.catName;
             
             updateCatDisplay();
             updateAllBars();
@@ -2599,20 +3283,23 @@
             updateBar('hunger', gameState.hunger);
             updateBar('thirst', gameState.thirst);
             updateBar('happiness', gameState.happiness);
+            updateOverlayDisplays();
         }
         
         function updateBar(type, value) {
             const bar = document.getElementById(type + 'Bar');
             const valueDisplay = document.getElementById(type + 'Value');
             
-            bar.style.width = value + '%';
-            valueDisplay.textContent = Math.round(value);
+            if (bar) bar.style.width = value + '%';
+            if (valueDisplay) valueDisplay.textContent = Math.round(value);
             
             // Add low class for animation when value is low
-            if (value < 30) {
-                bar.classList.add('low');
-            } else {
-                bar.classList.remove('low');
+            if (bar) {
+                if (value < 30) {
+                    bar.classList.add('low');
+                } else {
+                    bar.classList.remove('low');
+                }
             }
         }
         
@@ -2622,9 +3309,15 @@
         }
         
         function updateScoreDisplay() {
-            document.getElementById('scoreDisplay').textContent = gameState.score;
-            document.getElementById('streakDisplay').textContent = gameState.streak + ' 🔥';
-            document.getElementById('correctDisplay').textContent = gameState.correct;
+            const scoreEl = document.getElementById('scoreDisplay');
+            const streakEl = document.getElementById('streakDisplay');
+            const correctEl = document.getElementById('correctDisplay');
+            
+            if (scoreEl) scoreEl.textContent = gameState.score;
+            if (streakEl) streakEl.textContent = gameState.streak + ' 🔥';
+            if (correctEl) correctEl.textContent = gameState.correct;
+            
+            updateOverlayDisplays();
         }
         
         function updateEvolutionDisplay() {
@@ -2645,55 +3338,55 @@
             
             // Stage 0 (Newborn)
             if (gameState.stage === 0) {
-                stage0.classList.add('active');
+                if (stage0) stage0.classList.add('active');
             } else {
-                stage0.classList.add('completed');
+                if (stage0) stage0.classList.add('completed');
                 if (line0) line0.classList.add('completed');
             }
             
             // Stage 1 (Kitten)
             if (gameState.stage >= 1) {
-                stage1.classList.add(gameState.stage === 1 ? 'active' : 'completed');
+                if (stage1) stage1.classList.add(gameState.stage === 1 ? 'active' : 'completed');
                 if (gameState.stage > 1 && line1) line1.classList.add('completed');
             } else {
-                stage1.classList.add('locked');
+                if (stage1) stage1.classList.add('locked');
             }
             
             // Stage 2 (Teen)
             if (gameState.stage >= 2) {
-                stage2.classList.add(gameState.stage === 2 ? 'active' : 'completed');
+                if (stage2) stage2.classList.add(gameState.stage === 2 ? 'active' : 'completed');
                 if (gameState.stage > 2 && line2) line2.classList.add('completed');
             } else {
-                stage2.classList.add('locked');
+                if (stage2) stage2.classList.add('locked');
             }
             
             // Stage 3 (Adult)
             if (gameState.stage >= 3) {
-                stage3.classList.add('active');
+                if (stage3) stage3.classList.add('active');
             } else {
-                stage3.classList.add('locked');
+                if (stage3) stage3.classList.add('locked');
             }
             
             // XP bar
             let xpProgress;
             if (gameState.stage === 0) {
                 xpProgress = (gameState.xp / gameState.xpToEvolve[0]) * 100;
-                xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[0]} XP to wake up! 💤`;
+                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[0]} XP to wake up! 💤`;
             } else if (gameState.stage === 1) {
                 xpProgress = ((gameState.xp - gameState.xpToEvolve[0]) / (gameState.xpToEvolve[1] - gameState.xpToEvolve[0])) * 100;
-                xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[1]} XP to Teen`;
+                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[1]} XP to Teen`;
             } else if (gameState.stage === 2) {
                 xpProgress = ((gameState.xp - gameState.xpToEvolve[1]) / (gameState.xpToEvolve[2] - gameState.xpToEvolve[1])) * 100;
-                xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[2]} XP to Adult`;
+                if (xpText) xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[2]} XP to Adult`;
             } else {
                 xpProgress = 100;
-                xpText.textContent = `MAX LEVEL! 🏆`;
+                if (xpText) xpText.textContent = `MAX LEVEL! 🏆`;
             }
-            xpBar.style.width = Math.min(100, Math.max(0, xpProgress)) + '%';
+            if (xpBar) xpBar.style.width = Math.min(100, Math.max(0, xpProgress)) + '%';
             
             // Stage label
             const stages = ['😴 Newborn', '🐱 Kitten', '😺 Teen Cat', '🦁 Adult Cat'];
-            stageLabel.textContent = stages[gameState.stage];
+            if (stageLabel) stageLabel.textContent = stages[gameState.stage];
         }
         
         function selectTopic(topic) {
@@ -2710,25 +3403,34 @@
         function selectAction(action) {
             gameState.currentAction = action;
             
-            document.getElementById('questionArea').style.display = 'block';
-            document.getElementById('feedbackArea').style.display = 'none';
-            document.getElementById('helpSection').style.display = 'none';
+            const questionArea = document.getElementById('questionArea');
+            const feedbackArea = document.getElementById('feedbackArea');
+            const helpSection = document.getElementById('helpSection');
+            const actionHint = document.getElementById('actionHint');
+            const answerInput = document.getElementById('answerInput');
+            
+            if (questionArea) questionArea.style.display = 'block';
+            if (feedbackArea) feedbackArea.style.display = 'none';
+            if (helpSection) helpSection.style.display = 'none';
             
             generateQuestion();
             
-            document.getElementById('actionHint').textContent = 
-                action === 'feed' ? '🍖 Answer correctly to feed your cat!' :
-                action === 'water' ? '💧 Answer correctly to give water!' :
-                '🎾 Answer correctly to play with your cat!';
+            if (actionHint) {
+                actionHint.textContent = 
+                    action === 'feed' ? '🍖 Answer correctly to feed your cat!' :
+                    action === 'water' ? '💧 Answer correctly to give water!' :
+                    '🎾 Answer correctly to play with your cat!';
+            }
             
             playSound('click');
-            document.getElementById('answerInput').focus();
+            if (answerInput) answerInput.focus();
         }
         
         // ============ MATH QUESTION GENERATION ============
         function generateQuestion() {
             // Hide help section from previous question
-            document.getElementById('helpSection').style.display = 'none';
+            const helpSection = document.getElementById('helpSection');
+            if (helpSection) helpSection.style.display = 'none';
             
             let topic = gameState.currentTopic;
             
@@ -2803,9 +3505,13 @@
             }
             
             gameState.currentAnswer = answer;
-            document.getElementById('questionText').innerHTML = question;
-            document.getElementById('questionType').textContent = type + ' Problem';
-            document.getElementById('answerInput').value = '';
+            const questionText = document.getElementById('questionText');
+            const questionType = document.getElementById('questionType');
+            const answerInput = document.getElementById('answerInput');
+            
+            if (questionText) questionText.innerHTML = question;
+            if (questionType) questionType.textContent = type + ' Problem';
+            if (answerInput) answerInput.value = '';
             
             // Update difficulty display
             updateDifficultyDisplay();
@@ -3369,19 +4075,26 @@
                 `${gameState.catName} is now a majestic adult cat! 🏆`
             ];
             
+            const evolutionText = document.getElementById('evolutionText');
+            const evolutionCatDisplay = document.getElementById('evolutionCatDisplay');
+            const evolutionMessage = document.getElementById('evolutionMessage');
+            
             // Special message for waking up
             if (oldStage === 0) {
-                document.getElementById('evolutionText').textContent = 
+                if (evolutionText) evolutionText.textContent = 
                     `${gameState.catName} is waking up!`;
             } else {
-                document.getElementById('evolutionText').textContent = 
+                if (evolutionText) evolutionText.textContent = 
                     `${gameState.catName} evolved into a ${stages[gameState.stage]}!`;
             }
-            document.getElementById('evolutionCatDisplay').innerHTML = getCatSVG(gameState.stage, 'happy');
-            document.getElementById('evolutionMessage').textContent = messages[gameState.stage];
+            if (evolutionCatDisplay) evolutionCatDisplay.innerHTML = getCatSVG(gameState.stage, 'happy');
+            if (evolutionMessage) evolutionMessage.textContent = messages[gameState.stage];
             
-            const modal = new bootstrap.Modal(document.getElementById('evolutionModal'));
-            modal.show();
+            const modalEl = document.getElementById('evolutionModal');
+            if (modalEl) {
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
             
             updateCatDisplay('happy');
         }
@@ -3407,21 +4120,132 @@
         }
         
         function gameOver() {
-            document.getElementById('finalScore').textContent = gameState.score;
-            const modal = new bootstrap.Modal(document.getElementById('gameOverModal'));
-            modal.show();
+            const finalScore = document.getElementById('finalScore');
+            if (finalScore) finalScore.textContent = gameState.score;
+            const modalEl = document.getElementById('gameOverModal');
+            if (modalEl) {
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
         }
         
         function toggleSound() {
             gameState.soundEnabled = !gameState.soundEnabled;
-            document.getElementById('soundToggle').textContent = gameState.soundEnabled ? '🔊' : '🔇';
+            const soundToggle = document.getElementById('soundToggle');
+            if (soundToggle) soundToggle.textContent = gameState.soundEnabled ? '🔊' : '🔇';
         }
         
         // ============ TRICKS SYSTEM ============
-        function toggleTricksPanel() {
+        function toggleTricksPanel(event) {
+            if (event) event.stopPropagation();
             const panel = document.getElementById('tricksPanel');
-            panel.classList.toggle('show');
-            updateTricksList();
+            const isVisible = panel.style.display !== 'none';
+            
+            // Close other expanded panels first
+            closeAllExpandedPanels();
+            
+            if (isVisible) {
+                panel.style.display = 'none';
+            } else {
+                panel.style.display = 'block';
+                updateTricksList();
+            }
+        }
+        
+        // ============ EXPANDED PANEL TOGGLES ============
+        function toggleStatsExpand() {
+            const panel = document.getElementById('statsExpanded');
+            const isVisible = panel.style.display !== 'none';
+            closeAllExpandedPanels();
+            if (!isVisible) {
+                panel.style.display = 'block';
+            }
+        }
+        
+        function toggleScoreExpand() {
+            const panel = document.getElementById('scoreExpanded');
+            const isVisible = panel.style.display !== 'none';
+            closeAllExpandedPanels();
+            if (!isVisible) {
+                panel.style.display = 'block';
+            }
+        }
+        
+        function toggleEvolutionExpand() {
+            const panel = document.getElementById('evolutionExpanded');
+            const isVisible = panel.style.display !== 'none';
+            closeAllExpandedPanels();
+            if (!isVisible) {
+                panel.style.display = 'block';
+            }
+        }
+        
+        function toggleModeExpand() {
+            const panel = document.getElementById('modeExpanded');
+            const isVisible = panel.style.display !== 'none';
+            closeAllExpandedPanels();
+            if (!isVisible) {
+                panel.style.display = 'block';
+            }
+        }
+        
+        function closeAllExpandedPanels() {
+            document.getElementById('statsExpanded').style.display = 'none';
+            document.getElementById('scoreExpanded').style.display = 'none';
+            document.getElementById('evolutionExpanded').style.display = 'none';
+            document.getElementById('modeExpanded').style.display = 'none';
+            document.getElementById('tricksPanel').style.display = 'none';
+        }
+        
+        // Update mini overlay displays
+        function updateOverlayDisplays() {
+            // Update mini health bars
+            const healthBarMini = document.getElementById('healthBarMini');
+            const hungerBarMini = document.getElementById('hungerBarMini');
+            const thirstBarMini = document.getElementById('thirstBarMini');
+            const happinessBarMini = document.getElementById('happinessBarMini');
+            
+            if (healthBarMini) healthBarMini.style.width = gameState.health + '%';
+            if (hungerBarMini) hungerBarMini.style.width = gameState.hunger + '%';
+            if (thirstBarMini) thirstBarMini.style.width = gameState.thirst + '%';
+            if (happinessBarMini) happinessBarMini.style.width = gameState.happiness + '%';
+            
+            // Update score displays
+            const scoreCompactTop = document.getElementById('scoreCompactTop');
+            const streakCompactTop = document.getElementById('streakCompactTop');
+            const correctCompactTop = document.getElementById('correctCompactTop');
+            if (scoreCompactTop) scoreCompactTop.textContent = gameState.score;
+            if (streakCompactTop) streakCompactTop.textContent = gameState.streak;
+            if (correctCompactTop) correctCompactTop.textContent = gameState.correct;
+            
+            // Update evo dots
+            for (let i = 0; i <= 3; i++) {
+                const dot = document.getElementById(`evo${i}`);
+                if (dot) {
+                    dot.classList.remove('active', 'completed');
+                    if (i < gameState.stage) {
+                        dot.classList.add('completed');
+                    } else if (i === gameState.stage) {
+                        dot.classList.add('active');
+                    }
+                }
+            }
+            
+            // Update mini XP bar
+            const xpBarMini = document.getElementById('xpBarMini');
+            if (xpBarMini) {
+                let progress = 0;
+                if (gameState.stage === 0) {
+                    progress = (gameState.xp / gameState.xpToEvolve[0]) * 100;
+                } else if (gameState.stage === 1) {
+                    progress = ((gameState.xp - gameState.xpToEvolve[0]) / (gameState.xpToEvolve[1] - gameState.xpToEvolve[0])) * 100;
+                } else if (gameState.stage === 2) {
+                    progress = ((gameState.xp - gameState.xpToEvolve[1]) / (gameState.xpToEvolve[2] - gameState.xpToEvolve[1])) * 100;
+                } else {
+                    progress = 100;
+                }
+                xpBarMini.style.width = Math.min(100, Math.max(0, progress)) + '%';
+            }
         }
         
         function updateTricksList() {
@@ -3468,9 +4292,9 @@
         
         // ============ GAME MODES ============
         function setGameMode(mode) {
-            // Update button states
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.mode-btn.${mode}`).classList.add('active');
+            // Update button states (both regular and large buttons)
+            document.querySelectorAll('.mode-btn, .mode-btn-large').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll(`.mode-btn.${mode}, .mode-btn-large.${mode}`).forEach(btn => btn.classList.add('active'));
             
             // Hide all banners first
             document.getElementById('storyBanner').classList.remove('active');
@@ -3479,26 +4303,43 @@
             gameState.storyMode = false;
             gameState.bossActive = false;
             
-            if (mode === 'story') {
+            // Update mode panel display
+            const modeIcon = document.getElementById('currentModeIcon');
+            const modeLabel = document.getElementById('currentModeLabel');
+            
+            if (mode === 'free') {
+                if (modeIcon) modeIcon.textContent = '🎮';
+                if (modeLabel) modeLabel.textContent = 'Free';
+            } else if (mode === 'story') {
                 gameState.storyMode = true;
                 gameState.storyProgress = 0;
                 updateStoryBanner();
                 document.getElementById('storyBanner').classList.add('active');
+                if (modeIcon) modeIcon.textContent = '📖';
+                if (modeLabel) modeLabel.textContent = 'Story';
             } else if (mode === 'boss') {
                 startBossBattle();
+                if (modeIcon) modeIcon.textContent = '👹';
+                if (modeLabel) modeLabel.textContent = 'Boss';
             }
         }
         
         // ============ STORY MODE ============
         function updateStoryBanner() {
             const chapter = storyChapters[Math.min(gameState.storyProgress, storyChapters.length - 1)];
-            document.getElementById('storyIcon').textContent = chapter.icon;
-            document.getElementById('storyTitle').textContent = chapter.title;
-            document.getElementById('storyDesc').textContent = chapter.description;
+            const storyIcon = document.getElementById('storyIcon');
+            const storyTitle = document.getElementById('storyTitle');
+            const storyDesc = document.getElementById('storyDesc');
+            const storyCount = document.getElementById('storyCount');
+            const storyProgressFill = document.getElementById('storyProgressFill');
+            
+            if (storyIcon) storyIcon.textContent = chapter.icon;
+            if (storyTitle) storyTitle.textContent = chapter.title;
+            if (storyDesc) storyDesc.textContent = chapter.description;
             
             const collected = gameState.correct % chapter.goal;
-            document.getElementById('storyCount').textContent = `${collected}/${chapter.goal}`;
-            document.getElementById('storyProgressFill').style.width = `${(collected / chapter.goal) * 100}%`;
+            if (storyCount) storyCount.textContent = `${collected}/${chapter.goal}`;
+            if (storyProgressFill) storyProgressFill.style.width = `${(collected / chapter.goal) * 100}%`;
         }
         
         function checkStoryProgress() {
@@ -3554,11 +4395,17 @@
             gameState.bossHealth = boss.hp;
             gameState.currentBoss = boss;
             
-            document.getElementById('bossEmoji').textContent = boss.emoji;
-            document.getElementById('bossName').textContent = boss.name;
-            document.getElementById('bossHP').textContent = `${boss.hp}/${boss.hp}`;
-            document.getElementById('bossHealthFill').style.width = '100%';
-            document.getElementById('bossBanner').classList.add('active');
+            const bossEmoji = document.getElementById('bossEmoji');
+            const bossName = document.getElementById('bossName');
+            const bossHP = document.getElementById('bossHP');
+            const bossHealthFill = document.getElementById('bossHealthFill');
+            const bossBanner = document.getElementById('bossBanner');
+            
+            if (bossEmoji) bossEmoji.textContent = boss.emoji;
+            if (bossName) bossName.textContent = boss.name;
+            if (bossHP) bossHP.textContent = `${boss.hp}/${boss.hp}`;
+            if (bossHealthFill) bossHealthFill.style.width = '100%';
+            if (bossBanner) bossBanner.classList.add('active');
             
             playSound('meow');
         }
@@ -3569,15 +4416,20 @@
             gameState.bossHealth--;
             const boss = gameState.currentBoss;
             
-            document.getElementById('bossHP').textContent = `${gameState.bossHealth}/${boss.hp}`;
-            document.getElementById('bossHealthFill').style.width = `${(gameState.bossHealth / boss.hp) * 100}%`;
+            const bossHP = document.getElementById('bossHP');
+            const bossHealthFill = document.getElementById('bossHealthFill');
+            const bossEmoji = document.getElementById('bossEmoji');
+            
+            if (bossHP) bossHP.textContent = `${gameState.bossHealth}/${boss.hp}`;
+            if (bossHealthFill) bossHealthFill.style.width = `${(gameState.bossHealth / boss.hp) * 100}%`;
             
             // Boss shake effect
-            const bossEmoji = document.getElementById('bossEmoji');
-            bossEmoji.style.animation = 'none';
-            setTimeout(() => {
-                bossEmoji.style.animation = 'bossFloat 1s ease-in-out infinite';
-            }, 100);
+            if (bossEmoji) {
+                bossEmoji.style.animation = 'none';
+                setTimeout(() => {
+                    bossEmoji.style.animation = 'bossFloat 1s ease-in-out infinite';
+                }, 100);
+            }
             
             if (gameState.bossHealth <= 0) {
                 defeatBoss();
@@ -3591,7 +4443,8 @@
             gameState.xp += boss.reward;
             gameState.score += boss.reward;
             
-            document.getElementById('bossBanner').classList.remove('active');
+            const bossBanner = document.getElementById('bossBanner');
+            if (bossBanner) bossBanner.classList.remove('active');
             
             showFeedback(true, `🎉 BOSS DEFEATED! ${boss.name} is gone! +${boss.reward} XP!`);
             playSound('evolution');
