@@ -1,0 +1,4061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱 MathKitty - Learn Math, Grow Your Cat!</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Nunito:wght@400;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --primary-pink: #FF6B9D;
+            --primary-purple: #9B59B6;
+            --primary-blue: #3498DB;
+            --primary-green: #2ECC71;
+            --primary-orange: #F39C12;
+            --primary-red: #E74C3C;
+            --bg-gradient-1: #FFE5EC;
+            --bg-gradient-2: #E8F4FD;
+            --bg-gradient-3: #E8FFE8;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow-color: rgba(155, 89, 182, 0.3);
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 50%, var(--bg-gradient-3) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Floating bubbles background */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+        
+        /* Stars animation */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            font-size: 20px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .main-container {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+        
+        /* Header styles */
+        .game-title {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--primary-pink), var(--primary-purple), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+            animation: titleBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes titleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .subtitle {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--primary-purple);
+            font-size: 1.2rem;
+        }
+        
+        /* Card styles */
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            box-shadow: 0 10px 40px var(--shadow-color);
+            border: 3px solid white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px var(--shadow-color);
+        }
+        
+        /* Cat display area */
+        .cat-stage {
+            background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%);
+            border-radius: 20px;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #FFD700;
+        }
+        
+        .ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(180deg, #8BC34A 0%, #689F38 100%);
+            border-radius: 0 0 16px 16px;
+        }
+        
+        .grass {
+            position: absolute;
+            bottom: 55px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .grass-blade {
+            width: 8px;
+            height: 20px;
+            background: #7CB342;
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom;
+            animation: sway 2s ease-in-out infinite;
+        }
+        
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        .sun {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 30px #FFD700;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px #FFD700; }
+            50% { transform: scale(1.1); box-shadow: 0 0 50px #FFD700; }
+        }
+        
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            animation: drift 20s linear infinite;
+        }
+        
+        @keyframes drift {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100% + 100px)); }
+        }
+        
+        /* Cat SVG styles */
+        .cat-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.5s ease;
+        }
+        
+        .cat-svg {
+            transition: all 0.3s ease;
+        }
+        
+        .cat-container.happy .cat-svg {
+            animation: catHappy 0.5s ease-in-out;
+        }
+        
+        .cat-container.sad .cat-svg {
+            animation: catSad 0.5s ease-in-out;
+        }
+        
+        .cat-container.eating .cat-svg {
+            animation: catEat 0.8s ease-in-out;
+        }
+        
+        .cat-container.playing .cat-svg {
+            animation: catPlay 1s ease-in-out;
+        }
+        
+        /* Idle animations - subtle movements */
+        .cat-tail {
+            transform-origin: 45% 85%;
+            animation: tailWag 3s ease-in-out infinite;
+        }
+        
+        .cat-nose {
+            transform-origin: center center;
+            animation: noseWiggle 4s ease-in-out infinite;
+        }
+        
+        .cat-ear-left {
+            transform-origin: 60% 100%;
+            animation: earTwitchLeft 6s ease-in-out infinite;
+        }
+        
+        .cat-ear-right {
+            transform-origin: 40% 100%;
+            animation: earTwitchRight 6s ease-in-out infinite;
+            animation-delay: 3s;
+        }
+        
+        .cat-whiskers-left {
+            transform-origin: 100% 50%;
+            animation: whiskersLeft 3.5s ease-in-out infinite;
+        }
+        
+        .cat-whiskers-right {
+            transform-origin: 0% 50%;
+            animation: whiskersRight 3.5s ease-in-out infinite;
+        }
+        
+        .cat-body {
+            transform-origin: center center;
+            animation: bodyBreathe 4s ease-in-out infinite;
+        }
+        
+        .cat-eyes {
+            transform-origin: center center;
+            animation: eyeBlink 5s ease-in-out infinite;
+        }
+        
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        
+        @keyframes noseWiggle {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.05); }
+            30% { transform: scale(1); }
+        }
+        
+        @keyframes earTwitchLeft {
+            0%, 100% { transform: rotate(0deg); }
+            3% { transform: rotate(-3deg); }
+            6% { transform: rotate(0deg); }
+        }
+        
+        @keyframes earTwitchRight {
+            0%, 100% { transform: rotate(0deg); }
+            3% { transform: rotate(3deg); }
+            6% { transform: rotate(0deg); }
+        }
+        
+        @keyframes whiskersLeft {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-2deg); }
+        }
+        
+        @keyframes whiskersRight {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(2deg); }
+        }
+        
+        @keyframes bodyBreathe {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.01); }
+        }
+        
+        @keyframes eyeBlink {
+            0%, 100% { transform: scaleY(1); }
+            48% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+            52% { transform: scaleY(1); }
+        }
+        
+        @keyframes catHappy {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            25% { transform: translateY(-20px) rotate(-5deg); }
+            75% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        @keyframes catSad {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        
+        @keyframes catEat {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.9); }
+        }
+        
+        @keyframes catPlay {
+            0% { transform: rotate(0) translateX(0); }
+            25% { transform: rotate(-15deg) translateX(-20px); }
+            75% { transform: rotate(15deg) translateX(20px); }
+            100% { transform: rotate(0) translateX(0); }
+        }
+        
+        /* Status bars - Mini overlay version */
+        .status-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 8px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            backdrop-filter: blur(5px);
+        }
+        
+        .mini-status {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .mini-status-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .mini-icon {
+            font-size: 0.85rem;
+            width: 18px;
+            text-align: center;
+        }
+        
+        .mini-bar {
+            width: 60px;
+            height: 10px;
+            background: #E0E0E0;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .mini-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+        
+        .mini-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+        }
+        
+        .health-fill { background: linear-gradient(90deg, #E74C3C, #FF6B6B); }
+        .hunger-fill { background: linear-gradient(90deg, #F39C12, #F1C40F); }
+        .thirst-fill { background: linear-gradient(90deg, #3498DB, #5DADE2); }
+        .happiness-fill { background: linear-gradient(90deg, #9B59B6, #BB8FCE); }
+        
+        .mini-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #555;
+            width: 22px;
+            text-align: right;
+        }
+        
+        .mini-fill.low {
+            animation: pulse 0.5s ease-in-out infinite;
+        }
+        
+        /* Old status bar styles - keep for compatibility but hidden */
+        .status-bar {
+            height: 25px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #E0E0E0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .status-fill {
+            height: 100%;
+            border-radius: 15px;
+            transition: width 0.5s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+        }
+        
+        .status-label {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .health-bar .status-fill { background: linear-gradient(90deg, #E74C3C, #FF6B6B); }
+        .hunger-bar .status-fill { background: linear-gradient(90deg, #F39C12, #F1C40F); }
+        .thirst-bar .status-fill { background: linear-gradient(90deg, #3498DB, #5DADE2); }
+        .happiness-bar .status-fill { background: linear-gradient(90deg, #9B59B6, #BB8FCE); }
+        
+        /* Action buttons */
+        .action-btn {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .action-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-feed { background: linear-gradient(135deg, #F39C12, #E67E22); }
+        .btn-water { background: linear-gradient(135deg, #3498DB, #2980B9); }
+        .btn-play { background: linear-gradient(135deg, #9B59B6, #8E44AD); }
+        
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Topic selector */
+        .topic-btn {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 20px;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            background: white;
+            color: #333;
+        }
+        
+        .topic-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .topic-btn.active {
+            border-color: var(--primary-purple);
+            background: linear-gradient(135deg, #F8E8FF, #E8F4FF);
+            color: var(--primary-purple);
+        }
+        
+        .topic-btn i {
+            font-size: 1.5rem;
+        }
+        
+        /* Math question area */
+        .question-card {
+            background: linear-gradient(135deg, #FFF5E6, #FFE6F0);
+            border-radius: 20px;
+            padding: 30px;
+            border: 3px solid #FFD700;
+        }
+        
+        .question-text {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 2.5rem;
+            color: #333;
+        }
+        
+        .answer-input {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            text-align: center;
+            border: 4px solid var(--primary-purple);
+            border-radius: 15px;
+            padding: 15px;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+        
+        .answer-input:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
+        }
+        
+        .submit-btn {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #2ECC71, #27AE60);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.4);
+        }
+        
+        /* Feedback messages */
+        .feedback-message {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            padding: 20px;
+            border-radius: 15px;
+            animation: popIn 0.5s ease;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            0% { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+            100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        /* Mini-game styles */
+        .mini-game-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mini-game-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+        
+        .mini-game-area {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            margin: 15px 0;
+        }
+        
+        .catch-target {
+            position: absolute;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+            z-index: 10;
+        }
+        
+        .catch-target:hover {
+            filter: brightness(1.2);
+        }
+        
+        /* Bouncing yarn animation */
+        .catch-target.bouncing {
+            animation: yarnBounce 0.6s ease-in-out infinite;
+        }
+        
+        @keyframes yarnBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(180deg); }
+        }
+        
+        /* Swimming fish animation - gentle bob */
+        .catch-target.swimming {
+            animation: fishSwim 1s ease-in-out infinite;
+        }
+        
+        @keyframes fishSwim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        /* Floating butterfly animation - smooth drift */
+        .catch-target.floating {
+            animation: butterflyFloat 2s ease-in-out infinite;
+        }
+        
+        @keyframes butterflyFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* Falling treats animation - gentle sway */
+        .catch-target.falling {
+            animation: treatSway 1s ease-in-out infinite;
+        }
+        
+        @keyframes treatSway {
+            0%, 100% { margin-left: 0; }
+            50% { margin-left: 10px; }
+        }
+        
+        /* Laser dot animation - pulsing glow */
+        .catch-target.laser-dot {
+            animation: laserPulse 0.3s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px #ff0000);
+        }
+        
+        @keyframes laserPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+        
+        /* Water waves effect for fish game */
+        .water-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+            pointer-events: none;
+        }
+        
+        .water-waves::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10 V20 H0Z' fill='rgba(255,255,255,0.2)'/%3E%3C/svg%3E") repeat-x;
+            animation: waveMove 3s linear infinite;
+        }
+        
+        @keyframes waveMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(33.33%); }
+        }
+        
+        /* Tricks panel */
+        .tricks-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tricks-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+        }
+        
+        .tricks-panel {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 100;
+            min-width: 200px;
+        }
+        
+        .tricks-panel.show {
+            display: block;
+            animation: popIn 0.3s ease;
+        }
+        
+        .trick-item {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            margin: 3px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f8f9fa;
+        }
+        
+        .trick-item:hover:not(.locked) {
+            background: #e9ecef;
+            transform: scale(1.1);
+        }
+        
+        .trick-item.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .trick-item .emoji {
+            font-size: 1.5rem;
+        }
+        
+        .trick-item .name {
+            font-size: 0.65rem;
+            color: #666;
+        }
+        
+        /* Story mode styles */
+        .story-banner {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 15px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            color: white;
+            display: none;
+        }
+        
+        .story-banner.active {
+            display: block;
+            animation: popIn 0.3s ease;
+        }
+        
+        .story-progress-bar {
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .story-progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Boss battle styles */
+        .boss-banner {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            color: white;
+            display: none;
+        }
+        
+        .boss-banner.active {
+            display: block;
+            animation: popIn 0.3s ease;
+        }
+        
+        .boss-emoji {
+            font-size: 2.5rem;
+            animation: bossFloat 1s ease-in-out infinite;
+        }
+        
+        @keyframes bossFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .boss-health-bar {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            height: 15px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .boss-health-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f1c40f, #e74c3c);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        /* Cat fact popup */
+        .cat-fact-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 20px;
+            padding: 15px 25px;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1500;
+            display: none;
+        }
+        
+        .cat-fact-popup.show {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            0% { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        
+        /* Multiple cats selector */
+        .cats-selector {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .cat-tab {
+            padding: 5px 12px;
+            border-radius: 15px;
+            background: #e9ecef;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .cat-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .cat-tab.add-new {
+            background: #f8f9fa;
+            border: 2px dashed #ccc;
+        }
+        
+        .cat-tab.add-new:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+        
+        /* Mode selector buttons */
+        .mode-btn {
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: none;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 2px;
+        }
+        
+        .mode-btn.story {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .mode-btn.boss {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+        
+        .mode-btn.free {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+        
+        .mode-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .mode-btn.active {
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+        }
+        
+        /* Cat trick animations - on container */
+        .cat-container.trick-wave {
+            animation: trickWave 1s ease-in-out;
+        }
+        
+        .cat-container.trick-roll {
+            animation: trickRoll 1s ease-in-out;
+        }
+        
+        .cat-container.trick-highfive {
+            animation: trickHighfive 0.8s ease-in-out;
+        }
+        
+        .cat-container.trick-dance {
+            animation: trickDance 1.5s ease-in-out;
+        }
+        
+        .cat-container.trick-backflip {
+            animation: trickBackflip 1s ease-in-out;
+        }
+        
+        @keyframes trickWave {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-15deg); }
+            75% { transform: translateX(-50%) rotate(15deg); }
+        }
+        
+        @keyframes trickRoll {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg); }
+        }
+        
+        @keyframes trickHighfive {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-30px); }
+        }
+        
+        @keyframes trickDance {
+            0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+            25% { transform: translateX(-60%) translateY(-10px) rotate(-10deg); }
+            50% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+            75% { transform: translateX(-40%) translateY(-10px) rotate(10deg); }
+        }
+        
+        @keyframes trickBackflip {
+            0% { transform: translateX(-50%) rotateY(0deg) scale(1); }
+            25% { transform: translateX(-50%) rotateY(90deg) scale(0.8); }
+            50% { transform: translateX(-50%) rotateY(180deg) scale(1); }
+            75% { transform: translateX(-50%) rotateY(270deg) scale(0.8); }
+            100% { transform: translateX(-50%) rotateY(360deg) scale(1); }
+        }
+        
+        /* Extra expressions */
+        .cat-svg.curious {
+            animation: curious 2s ease-in-out infinite;
+        }
+        
+        .cat-svg.excited {
+            animation: excited 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes curious {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+        }
+        
+        @keyframes excited {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .feedback-correct {
+            background: linear-gradient(135deg, #D5F5E3, #A9DFBF);
+            color: #1E8449;
+            border: 3px solid #2ECC71;
+        }
+        
+        .feedback-incorrect {
+            background: linear-gradient(135deg, #FADBD8, #F5B7B1);
+            color: #922B21;
+            border: 3px solid #E74C3C;
+        }
+        
+        /* Help section */
+        .help-section {
+            background: linear-gradient(135deg, #E8F8F5, #D1F2EB);
+            border-radius: 15px;
+            padding: 20px;
+            border: 3px solid #1ABC9C;
+        }
+        
+        .help-title {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            color: #16A085;
+        }
+        
+        /* Evolution progress */
+        .evolution-card {
+            background: linear-gradient(135deg, #FCF3CF, #F9E79F);
+            border-radius: 15px;
+            padding: 15px;
+            border: 3px solid #F1C40F;
+        }
+        
+        .stage-indicator {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+        
+        .stage-indicator.active {
+            background: linear-gradient(135deg, #F1C40F, #F39C12);
+            box-shadow: 0 5px 20px rgba(241, 196, 15, 0.5);
+            animation: stageGlow 2s ease-in-out infinite;
+        }
+        
+        .stage-indicator.completed {
+            background: linear-gradient(135deg, #2ECC71, #27AE60);
+        }
+        
+        .stage-indicator.locked {
+            background: #BDC3C7;
+            opacity: 0.6;
+        }
+        
+        @keyframes stageGlow {
+            0%, 100% { box-shadow: 0 5px 20px rgba(241, 196, 15, 0.5); }
+            50% { box-shadow: 0 5px 35px rgba(241, 196, 15, 0.8); }
+        }
+        
+        .stage-line {
+            width: 25px;
+            height: 4px;
+            background: #BDC3C7;
+            border-radius: 2px;
+        }
+        
+        .stage-line.completed {
+            background: linear-gradient(90deg, #2ECC71, #F1C40F);
+        }
+        
+        /* XP bar */
+        .xp-bar {
+            height: 20px;
+            background: #34495E;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #F1C40F, #E67E22);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+        
+        .xp-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Score display */
+        .score-display {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 1.5rem;
+            color: var(--primary-purple);
+        }
+        
+        .score-display.text-warning {
+            font-size: 1rem;
+        }
+        
+        /* Sound toggle */
+        .sound-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .sound-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Confetti container */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s ease-out forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100%) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Food/water/toy animations */
+        .item-animation {
+            position: absolute;
+            font-size: 3rem;
+            animation: itemFloat 1s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes itemFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Heart particles */
+        .heart-particle {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: heartFloat 1.5s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Modal styling */
+        .modal-content {
+            border-radius: 25px;
+            border: none;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-purple));
+            border: none;
+            color: white;
+        }
+        
+        .modal-title {
+            font-family: 'Bubblegum Sans', cursive;
+        }
+        
+        /* Game over / Evolution modal */
+        .celebration-modal {
+            background: linear-gradient(135deg, #FCF3CF, #F9E79F);
+        }
+        
+        .evolution-text {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #F39C12, #E74C3C, #9B59B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .game-title {
+                font-size: 2rem;
+            }
+            .question-text {
+                font-size: 1.8rem;
+            }
+            .answer-input {
+                font-size: 1.5rem;
+                width: 150px;
+            }
+            .cat-stage {
+                min-height: 250px;
+            }
+        }
+        
+        /* Name input styling */
+        .name-input {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            border: 4px solid var(--primary-pink);
+            border-radius: 15px;
+            padding: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .cat-name-display {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-purple);
+        }
+        
+        /* Color picker buttons */
+        .color-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 3px solid white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .color-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .color-btn.active {
+            border: 4px solid var(--primary-purple);
+            transform: scale(1.1);
+            box-shadow: 0 0 0 3px white, 0 5px 20px rgba(155, 89, 182, 0.5);
+        }
+        
+        /* Tooltip styling */
+        .info-tooltip {
+            cursor: help;
+            color: var(--primary-purple);
+        }
+        
+        /* Yarn ball icon styling */
+        .yarn-icon {
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating bubbles background -->
+    <div class="bubbles" id="bubbles"></div>
+    
+    <!-- Stars background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Confetti container -->
+    <div class="confetti-container" id="confetti-container"></div>
+    
+    <!-- Sound toggle -->
+    <button class="sound-toggle" id="soundToggle" title="Toggle Sound">
+        🔊
+    </button>
+    
+    <!-- Main container -->
+    <div class="main-container">
+        <div class="container">
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <h1 class="game-title mb-2">🐱 MathKitty 🐱</h1>
+                <p class="subtitle">Solve math problems to care for your cat!</p>
+            </div>
+            
+            <!-- Start Screen -->
+            <div id="startScreen" class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="game-card p-4">
+                        <h2 class="text-center mb-4" style="font-family: 'Fredoka', sans-serif; color: var(--primary-purple);">
+                            🌟 Welcome to MathKitty! 🌟
+                        </h2>
+                        
+                        <!-- How to Play Instructions -->
+                        <div class="mb-4 p-3" style="background: linear-gradient(135deg, #E8F8F5, #D5F5E3); border-radius: 15px; border: 2px solid #2ECC71;">
+                            <h5 class="text-center mb-3" style="font-family: 'Fredoka', sans-serif; color: #1E8449;">
+                                📖 How to Play
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>🎯 Goal:</strong> Keep your cat happy and healthy by caring for it!</p>
+                                    <p><strong>🐱 Your Cat:</strong> Has 4 needs - Health ❤️, Hunger 🍖, Thirst 💧, and Happiness 😊</p>
+                                    <p><strong>📉 Stats Decay:</strong> Your cat's needs slowly decrease over time</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>🧮 Solve Math:</strong> To feed, water, or play with your cat, answer math questions correctly!</p>
+                                    <p><strong>✅ Correct:</strong> Your cat gets cared for + you earn XP and points!</p>
+                                    <p><strong>❌ Wrong:</strong> Your cat loses health, but you'll learn why!</p>
+                                </div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <p class="mb-0"><strong>⭐ Evolution:</strong> Earn XP to evolve your cat from <span class="badge bg-warning text-dark">Kitten</span> → <span class="badge bg-info text-dark">Teen</span> → <span class="badge bg-success">Adult</span>!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row align-items-center">
+                            <!-- Cat Preview -->
+                            <div class="col-md-5 text-center mb-4 mb-md-0">
+                                <div class="p-3" style="background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%); border-radius: 20px; border: 3px solid #FFD700;">
+                                    <div id="catPreview"></div>
+                                    <p class="mt-2 mb-0 small text-muted">Your new kitten!</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Name and Color Selection -->
+                            <div class="col-md-7">
+                                <div class="mb-4">
+                                    <label class="form-label" style="font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--primary-purple);">
+                                        ✏️ Name Your Kitten
+                                    </label>
+                                    <input type="text" id="catNameInput" class="name-input w-100" placeholder="Enter cat name..." maxlength="15">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label" style="font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--primary-purple);">
+                                        🎨 Choose Cat Color
+                                    </label>
+                                    <div class="d-flex flex-wrap gap-2 justify-content-center" id="colorPicker">
+                                        <button class="color-btn active" data-color="#FFB347" style="background: #FFB347;" title="Orange Tabby" onclick="selectColor('#FFB347')"></button>
+                                        <button class="color-btn" data-color="#A0A0A0" style="background: #A0A0A0;" title="Gray" onclick="selectColor('#A0A0A0')"></button>
+                                        <button class="color-btn" data-color="#3D3D3D" style="background: #3D3D3D;" title="Black" onclick="selectColor('#3D3D3D')"></button>
+                                        <button class="color-btn" data-color="#F5DEB3" style="background: #F5DEB3;" title="Cream" onclick="selectColor('#F5DEB3')"></button>
+                                        <button class="color-btn" data-color="#D2691E" style="background: #D2691E;" title="Brown" onclick="selectColor('#D2691E')"></button>
+                                        <button class="color-btn" data-color="#FFE4B5" style="background: #FFE4B5;" title="White/Cream" onclick="selectColor('#FFE4B5')"></button>
+                                        <button class="color-btn" data-color="#FF8C69" style="background: #FF8C69;" title="Ginger" onclick="selectColor('#FF8C69')"></button>
+                                        <button class="color-btn" data-color="#DDA0DD" style="background: #DDA0DD;" title="Purple (Fantasy)" onclick="selectColor('#DDA0DD')"></button>
+                                        <button class="color-btn" data-color="#87CEEB" style="background: #87CEEB;" title="Blue (Fantasy)" onclick="selectColor('#87CEEB')"></button>
+                                        <button class="color-btn" data-color="#98FB98" style="background: #98FB98;" title="Green (Fantasy)" onclick="selectColor('#98FB98')"></button>
+                                        <button class="color-btn" data-color="#FFB6C1" style="background: #FFB6C1;" title="Pink (Fantasy)" onclick="selectColor('#FFB6C1')"></button>
+                                        <button class="color-btn" data-color="#F0E68C" style="background: #F0E68C;" title="Golden" onclick="selectColor('#F0E68C')"></button>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button class="submit-btn px-5" onclick="startGame()">
+                                        🎮 Start Playing!
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Screen -->
+            <div id="gameScreen" style="display: none;">
+                <div class="row g-4">
+                    <!-- Left Column - Cat Display -->
+                    <div class="col-lg-5">
+                        <!-- Cat Name & Stage -->
+                        <div class="game-card p-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="cat-name-display" id="catNameDisplay">Whiskers</span>
+                                <span class="badge bg-warning text-dark fs-6" id="stageLabel">🐱 Kitten</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Cat Stage with Status Overlay -->
+                        <div class="game-card p-3 mb-3">
+                            <div class="cat-stage" id="catStage">
+                                <!-- Sun -->
+                                <div class="sun"></div>
+                                
+                                <!-- Clouds -->
+                                <div class="cloud" style="top: 20px; left: -50px; width: 80px; height: 30px;"></div>
+                                <div class="cloud" style="top: 50px; left: -100px; width: 60px; height: 25px; animation-delay: 5s;"></div>
+                                
+                                <!-- Status Bars Overlay -->
+                                <div class="status-overlay" id="statusOverlay">
+                                    <div class="mini-status">
+                                        <div class="mini-status-row">
+                                            <span class="mini-icon">❤️</span>
+                                            <div class="mini-bar">
+                                                <div class="mini-fill health-fill" id="healthBar" style="width: 100%;"></div>
+                                            </div>
+                                            <span class="mini-value" id="healthValue">100</span>
+                                        </div>
+                                        <div class="mini-status-row">
+                                            <span class="mini-icon">🍖</span>
+                                            <div class="mini-bar">
+                                                <div class="mini-fill hunger-fill" id="hungerBar" style="width: 100%;"></div>
+                                            </div>
+                                            <span class="mini-value" id="hungerValue">100</span>
+                                        </div>
+                                        <div class="mini-status-row">
+                                            <span class="mini-icon">💧</span>
+                                            <div class="mini-bar">
+                                                <div class="mini-fill thirst-fill" id="thirstBar" style="width: 100%;"></div>
+                                            </div>
+                                            <span class="mini-value" id="thirstValue">100</span>
+                                        </div>
+                                        <div class="mini-status-row">
+                                            <span class="mini-icon">😊</span>
+                                            <div class="mini-bar">
+                                                <div class="mini-fill happiness-fill" id="happinessBar" style="width: 100%;"></div>
+                                            </div>
+                                            <span class="mini-value" id="happinessValue">100</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Grass -->
+                                <div class="grass" id="grass"></div>
+                                
+                                <!-- Ground -->
+                                <div class="ground"></div>
+                                
+                                <!-- Cat Container -->
+                                <div class="cat-container" id="catContainer">
+                                    <!-- Cat SVG will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Evolution Progress -->
+                        <div class="evolution-card">
+                            <h6 class="text-center mb-3" style="font-family: 'Fredoka', sans-serif; color: #B7950B;">
+                                ⭐ Evolution Progress ⭐
+                            </h6>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <div class="stage-indicator active" id="stage0">😴</div>
+                                <div class="stage-line" id="line0"></div>
+                                <div class="stage-indicator locked" id="stage1">🐱</div>
+                                <div class="stage-line" id="line1"></div>
+                                <div class="stage-indicator locked" id="stage2">😺</div>
+                                <div class="stage-line" id="line2"></div>
+                                <div class="stage-indicator locked" id="stage3">🦁</div>
+                            </div>
+                            <div class="text-center small text-muted mb-2" style="font-size: 0.7rem;">
+                                <span>Newborn</span>
+                                <span class="mx-2">Kitten</span>
+                                <span class="mx-2">Teen</span>
+                                <span>Adult</span>
+                            </div>
+                            <div class="xp-bar">
+                                <div class="xp-fill" id="xpBar" style="width: 0%;"></div>
+                            </div>
+                            <div class="text-center mt-2 small">
+                                <span id="xpText">0 / 100 XP to wake up!</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Game Mode Selector -->
+                        <div class="game-card p-2 mt-3">
+                            <div class="text-center">
+                                <div class="small text-muted mb-2">Game Mode</div>
+                                <button class="mode-btn free active" onclick="setGameMode('free')">🎮 Free</button>
+                                <button class="mode-btn story" onclick="setGameMode('story')">📖 Story</button>
+                                <button class="mode-btn boss" onclick="setGameMode('boss')">👹 Boss</button>
+                            </div>
+                            
+                            <!-- Story Banner (hidden by default) -->
+                            <div class="story-banner mt-2" id="storyBanner">
+                                <div class="d-flex align-items-center">
+                                    <span class="fs-4 me-2" id="storyIcon">🐟</span>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold small" id="storyTitle">The Hungry Kitten</div>
+                                        <div class="small opacity-75" style="font-size: 0.7rem;" id="storyDesc">Collect 5 fish!</div>
+                                    </div>
+                                    <span class="badge bg-light text-dark" id="storyCount">0/5</span>
+                                </div>
+                                <div class="story-progress-bar mt-1">
+                                    <div class="story-progress-fill" id="storyProgressFill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Boss Banner (hidden by default) -->
+                            <div class="boss-banner mt-2" id="bossBanner">
+                                <div class="d-flex align-items-center">
+                                    <span class="boss-emoji me-2" id="bossEmoji" style="font-size: 1.8rem;">🐕</span>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold small" id="bossName">Grumpy Dog</div>
+                                        <div class="boss-health-bar">
+                                            <div class="boss-health-fill" id="bossHealthFill" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-light text-dark" id="bossHP">5/5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column - Math & Actions -->
+                    <div class="col-lg-7">
+                        <!-- Score Display -->
+                        <div class="game-card p-3 mb-3">
+                            <div class="d-flex justify-content-around text-center flex-wrap">
+                                <div class="px-2">
+                                    <div class="score-display" id="scoreDisplay">0</div>
+                                    <small class="text-muted">Score</small>
+                                </div>
+                                <div class="px-2">
+                                    <div class="score-display text-success" id="streakDisplay">0 🔥</div>
+                                    <small class="text-muted">Streak</small>
+                                </div>
+                                <div class="px-2">
+                                    <div class="score-display text-info" id="correctDisplay">0</div>
+                                    <small class="text-muted">Correct</small>
+                                </div>
+                                <div class="px-2">
+                                    <div class="score-display text-warning" id="difficultyDisplay">Level 1 ⭐☆☆☆☆</div>
+                                    <small class="text-muted">Difficulty</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Topic Selector -->
+                        <div class="game-card p-3 mb-3">
+                            <h5 class="text-center mb-3" style="font-family: 'Fredoka', sans-serif; color: var(--primary-purple);">
+                                📚 Choose Math Topic
+                            </h5>
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <button class="topic-btn active" data-topic="addition" onclick="selectTopic('addition')">
+                                    <i class="bi bi-plus-circle d-block mb-1"></i>
+                                    Addition
+                                </button>
+                                <button class="topic-btn" data-topic="subtraction" onclick="selectTopic('subtraction')">
+                                    <i class="bi bi-dash-circle d-block mb-1"></i>
+                                    Subtraction
+                                </button>
+                                <button class="topic-btn" data-topic="multiplication" onclick="selectTopic('multiplication')">
+                                    <i class="bi bi-x-circle d-block mb-1"></i>
+                                    Multiplication
+                                </button>
+                                <button class="topic-btn" data-topic="division" onclick="selectTopic('division')">
+                                    <i class="bi bi-slash-circle d-block mb-1"></i>
+                                    Division
+                                </button>
+                                <button class="topic-btn" data-topic="equations" onclick="selectTopic('equations')">
+                                    <i class="bi bi-question-circle d-block mb-1"></i>
+                                    Equations
+                                </button>
+                                <button class="topic-btn" data-topic="fractions" onclick="selectTopic('fractions')">
+                                    <i class="bi bi-pie-chart d-block mb-1"></i>
+                                    Fractions
+                                </button>
+                                <button class="topic-btn" data-topic="mixed" onclick="selectTopic('mixed')">
+                                    <i class="bi bi-shuffle d-block mb-1"></i>
+                                    Mixed
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="game-card p-3 mb-3">
+                            <h5 class="text-center mb-3" style="font-family: 'Fredoka', sans-serif; color: var(--primary-purple);">
+                                🎯 Choose Action
+                            </h5>
+                            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                <button class="action-btn btn-feed" id="feedBtn" onclick="selectAction('feed')">
+                                    🍖 Feed
+                                </button>
+                                <button class="action-btn btn-water" id="waterBtn" onclick="selectAction('water')">
+                                    💧 Water
+                                </button>
+                                <button class="action-btn btn-play" id="playBtn" onclick="selectAction('play')">
+                                    <svg class="yarn-icon" viewBox="0 0 100 100" style="margin-right: 5px;">
+                                        <circle cx="50" cy="50" r="45" fill="#FF6B9D"/>
+                                        <path d="M20 50 Q50 20 80 50 Q50 80 20 50" stroke="#FF8FAB" stroke-width="4" fill="none"/>
+                                        <path d="M30 30 Q50 50 70 30" stroke="#FF8FAB" stroke-width="3" fill="none"/>
+                                        <path d="M30 70 Q50 50 70 70" stroke="#FF8FAB" stroke-width="3" fill="none"/>
+                                        <path d="M50 15 Q60 50 50 85" stroke="#FF8FAB" stroke-width="3" fill="none"/>
+                                        <path d="M85 50 Q70 40 90 25" stroke="#FF6B9D" stroke-width="4" fill="none" stroke-linecap="round"/>
+                                    </svg>
+                                    Play
+                                </button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <div class="position-relative d-inline-block">
+                                    <button class="tricks-btn" onclick="toggleTricksPanel()">🎪 Tricks</button>
+                                    <div class="tricks-panel" id="tricksPanel">
+                                        <div class="small mb-2 text-muted fw-bold">Teach Tricks</div>
+                                        <div id="tricksList"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-2 small text-muted" id="actionHint">
+                                Select an action to help your cat!
+                            </div>
+                        </div>
+                        
+                        <!-- Question Area -->
+                        <div class="game-card p-3 mb-3" id="questionArea" style="display: none;">
+                            <div class="question-card text-center">
+                                <div class="mb-2 small text-muted" id="questionType">Addition Problem</div>
+                                <div class="question-text mb-4" id="questionText">5 + 3 = ?</div>
+                                <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                                    <input type="number" class="answer-input" id="answerInput" placeholder="?" autocomplete="off">
+                                    <button class="submit-btn" onclick="checkAnswer()">
+                                        ✓ Check
+                                    </button>
+                                </div>
+                                <div class="mt-3 small text-muted">
+                                    Press Enter to submit
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Feedback Area -->
+                        <div id="feedbackArea" style="display: none;">
+                            <div class="feedback-message" id="feedbackMessage"></div>
+                        </div>
+                        
+                        <!-- Help Section -->
+                        <div id="helpSection" style="display: none;">
+                            <div class="help-section">
+                                <h5 class="help-title mb-3">
+                                    <i class="bi bi-lightbulb-fill"></i> Let's Learn!
+                                </h5>
+                                <div id="helpContent"></div>
+                                <button class="btn btn-outline-success mt-3" onclick="tryAgain()">
+                                    🔄 Try Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Evolution Modal -->
+    <div class="modal fade" id="evolutionModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content celebration-modal">
+                <div class="modal-header border-0 justify-content-center">
+                    <h4 class="modal-title">🎉 Evolution Time! 🎉</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="evolution-text mb-3" id="evolutionText">Your cat evolved!</div>
+                    <div id="evolutionCatDisplay" class="mb-3"></div>
+                    <p class="mb-0" id="evolutionMessage">Keep practicing to help your cat grow more!</p>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="submit-btn" data-bs-dismiss="modal">
+                        🎮 Continue Playing!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Game Over Modal -->
+    <div class="modal fade" id="gameOverModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white justify-content-center">
+                    <h4 class="modal-title">😿 Oh No!</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="fs-5">Your cat's health reached zero!</p>
+                    <p>Don't worry, you can try again and help your cat thrive!</p>
+                    <p class="text-muted">Final Score: <span id="finalScore">0</span></p>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="submit-btn" onclick="restartGame()">
+                        🔄 Try Again
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ============ GAME STATE ============
+        const gameState = {
+            catName: 'Whiskers',
+            catColor: '#FFB347',
+            health: 100,
+            hunger: 100,
+            thirst: 100,
+            happiness: 100,
+            score: 0,
+            streak: 0,
+            correct: 0,
+            xp: 0,
+            stage: 0, // 0 = newborn, 1 = kitten, 2 = teen, 3 = adult
+            currentTopic: 'addition',
+            currentAction: null,
+            currentQuestion: null,
+            currentAnswer: null,
+            soundEnabled: true,
+            xpToEvolve: [100, 350, 800], // XP needed for kitten, teen, adult
+            difficulty: 1, // 1-5 difficulty level
+            correctInARow: 0, // Track consecutive correct answers for difficulty scaling
+            questionsAtCurrentDifficulty: 0, // Track questions answered at current difficulty
+            
+            // New features
+            totalCorrect: 0, // Lifetime correct answers
+            unlockedTricks: ['sit'], // Available tricks
+            currentCatIndex: 0, // Which cat is active
+            cats: [], // Array of cat data for multiple cats
+            storyMode: false, // Story mode active
+            storyProgress: 0, // Current story chapter
+            bossActive: false, // Boss battle in progress
+            bossHealth: 0, // Boss HP
+            catFacts: [
+                "Cats sleep for about 70% of their lives!",
+                "A group of cats is called a 'clowder'.",
+                "Cats can rotate their ears 180 degrees!",
+                "A cat's nose print is unique, like a fingerprint.",
+                "Cats can jump up to 6 times their length!",
+                "The oldest known cat lived to be 38 years old!",
+                "Cats have over 20 different vocalizations.",
+                "A cat's purr vibrates at 25-150 Hz.",
+                "Cats spend 30-50% of their day grooming.",
+                "Cats can run up to 30 miles per hour!",
+                "Cats have 230 bones (humans have 206).",
+                "A cat's heart beats twice as fast as a human's.",
+                "Cats can't taste sweetness.",
+                "Cats have whiskers on their front legs too!",
+                "A cat's meow is only used to communicate with humans."
+            ],
+            lastFactIndex: -1,
+            miniGameActive: false,
+            miniGameScore: 0
+        };
+        
+        // Tricks data - unlocked as cat grows
+        const tricksData = {
+            sit: { name: 'Sit', emoji: '🐱', unlockStage: 0 },
+            wave: { name: 'Wave', emoji: '👋', unlockStage: 1 },
+            roll: { name: 'Roll Over', emoji: '🔄', unlockStage: 1 },
+            highfive: { name: 'High Five', emoji: '✋', unlockStage: 2 },
+            dance: { name: 'Dance', emoji: '💃', unlockStage: 2 },
+            backflip: { name: 'Backflip', emoji: '🤸', unlockStage: 3 }
+        };
+        
+        // Story mode chapters
+        const storyChapters = [
+            {
+                title: "The Hungry Kitten",
+                description: "Help your kitten collect 5 fish to have dinner!",
+                goal: 5,
+                reward: 50,
+                icon: "🐟"
+            },
+            {
+                title: "Cross the River",
+                description: "Build a bridge with 8 wooden planks to cross the river!",
+                goal: 8,
+                reward: 75,
+                icon: "🌉"
+            },
+            {
+                title: "The Yarn Ball Hunt",
+                description: "Find 10 yarn balls hidden in the garden!",
+                goal: 10,
+                reward: 100,
+                icon: "🧶"
+            },
+            {
+                title: "Moonlight Adventure",
+                description: "Catch 12 fireflies to light your way home!",
+                goal: 12,
+                reward: 125,
+                icon: "✨"
+            },
+            {
+                title: "The Cat Castle",
+                description: "Collect 15 blocks to build your dream cat castle!",
+                goal: 15,
+                reward: 150,
+                icon: "🏰"
+            }
+        ];
+        
+        // Boss data
+        const bossData = [
+            { name: "Grumpy Dog", emoji: "🐕", hp: 5, reward: 100 },
+            { name: "Sneaky Raccoon", emoji: "🦝", hp: 7, reward: 150 },
+            { name: "Giant Spider", emoji: "🕷️", hp: 10, reward: 200 },
+            { name: "Mischief Mouse King", emoji: "🐭👑", hp: 12, reward: 250 },
+            { name: "The Vacuum Cleaner", emoji: "🌀", hp: 15, reward: 300 }
+        ];
+        
+        // ============ AUDIO CONTEXT ============
+        let audioContext = null;
+        
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        
+        function playSound(type) {
+            if (!gameState.soundEnabled) return;
+            initAudio();
+            
+            switch(type) {
+                case 'correct':
+                    playCorrectSound();
+                    break;
+                case 'incorrect':
+                    playIncorrectSound();
+                    break;
+                case 'click':
+                    playClickSound();
+                    break;
+                case 'meow':
+                    playMeowSound();
+                    break;
+                case 'purr':
+                    playPurrSound();
+                    break;
+                case 'evolution':
+                    playEvolutionSound();
+                    break;
+                case 'feed':
+                case 'water':
+                    playMunchSound();
+                    playMeowSound();
+                    break;
+                case 'play':
+                    playChirpSound();
+                    break;
+                case 'happy':
+                    playPurrSound();
+                    break;
+                case 'sad':
+                    playSadSound();
+                    break;
+            }
+        }
+        
+        function playCorrectSound() {
+            // Happy ascending chime
+            const notes = [523.25, 659.25, 783.99];
+            notes.forEach((freq, i) => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioContext.currentTime + i * 0.1);
+                gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.3);
+                osc.start(audioContext.currentTime + i * 0.1);
+                osc.stop(audioContext.currentTime + i * 0.1 + 0.3);
+            });
+        }
+        
+        function playIncorrectSound() {
+            // Soft descending tone
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(330, audioContext.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(220, audioContext.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            osc.start(audioContext.currentTime);
+            osc.stop(audioContext.currentTime + 0.3);
+        }
+        
+        function playClickSound() {
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, audioContext.currentTime);
+            gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+            osc.start(audioContext.currentTime);
+            osc.stop(audioContext.currentTime + 0.05);
+        }
+        
+        function playMeowSound() {
+            // Simple cute "mew" sound
+            const now = audioContext.currentTime;
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            
+            osc.type = 'sine';
+            // Quick rise then fall - like "mew"
+            osc.frequency.setValueAtTime(600, now);
+            osc.frequency.linearRampToValueAtTime(800, now + 0.08);
+            osc.frequency.linearRampToValueAtTime(500, now + 0.25);
+            
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(0.15, now + 0.03);
+            gain.gain.linearRampToValueAtTime(0.12, now + 0.15);
+            gain.gain.linearRampToValueAtTime(0, now + 0.25);
+            
+            osc.start(now);
+            osc.stop(now + 0.25);
+        }
+        
+        function playPurrSound() {
+            // Soft rumble purr effect
+            const now = audioContext.currentTime;
+            const duration = 0.6;
+            
+            // Create white noise for texture
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            // Create rhythmic purr pattern
+            for (let i = 0; i < bufferSize; i++) {
+                const t = i / audioContext.sampleRate;
+                const purrRate = 25; // purrs per second
+                const purrEnvelope = 0.5 + 0.5 * Math.sin(2 * Math.PI * purrRate * t);
+                data[i] = (Math.random() * 2 - 1) * 0.3 * purrEnvelope;
+            }
+            
+            const noise = audioContext.createBufferSource();
+            noise.buffer = buffer;
+            
+            // Low pass filter to make it rumbly
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(150, now);
+            
+            const gain = audioContext.createGain();
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(0.2, now + 0.1);
+            gain.gain.setValueAtTime(0.2, now + duration - 0.15);
+            gain.gain.linearRampToValueAtTime(0, now + duration);
+            
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            
+            noise.start(now);
+            noise.stop(now + duration);
+        }
+        
+        function playChirpSound() {
+            // Playful chirp/trill sound
+            const now = audioContext.currentTime;
+            
+            for (let i = 0; i < 3; i++) {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                
+                osc.type = 'sine';
+                const startTime = now + i * 0.12;
+                osc.frequency.setValueAtTime(700 + i * 100, startTime);
+                osc.frequency.linearRampToValueAtTime(900 + i * 100, startTime + 0.05);
+                
+                gain.gain.setValueAtTime(0, startTime);
+                gain.gain.linearRampToValueAtTime(0.1, startTime + 0.02);
+                gain.gain.linearRampToValueAtTime(0, startTime + 0.08);
+                
+                osc.start(startTime);
+                osc.stop(startTime + 0.08);
+            }
+        }
+        
+        function playSadSound() {
+            // Soft descending whimper
+            const now = audioContext.currentTime;
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(500, now);
+            osc.frequency.linearRampToValueAtTime(350, now + 0.3);
+            
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(0.1, now + 0.05);
+            gain.gain.linearRampToValueAtTime(0, now + 0.3);
+            
+            osc.start(now);
+            osc.stop(now + 0.3);
+        }
+        
+        function playEvolutionSound() {
+            // Magical ascending arpeggio
+            const notes = [392, 440, 523.25, 587.33, 659.25, 783.99, 880, 1046.5];
+            notes.forEach((freq, i) => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                osc.type = 'sine';
+                const startTime = audioContext.currentTime + i * 0.08;
+                osc.frequency.setValueAtTime(freq, startTime);
+                gain.gain.setValueAtTime(0.15, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.25);
+                osc.start(startTime);
+                osc.stop(startTime + 0.25);
+            });
+        }
+        
+        function playMunchSound() {
+            // Simple soft pop sounds
+            for (let i = 0; i < 2; i++) {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                
+                osc.type = 'sine';
+                const startTime = audioContext.currentTime + i * 0.15;
+                osc.frequency.setValueAtTime(200, startTime);
+                osc.frequency.exponentialRampToValueAtTime(100, startTime + 0.08);
+                
+                gain.gain.setValueAtTime(0.1, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.08);
+                
+                osc.start(startTime);
+                osc.stop(startTime + 0.08);
+            }
+        }
+        
+        // ============ CAT SVG GENERATION ============
+        function getCatSVG(stage, expression = 'normal', catColor = null) {
+            const color = catColor || gameState.catColor || '#FFB347';
+            
+            // Calculate color variations
+            const lighterColor = lightenColor(color, 30);
+            const darkerColor = darkenColor(color, 20);
+            const pinkColor = '#FFB6C1';
+            
+            let size, scale;
+            
+            switch(stage) {
+                case 0: // Newborn (sleeping)
+                    size = 160;
+                    scale = 0.6;
+                    break;
+                case 1: // Kitten
+                    size = 160;
+                    scale = 0.75;
+                    break;
+                case 2: // Teen
+                    size = 180;
+                    scale = 0.88;
+                    break;
+                case 3: // Adult
+                    size = 200;
+                    scale = 1;
+                    break;
+            }
+            
+            const cx = size / 2;
+            const cy = size / 2;
+            
+            // Newborn sleeping stage - curled up ball
+            if (stage === 0) {
+                return `
+                    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="cat-svg">
+                        <g transform="translate(${cx}, ${cy + 20}) scale(${scale}) translate(${-cx}, ${-cy})">
+                            
+                            <!-- Shadow -->
+                            <ellipse cx="${cx}" cy="${cy + 45}" rx="40" ry="10" fill="rgba(0,0,0,0.1)"/>
+                            
+                            <!-- Curled up body -->
+                            <ellipse cx="${cx}" cy="${cy + 20}" rx="45" ry="35" fill="${color}"/>
+                            
+                            <!-- Tail curled around -->
+                            <g class="cat-tail">
+                                <path d="M${cx + 35} ${cy + 30} Q${cx + 50} ${cy + 45} ${cx + 40} ${cy + 50} Q${cx + 20} ${cy + 55} ${cx} ${cy + 45}" 
+                                      stroke="${color}" stroke-width="14" fill="none" stroke-linecap="round"/>
+                                <path d="M${cx + 35} ${cy + 30} Q${cx + 50} ${cy + 45} ${cx + 40} ${cy + 50} Q${cx + 20} ${cy + 55} ${cx} ${cy + 45}" 
+                                      stroke="${darkerColor}" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.3" stroke-dasharray="8 12"/>
+                            </g>
+                            
+                            <!-- Head resting -->
+                            <ellipse cx="${cx - 15}" cy="${cy}" rx="32" ry="28" fill="${color}"/>
+                            
+                            <!-- Curved ears (folded down for baby) -->
+                            <ellipse cx="${cx - 38}" cy="${cy - 18}" rx="12" ry="10" fill="${color}" transform="rotate(-20 ${cx - 38} ${cy - 18})"/>
+                            <ellipse cx="${cx - 36}" cy="${cy - 16}" rx="7" ry="6" fill="${pinkColor}" transform="rotate(-20 ${cx - 36} ${cy - 16})"/>
+                            
+                            <ellipse cx="${cx + 5}" cy="${cy - 22}" rx="12" ry="10" fill="${color}" transform="rotate(20 ${cx + 5} ${cy - 22})"/>
+                            <ellipse cx="${cx + 3}" cy="${cy - 20}" rx="7" ry="6" fill="${pinkColor}" transform="rotate(20 ${cx + 3} ${cy - 20})"/>
+                            
+                            <!-- Closed sleeping eyes -->
+                            <path d="M${cx - 28} ${cy - 2} Q${cx - 22} ${cy - 8} ${cx - 16} ${cy - 2}" stroke="#2D1B07" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M${cx - 8} ${cy - 2} Q${cx - 2} ${cy - 8} ${cx + 4} ${cy - 2}" stroke="#2D1B07" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Tiny nose -->
+                            <ellipse cx="${cx - 12}" cy="${cy + 6}" rx="4" ry="3" fill="${pinkColor}" stroke="#2D1B07" stroke-width="1.5"/>
+                            
+                            <!-- Nose to mouth line -->
+                            <line x1="${cx - 12}" y1="${cy + 9}" x2="${cx - 12}" y2="${cy + 11}" stroke="#2D1B07" stroke-width="1.5" stroke-linecap="round"/>
+                            
+                            <!-- Tiny smile -->
+                            <path d="M${cx - 16} ${cy + 12} Q${cx - 12} ${cy + 15} ${cx - 8} ${cy + 12}" stroke="#2D1B07" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Small whiskers -->
+                            <g class="cat-whiskers-left">
+                                <line x1="${cx - 22}" y1="${cy + 6}" x2="${cx - 38}" y2="${cy + 2}" stroke="#2D1B07" stroke-width="1.5" stroke-linecap="round"/>
+                                <line x1="${cx - 22}" y1="${cy + 10}" x2="${cx - 38}" y2="${cy + 10}" stroke="#2D1B07" stroke-width="1.5" stroke-linecap="round"/>
+                            </g>
+                            <g class="cat-whiskers-right">
+                                <line x1="${cx - 2}" y1="${cy + 6}" x2="${cx + 14}" y2="${cy + 2}" stroke="#2D1B07" stroke-width="1.5" stroke-linecap="round"/>
+                                <line x1="${cx - 2}" y1="${cy + 10}" x2="${cx + 14}" y2="${cy + 10}" stroke="#2D1B07" stroke-width="1.5" stroke-linecap="round"/>
+                            </g>
+                            
+                            <!-- Zzz sleeping indicator -->
+                            <text x="${cx + 30}" y="${cy - 25}" font-family="Fredoka, sans-serif" font-size="14" fill="#9B59B6" opacity="0.8">z</text>
+                            <text x="${cx + 40}" y="${cy - 35}" font-family="Fredoka, sans-serif" font-size="18" fill="#9B59B6" opacity="0.6">z</text>
+                            <text x="${cx + 52}" y="${cy - 48}" font-family="Fredoka, sans-serif" font-size="22" fill="#9B59B6" opacity="0.4">z</text>
+                            
+                            <!-- Body stripes -->
+                            <ellipse cx="${cx + 15}" cy="${cy + 15}" rx="8" ry="12" fill="${darkerColor}" opacity="0.3"/>
+                            <ellipse cx="${cx - 5}" cy="${cy + 25}" rx="6" ry="10" fill="${darkerColor}" opacity="0.3"/>
+                            
+                        </g>
+                    </svg>
+                `;
+            }
+            
+            // Eye expressions
+            let eyeContent = '';
+            let mouthContent = '';
+            
+            if (expression === 'happy') {
+                // Happy closed eyes (^ ^)
+                eyeContent = `
+                    <path d="M${cx-22} ${cy-15} Q${cx-17} ${cy-25} ${cx-12} ${cy-15}" stroke="#2D1B07" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M${cx+12} ${cy-15} Q${cx+17} ${cy-25} ${cx+22} ${cy-15}" stroke="#2D1B07" stroke-width="3" fill="none" stroke-linecap="round"/>
+                `;
+                mouthContent = `
+                    <path d="M${cx-8} ${cy+8} Q${cx} ${cy+15} ${cx+8} ${cy+8}" stroke="#2D1B07" stroke-width="2" fill="none" stroke-linecap="round"/>
+                `;
+            } else if (expression === 'sad') {
+                // Sad eyes
+                eyeContent = `
+                    <ellipse cx="${cx-17}" cy="${cy-12}" rx="10" ry="12" fill="white"/>
+                    <ellipse cx="${cx+17}" cy="${cy-12}" rx="10" ry="12" fill="white"/>
+                    <ellipse cx="${cx-17}" cy="${cy-10}" rx="7" ry="8" fill="#6BB5E0"/>
+                    <ellipse cx="${cx+17}" cy="${cy-10}" rx="7" ry="8" fill="#6BB5E0"/>
+                    <ellipse cx="${cx-17}" cy="${cy-10}" rx="4" ry="5" fill="#2D1B07"/>
+                    <ellipse cx="${cx+17}" cy="${cy-10}" rx="4" ry="5" fill="#2D1B07"/>
+                    <ellipse cx="${cx-15}" cy="${cy-13}" rx="2" ry="2" fill="white"/>
+                    <ellipse cx="${cx+19}" cy="${cy-13}" rx="2" ry="2" fill="white"/>
+                    <path d="M${cx-25} ${cy-25} L${cx-10} ${cy-20}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M${cx+10} ${cy-20} L${cx+25} ${cy-25}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                `;
+                mouthContent = `
+                    <path d="M${cx-6} ${cy+12} Q${cx} ${cy+6} ${cx+6} ${cy+12}" stroke="#2D1B07" stroke-width="2" fill="none" stroke-linecap="round"/>
+                `;
+            } else if (expression === 'eating') {
+                // Eating - happy eyes, open mouth
+                eyeContent = `
+                    <path d="M${cx-22} ${cy-15} Q${cx-17} ${cy-25} ${cx-12} ${cy-15}" stroke="#2D1B07" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M${cx+12} ${cy-15} Q${cx+17} ${cy-25} ${cx+22} ${cy-15}" stroke="#2D1B07" stroke-width="3" fill="none" stroke-linecap="round"/>
+                `;
+                mouthContent = `
+                    <ellipse cx="${cx}" cy="${cy+10}" rx="8" ry="6" fill="#2D1B07"/>
+                    <ellipse cx="${cx}" cy="${cy+8}" rx="5" ry="3" fill="#FF6B6B"/>
+                `;
+            } else {
+                // Normal - big cute blue eyes
+                eyeContent = `
+                    <ellipse cx="${cx-17}" cy="${cy-12}" rx="12" ry="14" fill="white"/>
+                    <ellipse cx="${cx+17}" cy="${cy-12}" rx="12" ry="14" fill="white"/>
+                    <ellipse cx="${cx-17}" cy="${cy-10}" rx="8" ry="10" fill="#6BB5E0"/>
+                    <ellipse cx="${cx+17}" cy="${cy-10}" rx="8" ry="10" fill="#6BB5E0"/>
+                    <ellipse cx="${cx-17}" cy="${cy-10}" rx="5" ry="6" fill="#2D1B07"/>
+                    <ellipse cx="${cx+17}" cy="${cy-10}" rx="5" ry="6" fill="#2D1B07"/>
+                    <ellipse cx="${cx-14}" cy="${cy-14}" rx="3" ry="3" fill="white"/>
+                    <ellipse cx="${cx+20}" cy="${cy-14}" rx="3" ry="3" fill="white"/>
+                    <ellipse cx="${cx-19}" cy="${cy-8}" rx="1.5" ry="1.5" fill="white" opacity="0.7"/>
+                    <ellipse cx="${cx+15}" cy="${cy-8}" rx="1.5" ry="1.5" fill="white" opacity="0.7"/>
+                `;
+                mouthContent = `
+                    <path d="M${cx-5} ${cy+8} Q${cx} ${cy+12} ${cx+5} ${cy+8}" stroke="#2D1B07" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <circle cx="${cx-8}" cy="${cy+10}" r="1" fill="#2D1B07"/>
+                    <circle cx="${cx+8}" cy="${cy+10}" r="1" fill="#2D1B07"/>
+                `;
+            }
+            
+            return `
+                <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="cat-svg">
+                    <g transform="translate(${cx}, ${cy}) scale(${scale}) translate(${-cx}, ${-cy})">
+                        
+                        <!-- Shadow -->
+                        <ellipse cx="${cx}" cy="${size-15}" rx="35" ry="8" fill="rgba(0,0,0,0.1)"/>
+                        
+                        <!-- Tail with animation -->
+                        <g class="cat-tail">
+                            <path d="M${cx+30} ${size-40} Q${cx+55} ${size-50} ${cx+60} ${size-75} Q${cx+62} ${size-90} ${cx+55} ${size-95}" 
+                                  stroke="${color}" stroke-width="14" fill="none" stroke-linecap="round"/>
+                            <!-- Tail stripes -->
+                            <path d="M${cx+50} ${size-60} Q${cx+55} ${size-65} ${cx+58} ${size-70}" 
+                                  stroke="${darkerColor}" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.4"/>
+                            <path d="M${cx+55} ${size-78} Q${cx+58} ${size-83} ${cx+57} ${size-88}" 
+                                  stroke="${darkerColor}" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.4"/>
+                        </g>
+                        
+                        <!-- Back body -->
+                        <ellipse cx="${cx+5}" cy="${size-50}" rx="35" ry="30" fill="${color}"/>
+                        
+                        <!-- Body (front) with subtle breathing -->
+                        <g class="cat-body">
+                            <ellipse cx="${cx}" cy="${size-55}" rx="30" ry="35" fill="${color}"/>
+                            <!-- Body stripes/spots -->
+                            <ellipse cx="${cx-12}" cy="${size-45}" rx="6" ry="8" fill="${darkerColor}" opacity="0.35"/>
+                            <ellipse cx="${cx+10}" cy="${size-50}" rx="5" ry="6" fill="${darkerColor}" opacity="0.35"/>
+                        </g>
+                        
+                        <!-- Front paws -->
+                        <ellipse cx="${cx-15}" cy="${size-22}" rx="12" ry="8" fill="${color}"/>
+                        <ellipse cx="${cx+15}" cy="${size-22}" rx="12" ry="8" fill="${color}"/>
+                        <!-- Paw details -->
+                        <ellipse cx="${cx-18}" cy="${size-20}" rx="3" ry="2" fill="${lighterColor}"/>
+                        <ellipse cx="${cx-15}" cy="${size-19}" rx="3" ry="2" fill="${lighterColor}"/>
+                        <ellipse cx="${cx-12}" cy="${size-20}" rx="3" ry="2" fill="${lighterColor}"/>
+                        <ellipse cx="${cx+12}" cy="${size-20}" rx="3" ry="2" fill="${lighterColor}"/>
+                        <ellipse cx="${cx+15}" cy="${size-19}" rx="3" ry="2" fill="${lighterColor}"/>
+                        <ellipse cx="${cx+18}" cy="${size-20}" rx="3" ry="2" fill="${lighterColor}"/>
+                        
+                        <!-- Chest tuft -->
+                        <ellipse cx="${cx}" cy="${size-70}" rx="18" ry="12" fill="${lighterColor}"/>
+                        
+                        <!-- Head -->
+                        <ellipse cx="${cx}" cy="${cy}" rx="40" ry="35" fill="${color}"/>
+                        
+                        <!-- Head stripes -->
+                        <path d="M${cx} ${cy-35} L${cx} ${cy-20}" stroke="${darkerColor}" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+                        <path d="M${cx-8} ${cy-33} L${cx-6} ${cy-22}" stroke="${darkerColor}" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+                        <path d="M${cx+8} ${cy-33} L${cx+6} ${cy-22}" stroke="${darkerColor}" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+                        
+                        <!-- Cheek patches -->
+                        <ellipse cx="${cx-25}" cy="${cy+5}" rx="8" ry="6" fill="${darkerColor}" opacity="0.25"/>
+                        <ellipse cx="${cx+25}" cy="${cy+5}" rx="8" ry="6" fill="${darkerColor}" opacity="0.25"/>
+                        
+                        <!-- Curved ears (more rounded like reference) -->
+                        <g class="cat-ear-left">
+                            <ellipse cx="${cx-30}" cy="${cy-32}" rx="15" ry="22" fill="${color}" transform="rotate(-15 ${cx-30} ${cy-32})"/>
+                            <ellipse cx="${cx-29}" cy="${cy-30}" rx="9" ry="14" fill="${pinkColor}" transform="rotate(-15 ${cx-29} ${cy-30})"/>
+                        </g>
+                        <g class="cat-ear-right">
+                            <ellipse cx="${cx+30}" cy="${cy-32}" rx="15" ry="22" fill="${color}" transform="rotate(15 ${cx+30} ${cy-32})"/>
+                            <ellipse cx="${cx+29}" cy="${cy-30}" rx="9" ry="14" fill="${pinkColor}" transform="rotate(15 ${cx+29} ${cy-30})"/>
+                        </g>
+                        
+                        <!-- Eyes with blink animation -->
+                        <g class="cat-eyes">
+                            ${eyeContent}
+                        </g>
+                        
+                        <!-- Nose -->
+                        <g class="cat-nose">
+                            <ellipse cx="${cx}" cy="${cy+2}" rx="5" ry="4" fill="${pinkColor}" stroke="#2D1B07" stroke-width="1.5"/>
+                        </g>
+                        
+                        <!-- Nose to mouth line -->
+                        <line x1="${cx}" y1="${cy+6}" x2="${cx}" y2="${cy+8}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                        
+                        <!-- Mouth -->
+                        ${mouthContent}
+                        
+                        <!-- Whiskers with subtle animation -->
+                        <g class="cat-whiskers-left">
+                            <line x1="${cx-15}" y1="${cy+5}" x2="${cx-45}" y2="${cy-2}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="${cx-15}" y1="${cy+8}" x2="${cx-45}" y2="${cy+8}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="${cx-15}" y1="${cy+11}" x2="${cx-45}" y2="${cy+18}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                        </g>
+                        <g class="cat-whiskers-right">
+                            <line x1="${cx+15}" y1="${cy+5}" x2="${cx+45}" y2="${cy-2}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="${cx+15}" y1="${cy+8}" x2="${cx+45}" y2="${cy+8}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="${cx+15}" y1="${cy+11}" x2="${cx+45}" y2="${cy+18}" stroke="#2D1B07" stroke-width="2" stroke-linecap="round"/>
+                        </g>
+                        
+                        ${stage === 3 ? `
+                            <!-- Crown for adult cat -->
+                            <g transform="translate(${cx}, ${cy-58})">
+                                <polygon points="-15,5 -10,-12 -5,2 0,-18 5,2 10,-12 15,5" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+                                <circle cx="0" cy="-10" r="3" fill="#E74C3C"/>
+                                <circle cx="-8" cy="-5" r="2" fill="#3498DB"/>
+                                <circle cx="8" cy="-5" r="2" fill="#2ECC71"/>
+                            </g>
+                        ` : ''}
+                    </g>
+                </svg>
+            `;
+        }
+        
+        // Helper function to lighten a color
+        function lightenColor(color, percent) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) + amt;
+            const G = (num >> 8 & 0x00FF) + amt;
+            const B = (num & 0x0000FF) + amt;
+            return '#' + (
+                0x1000000 +
+                (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+                (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+                (B < 255 ? (B < 1 ? 0 : B) : 255)
+            ).toString(16).slice(1);
+        }
+        
+        // Helper function to darken a color
+        function darkenColor(color, percent) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) - amt;
+            const G = (num >> 8 & 0x00FF) - amt;
+            const B = (num & 0x0000FF) - amt;
+            return '#' + (
+                0x1000000 +
+                (R > 0 ? (R < 255 ? R : 255) : 0) * 0x10000 +
+                (G > 0 ? (G < 255 ? G : 255) : 0) * 0x100 +
+                (B > 0 ? (B < 255 ? B : 255) : 0)
+            ).toString(16).slice(1);
+        }
+        
+        // ============ INITIALIZATION ============
+        function init() {
+            createBubbles();
+            createStars();
+            createGrass();
+            updateCatPreview();
+            updateTricksList();
+            
+            // Initialize first cat in cats array
+            if (gameState.cats.length === 0) {
+                gameState.cats.push({
+                    name: gameState.catName,
+                    color: gameState.catColor,
+                    xp: 0,
+                    stage: 0,
+                    score: 0,
+                    totalCorrect: 0
+                });
+            }
+            
+            document.getElementById('answerInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkAnswer();
+            });
+            
+            document.getElementById('soundToggle').addEventListener('click', toggleSound);
+            
+            // Close tricks panel when clicking outside
+            document.addEventListener('click', (e) => {
+                const panel = document.getElementById('tricksPanel');
+                const btn = document.querySelector('.tricks-btn');
+                if (panel && !panel.contains(e.target) && e.target !== btn) {
+                    panel.classList.remove('show');
+                }
+            });
+        }
+        
+        function selectColor(color) {
+            gameState.catColor = color;
+            
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-color="${color}"]`).classList.add('active');
+            
+            updateCatPreview();
+            playSound('click');
+        }
+        
+        function updateCatPreview() {
+            const preview = document.getElementById('catPreview');
+            if (preview) {
+                preview.innerHTML = getCatSVG(1, 'happy', gameState.catColor);
+            }
+        }
+        
+        function createBubbles() {
+            const container = document.getElementById('bubbles');
+            const colors = ['#FFB6C1', '#87CEEB', '#98FB98', '#DDA0DD', '#F0E68C', '#FFB347'];
+            
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.top = Math.random() * 100 + '%';
+                bubble.style.width = (Math.random() * 40 + 20) + 'px';
+                bubble.style.height = bubble.style.width;
+                bubble.style.background = colors[Math.floor(Math.random() * colors.length)];
+                bubble.style.animationDelay = Math.random() * 5 + 's';
+                bubble.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                container.appendChild(bubble);
+            }
+        }
+        
+        function createStars() {
+            const container = document.getElementById('stars');
+            const starEmojis = ['⭐', '✨', '🌟', '💫'];
+            
+            for (let i = 0; i < 15; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.textContent = starEmojis[Math.floor(Math.random() * starEmojis.length)];
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(star);
+            }
+        }
+        
+        function createGrass() {
+            const grass = document.getElementById('grass');
+            for (let i = 0; i < 30; i++) {
+                const blade = document.createElement('div');
+                blade.className = 'grass-blade';
+                blade.style.animationDelay = Math.random() * 2 + 's';
+                blade.style.height = (15 + Math.random() * 15) + 'px';
+                grass.appendChild(blade);
+            }
+        }
+        
+        // ============ GAME FUNCTIONS ============
+        function startGame() {
+            const nameInput = document.getElementById('catNameInput');
+            gameState.catName = nameInput.value.trim() || 'Whiskers';
+            
+            // Save cat data
+            saveCatData();
+            
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+            document.getElementById('catNameDisplay').textContent = gameState.catName;
+            
+            updateCatDisplay();
+            updateAllBars();
+            updateTricksList();
+            
+            playSound('meow');
+            
+            // Start stat decay
+            setInterval(decayStats, 5000);
+        }
+        
+        function restartGame() {
+            gameState.health = 100;
+            gameState.hunger = 100;
+            gameState.thirst = 100;
+            gameState.happiness = 100;
+            gameState.score = 0;
+            gameState.streak = 0;
+            gameState.correct = 0;
+            gameState.xp = 0;
+            gameState.stage = 0;
+            gameState.currentAction = null;
+            gameState.difficulty = 1;
+            gameState.correctInARow = 0;
+            gameState.questionsAtCurrentDifficulty = 0;
+            
+            updateAllBars();
+            updateCatDisplay();
+            updateScoreDisplay();
+            updateEvolutionDisplay();
+            updateDifficultyDisplay();
+            
+            document.getElementById('questionArea').style.display = 'none';
+            document.getElementById('feedbackArea').style.display = 'none';
+            document.getElementById('helpSection').style.display = 'none';
+            
+            bootstrap.Modal.getInstance(document.getElementById('gameOverModal')).hide();
+            
+            playSound('meow');
+        }
+        
+        function decayStats() {
+            if (gameState.health <= 0) return;
+            
+            gameState.hunger = Math.max(0, gameState.hunger - 2);
+            gameState.thirst = Math.max(0, gameState.thirst - 3);
+            gameState.happiness = Math.max(0, gameState.happiness - 1);
+            
+            // Health decreases if other stats are low
+            if (gameState.hunger < 30 || gameState.thirst < 30) {
+                gameState.health = Math.max(0, gameState.health - 2);
+            }
+            if (gameState.happiness < 20) {
+                gameState.health = Math.max(0, gameState.health - 1);
+            }
+            
+            updateAllBars();
+            
+            if (gameState.health <= 0) {
+                gameOver();
+            }
+        }
+        
+        function updateAllBars() {
+            updateBar('health', gameState.health);
+            updateBar('hunger', gameState.hunger);
+            updateBar('thirst', gameState.thirst);
+            updateBar('happiness', gameState.happiness);
+        }
+        
+        function updateBar(type, value) {
+            const bar = document.getElementById(type + 'Bar');
+            const valueDisplay = document.getElementById(type + 'Value');
+            
+            bar.style.width = value + '%';
+            valueDisplay.textContent = Math.round(value);
+            
+            // Add low class for animation when value is low
+            if (value < 30) {
+                bar.classList.add('low');
+            } else {
+                bar.classList.remove('low');
+            }
+        }
+        
+        function updateCatDisplay(expression = 'normal') {
+            const container = document.getElementById('catContainer');
+            container.innerHTML = getCatSVG(gameState.stage, expression);
+        }
+        
+        function updateScoreDisplay() {
+            document.getElementById('scoreDisplay').textContent = gameState.score;
+            document.getElementById('streakDisplay').textContent = gameState.streak + ' 🔥';
+            document.getElementById('correctDisplay').textContent = gameState.correct;
+        }
+        
+        function updateEvolutionDisplay() {
+            const stage0 = document.getElementById('stage0');
+            const stage1 = document.getElementById('stage1');
+            const stage2 = document.getElementById('stage2');
+            const stage3 = document.getElementById('stage3');
+            const line0 = document.getElementById('line0');
+            const line1 = document.getElementById('line1');
+            const line2 = document.getElementById('line2');
+            const xpBar = document.getElementById('xpBar');
+            const xpText = document.getElementById('xpText');
+            const stageLabel = document.getElementById('stageLabel');
+            
+            // Reset classes
+            [stage0, stage1, stage2, stage3].forEach(s => { if(s) s.className = 'stage-indicator'; });
+            [line0, line1, line2].forEach(l => { if(l) l.className = 'stage-line'; });
+            
+            // Stage 0 (Newborn)
+            if (gameState.stage === 0) {
+                stage0.classList.add('active');
+            } else {
+                stage0.classList.add('completed');
+                if (line0) line0.classList.add('completed');
+            }
+            
+            // Stage 1 (Kitten)
+            if (gameState.stage >= 1) {
+                stage1.classList.add(gameState.stage === 1 ? 'active' : 'completed');
+                if (gameState.stage > 1 && line1) line1.classList.add('completed');
+            } else {
+                stage1.classList.add('locked');
+            }
+            
+            // Stage 2 (Teen)
+            if (gameState.stage >= 2) {
+                stage2.classList.add(gameState.stage === 2 ? 'active' : 'completed');
+                if (gameState.stage > 2 && line2) line2.classList.add('completed');
+            } else {
+                stage2.classList.add('locked');
+            }
+            
+            // Stage 3 (Adult)
+            if (gameState.stage >= 3) {
+                stage3.classList.add('active');
+            } else {
+                stage3.classList.add('locked');
+            }
+            
+            // XP bar
+            let xpProgress;
+            if (gameState.stage === 0) {
+                xpProgress = (gameState.xp / gameState.xpToEvolve[0]) * 100;
+                xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[0]} XP to wake up! 💤`;
+            } else if (gameState.stage === 1) {
+                xpProgress = ((gameState.xp - gameState.xpToEvolve[0]) / (gameState.xpToEvolve[1] - gameState.xpToEvolve[0])) * 100;
+                xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[1]} XP to Teen`;
+            } else if (gameState.stage === 2) {
+                xpProgress = ((gameState.xp - gameState.xpToEvolve[1]) / (gameState.xpToEvolve[2] - gameState.xpToEvolve[1])) * 100;
+                xpText.textContent = `${gameState.xp} / ${gameState.xpToEvolve[2]} XP to Adult`;
+            } else {
+                xpProgress = 100;
+                xpText.textContent = `MAX LEVEL! 🏆`;
+            }
+            xpBar.style.width = Math.min(100, Math.max(0, xpProgress)) + '%';
+            
+            // Stage label
+            const stages = ['😴 Newborn', '🐱 Kitten', '😺 Teen Cat', '🦁 Adult Cat'];
+            stageLabel.textContent = stages[gameState.stage];
+        }
+        
+        function selectTopic(topic) {
+            gameState.currentTopic = topic;
+            
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-topic="${topic}"]`).classList.add('active');
+            
+            playSound('click');
+        }
+        
+        function selectAction(action) {
+            gameState.currentAction = action;
+            
+            document.getElementById('questionArea').style.display = 'block';
+            document.getElementById('feedbackArea').style.display = 'none';
+            document.getElementById('helpSection').style.display = 'none';
+            
+            generateQuestion();
+            
+            document.getElementById('actionHint').textContent = 
+                action === 'feed' ? '🍖 Answer correctly to feed your cat!' :
+                action === 'water' ? '💧 Answer correctly to give water!' :
+                '🎾 Answer correctly to play with your cat!';
+            
+            playSound('click');
+            document.getElementById('answerInput').focus();
+        }
+        
+        // ============ MATH QUESTION GENERATION ============
+        function generateQuestion() {
+            // Hide help section from previous question
+            document.getElementById('helpSection').style.display = 'none';
+            
+            let topic = gameState.currentTopic;
+            
+            if (topic === 'mixed') {
+                const topics = ['addition', 'subtraction', 'multiplication', 'division', 'equations', 'fractions'];
+                topic = topics[Math.floor(Math.random() * topics.length)];
+            }
+            
+            let question, answer, type;
+            
+            // Get difficulty parameters based on current difficulty level (1-5)
+            const diff = gameState.difficulty;
+            const diffParams = getDifficultyParams(diff);
+            
+            switch(topic) {
+                case 'addition':
+                    const a1 = Math.floor(Math.random() * diffParams.addSubMax) + diffParams.minNum;
+                    const a2 = Math.floor(Math.random() * diffParams.addSubMax) + diffParams.minNum;
+                    question = `${a1} + ${a2} = ?`;
+                    answer = a1 + a2;
+                    type = 'Addition';
+                    gameState.currentQuestion = { type: 'addition', num1: a1, num2: a2 };
+                    break;
+                    
+                case 'subtraction':
+                    let s1 = Math.floor(Math.random() * diffParams.addSubMax) + diffParams.minNum;
+                    let s2 = Math.floor(Math.random() * diffParams.addSubMax) + diffParams.minNum;
+                    if (s2 > s1) [s1, s2] = [s2, s1]; // Ensure positive result
+                    question = `${s1} - ${s2} = ?`;
+                    answer = s1 - s2;
+                    type = 'Subtraction';
+                    gameState.currentQuestion = { type: 'subtraction', num1: s1, num2: s2 };
+                    break;
+                    
+                case 'multiplication':
+                    const m1 = Math.floor(Math.random() * diffParams.multDivMax) + 1;
+                    const m2 = Math.floor(Math.random() * diffParams.multDivMax) + 1;
+                    question = `${m1} × ${m2} = ?`;
+                    answer = m1 * m2;
+                    type = 'Multiplication';
+                    gameState.currentQuestion = { type: 'multiplication', num1: m1, num2: m2 };
+                    break;
+                    
+                case 'division':
+                    const divisor = Math.floor(Math.random() * diffParams.multDivMax) + 1;
+                    const quotient = Math.floor(Math.random() * diffParams.multDivMax) + 1;
+                    const dividend = divisor * quotient;
+                    question = `${dividend} ÷ ${divisor} = ?`;
+                    answer = quotient;
+                    type = 'Division';
+                    gameState.currentQuestion = { type: 'division', dividend, divisor, quotient };
+                    break;
+                    
+                case 'equations':
+                    const x = Math.floor(Math.random() * diffParams.eqMax) + diffParams.minNum;
+                    const b = Math.floor(Math.random() * diffParams.eqMax) + diffParams.minNum;
+                    const result = x + b;
+                    question = `? + ${b} = ${result}`;
+                    answer = x;
+                    type = 'Equation';
+                    gameState.currentQuestion = { type: 'equation', x, b, result };
+                    break;
+                    
+                case 'fractions':
+                    // Generate fraction problems based on difficulty
+                    const fractionProblems = generateFractionProblem();
+                    question = fractionProblems.question;
+                    answer = fractionProblems.answer;
+                    type = 'Fraction';
+                    gameState.currentQuestion = fractionProblems.questionData;
+                    break;
+            }
+            
+            gameState.currentAnswer = answer;
+            document.getElementById('questionText').innerHTML = question;
+            document.getElementById('questionType').textContent = type + ' Problem';
+            document.getElementById('answerInput').value = '';
+            
+            // Update difficulty display
+            updateDifficultyDisplay();
+        }
+        
+        function getDifficultyParams(level) {
+            // Returns number ranges based on difficulty level 1-5
+            const params = {
+                1: { minNum: 1, addSubMax: 10, multDivMax: 5, eqMax: 10, fracDenoms: [2, 3, 4] },
+                2: { minNum: 1, addSubMax: 20, multDivMax: 8, eqMax: 15, fracDenoms: [2, 3, 4, 5, 6] },
+                3: { minNum: 1, addSubMax: 50, multDivMax: 10, eqMax: 20, fracDenoms: [2, 3, 4, 5, 6, 8] },
+                4: { minNum: 5, addSubMax: 100, multDivMax: 12, eqMax: 30, fracDenoms: [3, 4, 5, 6, 8, 10] },
+                5: { minNum: 10, addSubMax: 200, multDivMax: 15, eqMax: 50, fracDenoms: [4, 5, 6, 8, 10, 12] }
+            };
+            return params[level] || params[1];
+        }
+        
+        function updateDifficulty(correct) {
+            if (correct) {
+                gameState.correctInARow++;
+                gameState.questionsAtCurrentDifficulty++;
+                
+                // Increase difficulty after 3 correct in a row (max level 5)
+                if (gameState.correctInARow >= 3 && gameState.difficulty < 5) {
+                    gameState.difficulty++;
+                    gameState.correctInARow = 0;
+                    gameState.questionsAtCurrentDifficulty = 0;
+                    showDifficultyChange(true);
+                }
+            } else {
+                gameState.correctInARow = 0;
+                
+                // Decrease difficulty after wrong answer if above level 1
+                if (gameState.difficulty > 1) {
+                    gameState.difficulty--;
+                    gameState.questionsAtCurrentDifficulty = 0;
+                    showDifficultyChange(false);
+                }
+            }
+        }
+        
+        function showDifficultyChange(increased) {
+            const message = increased ? 
+                `⬆️ Level Up! Difficulty: ${gameState.difficulty}/5` : 
+                `⬇️ Difficulty adjusted: ${gameState.difficulty}/5`;
+            
+            // Create a temporary notification
+            const notification = document.createElement('div');
+            notification.className = 'difficulty-notification';
+            notification.innerHTML = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${increased ? 'linear-gradient(135deg, #2ECC71, #27AE60)' : 'linear-gradient(135deg, #F39C12, #E67E22)'};
+                color: white;
+                padding: 10px 25px;
+                border-radius: 25px;
+                font-family: 'Fredoka', sans-serif;
+                font-weight: 600;
+                font-size: 1rem;
+                z-index: 1001;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                animation: slideDown 0.3s ease, fadeOut 0.5s ease 1.5s forwards;
+            `;
+            
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2000);
+        }
+        
+        function updateDifficultyDisplay() {
+            const diffDisplay = document.getElementById('difficultyDisplay');
+            if (diffDisplay) {
+                const stars = '⭐'.repeat(gameState.difficulty) + '☆'.repeat(5 - gameState.difficulty);
+                diffDisplay.innerHTML = `Level ${gameState.difficulty} ${stars}`;
+            }
+        }
+        
+        function generateFractionProblem() {
+            const diff = gameState.difficulty;
+            
+            // Problem types available based on difficulty
+            let problemTypes;
+            if (diff <= 2) {
+                problemTypes = ['identify', 'equivalent'];
+            } else if (diff <= 3) {
+                problemTypes = ['identify', 'equivalent', 'add_same'];
+            } else {
+                problemTypes = ['identify', 'equivalent', 'add_same', 'subtract_same', 'multiply'];
+            }
+            
+            const problemType = problemTypes[Math.floor(Math.random() * problemTypes.length)];
+            const diffParams = getDifficultyParams(diff);
+            const availableDenoms = diffParams.fracDenoms;
+            
+            switch(problemType) {
+                case 'identify': {
+                    // What fraction is shaded? (visual)
+                    const denominator = availableDenoms[Math.floor(Math.random() * availableDenoms.length)];
+                    const numerator = Math.floor(Math.random() * denominator) + 1;
+                    const question = `
+                        <div class="mb-2">What fraction is shaded?</div>
+                        <div class="d-flex justify-content-center gap-1 mb-2">
+                            ${Array(denominator).fill(0).map((_, i) => 
+                                `<div style="width: 40px; height: 40px; border: 2px solid #333; border-radius: 5px; background: ${i < numerator ? '#FF6B9D' : 'white'}"></div>`
+                            ).join('')}
+                        </div>
+                        <div>Enter the <strong>numerator</strong> (top number):</div>
+                        <div class="small text-muted">The denominator (bottom) is ${denominator}</div>
+                    `;
+                    return {
+                        question,
+                        answer: numerator,
+                        questionData: { type: 'fraction_identify', numerator, denominator }
+                    };
+                }
+                
+                case 'equivalent': {
+                    // Find equivalent fraction
+                    const baseDenomOptions = availableDenoms.filter(d => d <= 5);
+                    const baseDenom = baseDenomOptions[Math.floor(Math.random() * baseDenomOptions.length)] || 2;
+                    const baseNum = Math.floor(Math.random() * (baseDenom - 1)) + 1;
+                    const multiplierOptions = diff >= 4 ? [2, 3, 4, 5] : [2, 3, 4];
+                    const multiplier = multiplierOptions[Math.floor(Math.random() * multiplierOptions.length)];
+                    const newDenom = baseDenom * multiplier;
+                    const newNum = baseNum * multiplier;
+                    
+                    const question = `
+                        <div class="mb-2">Find the equivalent fraction:</div>
+                        <div class="fs-2"><sup>${baseNum}</sup>⁄<sub>${baseDenom}</sub> = <sup>?</sup>⁄<sub>${newDenom}</sub></div>
+                        <div class="mt-2">What is the numerator (top number)?</div>
+                    `;
+                    return {
+                        question,
+                        answer: newNum,
+                        questionData: { type: 'fraction_equivalent', baseNum, baseDenom, newNum, newDenom, multiplier }
+                    };
+                }
+                
+                case 'add_same': {
+                    // Add fractions with same denominator
+                    const denom = availableDenoms[Math.floor(Math.random() * availableDenoms.length)];
+                    const num1 = Math.floor(Math.random() * (denom - 2)) + 1;
+                    const num2 = Math.floor(Math.random() * (denom - num1 - 1)) + 1;
+                    const resultNum = num1 + num2;
+                    
+                    const question = `
+                        <div class="mb-2">Add these fractions:</div>
+                        <div class="fs-2"><sup>${num1}</sup>⁄<sub>${denom}</sub> + <sup>${num2}</sup>⁄<sub>${denom}</sub> = <sup>?</sup>⁄<sub>${denom}</sub></div>
+                        <div class="mt-2">What is the numerator (top number)?</div>
+                    `;
+                    return {
+                        question,
+                        answer: resultNum,
+                        questionData: { type: 'fraction_add', num1, num2, denom, resultNum }
+                    };
+                }
+                
+                case 'subtract_same': {
+                    // Subtract fractions with same denominator
+                    const denom = availableDenoms[Math.floor(Math.random() * availableDenoms.length)];
+                    const num1 = Math.floor(Math.random() * (denom - 1)) + 2;
+                    const num2 = Math.floor(Math.random() * (num1 - 1)) + 1;
+                    const resultNum = num1 - num2;
+                    
+                    const question = `
+                        <div class="mb-2">Subtract these fractions:</div>
+                        <div class="fs-2"><sup>${num1}</sup>⁄<sub>${denom}</sub> - <sup>${num2}</sup>⁄<sub>${denom}</sub> = <sup>?</sup>⁄<sub>${denom}</sub></div>
+                        <div class="mt-2">What is the numerator (top number)?</div>
+                    `;
+                    return {
+                        question,
+                        answer: resultNum,
+                        questionData: { type: 'fraction_subtract', num1, num2, denom, resultNum }
+                    };
+                }
+                
+                case 'multiply': {
+                    // Multiply a fraction by a whole number
+                    const denomOptions = availableDenoms.filter(d => d <= 6);
+                    const denom = denomOptions[Math.floor(Math.random() * denomOptions.length)] || 4;
+                    const num = Math.floor(Math.random() * (denom - 1)) + 1;
+                    const multiplierOptions = diff >= 4 ? [2, 3, 4, 5] : [2, 3, 4];
+                    const multiplier = multiplierOptions[Math.floor(Math.random() * multiplierOptions.length)];
+                    const resultNum = num * multiplier;
+                    
+                    const question = `
+                        <div class="mb-2">Multiply:</div>
+                        <div class="fs-2">${multiplier} × <sup>${num}</sup>⁄<sub>${denom}</sub> = <sup>?</sup>⁄<sub>${denom}</sub></div>
+                        <div class="mt-2">What is the numerator (top number)?</div>
+                    `;
+                    return {
+                        question,
+                        answer: resultNum,
+                        questionData: { type: 'fraction_multiply', num, denom, multiplier, resultNum }
+                    };
+                }
+            }
+        }
+        
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answerInput').value);
+            
+            if (isNaN(userAnswer)) {
+                showFeedback(false, 'Please enter a number!');
+                return;
+            }
+            
+            const isCorrect = userAnswer === gameState.currentAnswer;
+            
+            if (isCorrect) {
+                handleCorrectAnswer();
+            } else {
+                handleIncorrectAnswer(userAnswer);
+            }
+        }
+        
+        function handleCorrectAnswer() {
+            gameState.streak++;
+            gameState.correct++;
+            gameState.totalCorrect++;
+            gameState.score += 10 * gameState.streak;
+            gameState.xp += 10 + Math.floor(gameState.streak / 2) * 5;
+            
+            // Perform action
+            const catContainer = document.getElementById('catContainer');
+            
+            switch(gameState.currentAction) {
+                case 'feed':
+                    gameState.hunger = Math.min(100, gameState.hunger + 25);
+                    gameState.health = Math.min(100, gameState.health + 5);
+                    catContainer.classList.add('eating');
+                    showItemAnimation('🍖');
+                    playSound('feed');
+                    break;
+                case 'water':
+                    gameState.thirst = Math.min(100, gameState.thirst + 30);
+                    gameState.health = Math.min(100, gameState.health + 5);
+                    catContainer.classList.add('eating');
+                    showItemAnimation('💧');
+                    playSound('water');
+                    break;
+                case 'play':
+                    gameState.happiness = Math.min(100, gameState.happiness + 25);
+                    gameState.health = Math.min(100, gameState.health + 3);
+                    catContainer.classList.add('playing');
+                    showItemAnimation('🧶');
+                    playSound('play');
+                    break;
+            }
+            
+            setTimeout(() => {
+                catContainer.className = 'cat-container happy';
+                updateCatDisplay('happy');
+                playSound('purr');
+            }, 500);
+            
+            setTimeout(() => {
+                catContainer.className = 'cat-container';
+                updateCatDisplay('normal');
+            }, 1500);
+            
+            updateAllBars();
+            updateScoreDisplay();
+            
+            showFeedback(true, `🎉 Correct! +${10 * gameState.streak} points! Streak: ${gameState.streak}🔥`);
+            showHearts();
+            playSound('correct');
+            
+            // Update difficulty based on performance
+            updateDifficulty(true);
+            
+            // Boss battle damage
+            if (gameState.bossActive) {
+                damageBoss();
+            }
+            
+            // Story mode progress
+            if (gameState.storyMode) {
+                checkStoryProgress();
+            }
+            
+            // Check evolution
+            checkEvolution();
+            
+            // Show cat fact every 5 correct answers
+            if (gameState.totalCorrect % 5 === 0) {
+                setTimeout(showCatFact, 1500);
+            }
+            
+            // Mini-game reward every 8 streak
+            if (gameState.streak > 0 && gameState.streak % 8 === 0) {
+                setTimeout(() => {
+                    offerMiniGame();
+                }, 2000);
+            }
+            
+            // Generate new question after delay
+            setTimeout(() => {
+                document.getElementById('feedbackArea').style.display = 'none';
+                generateQuestion();
+                document.getElementById('answerInput').focus();
+            }, 2000);
+        }
+        
+        function handleIncorrectAnswer(userAnswer) {
+            gameState.streak = 0;
+            gameState.health = Math.max(0, gameState.health - 10);
+            
+            const catContainer = document.getElementById('catContainer');
+            catContainer.classList.add('sad');
+            updateCatDisplay('sad');
+            playSound('sad');
+            
+            setTimeout(() => {
+                catContainer.className = 'cat-container';
+                updateCatDisplay('normal');
+            }, 1500);
+            
+            updateAllBars();
+            updateScoreDisplay();
+            
+            showFeedback(false, `😢 Not quite! The answer was ${gameState.currentAnswer}. Your cat lost some health!`);
+            playSound('incorrect');
+            
+            // Update difficulty based on performance
+            updateDifficulty(false);
+            
+            // Show help
+            showHelp();
+            
+            if (gameState.health <= 0) {
+                setTimeout(gameOver, 1500);
+            }
+        }
+        
+        function showFeedback(isCorrect, message) {
+            const feedbackArea = document.getElementById('feedbackArea');
+            const feedbackMessage = document.getElementById('feedbackMessage');
+            
+            feedbackArea.style.display = 'block';
+            feedbackMessage.className = 'feedback-message ' + (isCorrect ? 'feedback-correct' : 'feedback-incorrect');
+            feedbackMessage.innerHTML = message;
+        }
+        
+        function showHelp() {
+            const helpSection = document.getElementById('helpSection');
+            const helpContent = document.getElementById('helpContent');
+            const q = gameState.currentQuestion;
+            
+            let helpHtml = '';
+            
+            switch(q.type) {
+                case 'addition':
+                    helpHtml = `
+                        <p><strong>Addition</strong> means putting numbers together to find the total.</p>
+                        <p>Think of it like counting objects:</p>
+                        <p class="fs-5">${'🔵'.repeat(Math.min(q.num1, 10))} + ${'🟢'.repeat(Math.min(q.num2, 10))}</p>
+                        <p>${q.num1} + ${q.num2} = <strong>${q.num1 + q.num2}</strong></p>
+                        <p><em>Tip: Start with the bigger number and count up!</em></p>
+                    `;
+                    break;
+                    
+                case 'subtraction':
+                    helpHtml = `
+                        <p><strong>Subtraction</strong> means taking away to find what's left.</p>
+                        <p>Start with ${q.num1} and take away ${q.num2}:</p>
+                        <p class="fs-5">${'🔵'.repeat(Math.min(q.num1, 10))} - ${'❌'.repeat(Math.min(q.num2, 10))}</p>
+                        <p>${q.num1} - ${q.num2} = <strong>${q.num1 - q.num2}</strong></p>
+                        <p><em>Tip: Count backwards from the first number!</em></p>
+                    `;
+                    break;
+                    
+                case 'multiplication':
+                    helpHtml = `
+                        <p><strong>Multiplication</strong> is like adding the same number multiple times.</p>
+                        <p>${q.num1} × ${q.num2} means ${q.num1} groups of ${q.num2}:</p>
+                        <p class="fs-6">${Array(Math.min(q.num1, 5)).fill('(' + '●'.repeat(Math.min(q.num2, 5)) + ')').join(' ')}</p>
+                        <p>${q.num2} + ${Array(Math.min(q.num1-1, 4)).fill(q.num2).join(' + ')} = <strong>${q.num1 * q.num2}</strong></p>
+                        <p><em>Tip: Practice your times tables!</em></p>
+                    `;
+                    break;
+                    
+                case 'division':
+                    helpHtml = `
+                        <p><strong>Division</strong> means splitting into equal groups.</p>
+                        <p>${q.dividend} ÷ ${q.divisor} means: how many groups of ${q.divisor} fit in ${q.dividend}?</p>
+                        <p>Think: ${q.divisor} × <strong>?</strong> = ${q.dividend}</p>
+                        <p>${q.divisor} × <strong>${q.quotient}</strong> = ${q.dividend}</p>
+                        <p>So ${q.dividend} ÷ ${q.divisor} = <strong>${q.quotient}</strong></p>
+                        <p><em>Tip: Division is the opposite of multiplication!</em></p>
+                    `;
+                    break;
+                    
+                case 'equation':
+                    helpHtml = `
+                        <p><strong>Equations</strong> are like puzzles - find the missing number!</p>
+                        <p>? + ${q.b} = ${q.result}</p>
+                        <p>To find ?, we can subtract: ${q.result} - ${q.b} = ?</p>
+                        <p>${q.result} - ${q.b} = <strong>${q.x}</strong></p>
+                        <p>Check: ${q.x} + ${q.b} = ${q.result} ✓</p>
+                        <p><em>Tip: Work backwards using the opposite operation!</em></p>
+                    `;
+                    break;
+                    
+                case 'fraction_identify':
+                    helpHtml = `
+                        <p><strong>Fractions</strong> show parts of a whole!</p>
+                        <p>A fraction has two parts:</p>
+                        <div class="ms-3">
+                            <p>• <strong>Numerator (top)</strong>: How many parts are shaded/colored</p>
+                            <p>• <strong>Denominator (bottom)</strong>: Total number of equal parts</p>
+                        </div>
+                        <p>In this problem, count the shaded (pink) boxes:</p>
+                        <p>There are <strong>${q.numerator}</strong> shaded parts out of ${q.denominator} total parts.</p>
+                        <p>So the fraction is: <span class="fs-4"><sup><strong>${q.numerator}</strong></sup>⁄<sub>${q.denominator}</sub></span></p>
+                        <p><em>💡 Tip: Always count carefully! The numerator (answer) was ${q.numerator}.</em></p>
+                    `;
+                    break;
+                    
+                case 'fraction_equivalent':
+                    helpHtml = `
+                        <p><strong>Equivalent fractions</strong> are different fractions that show the same amount!</p>
+                        <p>To find an equivalent fraction, multiply BOTH the top and bottom by the same number.</p>
+                        <div class="p-2 my-2" style="background: #fff; border-radius: 10px;">
+                            <p class="mb-1">Starting fraction: <span class="fs-4"><sup>${q.baseNum}</sup>⁄<sub>${q.baseDenom}</sub></span></p>
+                            <p class="mb-1">We need the bottom to be ${q.newDenom}.</p>
+                            <p class="mb-1">${q.baseDenom} × <strong>${q.multiplier}</strong> = ${q.newDenom}</p>
+                            <p class="mb-1">So multiply the top by ${q.multiplier} too:</p>
+                            <p class="mb-1">${q.baseNum} × ${q.multiplier} = <strong>${q.newNum}</strong></p>
+                        </div>
+                        <p>Answer: <span class="fs-4"><sup>${q.baseNum}</sup>⁄<sub>${q.baseDenom}</sub> = <sup><strong>${q.newNum}</strong></sup>⁄<sub>${q.newDenom}</sub></span></p>
+                        <p><em>💡 Tip: Whatever you do to the bottom, do to the top!</em></p>
+                    `;
+                    break;
+                    
+                case 'fraction_add':
+                    helpHtml = `
+                        <p><strong>Adding fractions</strong> with the same denominator is easy!</p>
+                        <p>When the denominators (bottom numbers) are the same:</p>
+                        <div class="ms-3">
+                            <p>1. Keep the denominator the same</p>
+                            <p>2. Just add the numerators (top numbers)</p>
+                        </div>
+                        <div class="p-2 my-2" style="background: #fff; border-radius: 10px;">
+                            <p class="fs-4 text-center"><sup>${q.num1}</sup>⁄<sub>${q.denom}</sub> + <sup>${q.num2}</sup>⁄<sub>${q.denom}</sub></p>
+                            <p class="text-center">Top: ${q.num1} + ${q.num2} = <strong>${q.resultNum}</strong></p>
+                            <p class="text-center">Bottom stays: ${q.denom}</p>
+                        </div>
+                        <p>Answer: <span class="fs-4"><sup><strong>${q.resultNum}</strong></sup>⁄<sub>${q.denom}</sub></span></p>
+                        <p><em>💡 Tip: Don't add the denominators - only add the top numbers!</em></p>
+                    `;
+                    break;
+                    
+                case 'fraction_subtract':
+                    helpHtml = `
+                        <p><strong>Subtracting fractions</strong> with the same denominator:</p>
+                        <p>When the denominators (bottom numbers) match:</p>
+                        <div class="ms-3">
+                            <p>1. Keep the denominator the same</p>
+                            <p>2. Subtract the numerators (top numbers)</p>
+                        </div>
+                        <div class="p-2 my-2" style="background: #fff; border-radius: 10px;">
+                            <p class="fs-4 text-center"><sup>${q.num1}</sup>⁄<sub>${q.denom}</sub> - <sup>${q.num2}</sup>⁄<sub>${q.denom}</sub></p>
+                            <p class="text-center">Top: ${q.num1} - ${q.num2} = <strong>${q.resultNum}</strong></p>
+                            <p class="text-center">Bottom stays: ${q.denom}</p>
+                        </div>
+                        <p>Answer: <span class="fs-4"><sup><strong>${q.resultNum}</strong></sup>⁄<sub>${q.denom}</sub></span></p>
+                        <p><em>💡 Tip: The denominator never changes when subtracting with same denominators!</em></p>
+                    `;
+                    break;
+                    
+                case 'fraction_multiply':
+                    helpHtml = `
+                        <p><strong>Multiplying a fraction</strong> by a whole number:</p>
+                        <p>When you multiply a fraction by a whole number:</p>
+                        <div class="ms-3">
+                            <p>1. Multiply the numerator (top) by the whole number</p>
+                            <p>2. Keep the denominator (bottom) the same</p>
+                        </div>
+                        <div class="p-2 my-2" style="background: #fff; border-radius: 10px;">
+                            <p class="fs-4 text-center">${q.multiplier} × <sup>${q.num}</sup>⁄<sub>${q.denom}</sub></p>
+                            <p class="text-center">Top: ${q.multiplier} × ${q.num} = <strong>${q.resultNum}</strong></p>
+                            <p class="text-center">Bottom stays: ${q.denom}</p>
+                        </div>
+                        <p>Answer: <span class="fs-4"><sup><strong>${q.resultNum}</strong></sup>⁄<sub>${q.denom}</sub></span></p>
+                        <p><em>💡 Tip: Only the top number gets multiplied!</em></p>
+                    `;
+                    break;
+            }
+            
+            helpContent.innerHTML = helpHtml;
+            helpSection.style.display = 'block';
+        }
+        
+        function tryAgain() {
+            document.getElementById('helpSection').style.display = 'none';
+            document.getElementById('feedbackArea').style.display = 'none';
+            generateQuestion();
+            document.getElementById('answerInput').focus();
+        }
+        
+        function showItemAnimation(emoji) {
+            const stage = document.getElementById('catStage');
+            const item = document.createElement('div');
+            item.className = 'item-animation';
+            item.textContent = emoji;
+            item.style.left = '50%';
+            item.style.bottom = '100px';
+            item.style.transform = 'translateX(-50%)';
+            stage.appendChild(item);
+            
+            setTimeout(() => item.remove(), 1000);
+        }
+        
+        function showHearts() {
+            const stage = document.getElementById('catStage');
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-particle';
+                    heart.textContent = '❤️';
+                    heart.style.left = (40 + Math.random() * 20) + '%';
+                    heart.style.bottom = '120px';
+                    stage.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 1500);
+                }, i * 100);
+            }
+        }
+        
+        function checkEvolution() {
+            const oldStage = gameState.stage;
+            
+            if (gameState.stage === 0 && gameState.xp >= gameState.xpToEvolve[0]) {
+                gameState.stage = 1;
+            } else if (gameState.stage === 1 && gameState.xp >= gameState.xpToEvolve[1]) {
+                gameState.stage = 2;
+            } else if (gameState.stage === 2 && gameState.xp >= gameState.xpToEvolve[2]) {
+                gameState.stage = 3;
+            }
+            
+            if (gameState.stage !== oldStage) {
+                showEvolution(oldStage);
+            }
+            
+            updateEvolutionDisplay();
+        }
+        
+        function showEvolution(oldStage) {
+            playSound('evolution');
+            createConfetti();
+            
+            const stages = ['Newborn', 'Kitten', 'Teen Cat', 'Adult Cat'];
+            const messages = [
+                '',
+                `${gameState.catName} woke up! Your kitten is ready to play! 🎉`,
+                `${gameState.catName} is growing up! Keep practicing!`,
+                `${gameState.catName} is now a majestic adult cat! 🏆`
+            ];
+            
+            // Special message for waking up
+            if (oldStage === 0) {
+                document.getElementById('evolutionText').textContent = 
+                    `${gameState.catName} is waking up!`;
+            } else {
+                document.getElementById('evolutionText').textContent = 
+                    `${gameState.catName} evolved into a ${stages[gameState.stage]}!`;
+            }
+            document.getElementById('evolutionCatDisplay').innerHTML = getCatSVG(gameState.stage, 'happy');
+            document.getElementById('evolutionMessage').textContent = messages[gameState.stage];
+            
+            const modal = new bootstrap.Modal(document.getElementById('evolutionModal'));
+            modal.show();
+            
+            updateCatDisplay('happy');
+        }
+        
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#FF6B9D', '#FFD700', '#2ECC71', '#3498DB', '#9B59B6', '#F39C12'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = confetti.style.width;
+                    container.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
+        
+        function gameOver() {
+            document.getElementById('finalScore').textContent = gameState.score;
+            const modal = new bootstrap.Modal(document.getElementById('gameOverModal'));
+            modal.show();
+        }
+        
+        function toggleSound() {
+            gameState.soundEnabled = !gameState.soundEnabled;
+            document.getElementById('soundToggle').textContent = gameState.soundEnabled ? '🔊' : '🔇';
+        }
+        
+        // ============ TRICKS SYSTEM ============
+        function toggleTricksPanel() {
+            const panel = document.getElementById('tricksPanel');
+            panel.classList.toggle('show');
+            updateTricksList();
+        }
+        
+        function updateTricksList() {
+            const container = document.getElementById('tricksList');
+            let html = '';
+            
+            for (const [key, trick] of Object.entries(tricksData)) {
+                const unlocked = gameState.stage >= trick.unlockStage;
+                html += `
+                    <div class="trick-item ${unlocked ? '' : 'locked'}" onclick="${unlocked ? `performTrick('${key}')` : ''}">
+                        <span class="emoji">${trick.emoji}</span>
+                        <span class="name">${unlocked ? trick.name : '🔒'}</span>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function performTrick(trickName) {
+            const panel = document.getElementById('tricksPanel');
+            panel.classList.remove('show');
+            
+            const catContainer = document.getElementById('catContainer');
+            if (!catContainer) return;
+            
+            // Remove any existing trick classes
+            catContainer.classList.remove('trick-wave', 'trick-roll', 'trick-highfive', 'trick-dance', 'trick-backflip');
+            
+            // Add the trick animation class
+            setTimeout(() => {
+                catContainer.classList.add(`trick-${trickName}`);
+                playSound('meow');
+                
+                // Show a little celebration
+                showHearts();
+                
+                // Remove class after animation
+                setTimeout(() => {
+                    catContainer.classList.remove(`trick-${trickName}`);
+                }, 1500);
+            }, 50);
+        }
+        
+        // ============ GAME MODES ============
+        function setGameMode(mode) {
+            // Update button states
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.mode-btn.${mode}`).classList.add('active');
+            
+            // Hide all banners first
+            document.getElementById('storyBanner').classList.remove('active');
+            document.getElementById('bossBanner').classList.remove('active');
+            
+            gameState.storyMode = false;
+            gameState.bossActive = false;
+            
+            if (mode === 'story') {
+                gameState.storyMode = true;
+                gameState.storyProgress = 0;
+                updateStoryBanner();
+                document.getElementById('storyBanner').classList.add('active');
+            } else if (mode === 'boss') {
+                startBossBattle();
+            }
+        }
+        
+        // ============ STORY MODE ============
+        function updateStoryBanner() {
+            const chapter = storyChapters[Math.min(gameState.storyProgress, storyChapters.length - 1)];
+            document.getElementById('storyIcon').textContent = chapter.icon;
+            document.getElementById('storyTitle').textContent = chapter.title;
+            document.getElementById('storyDesc').textContent = chapter.description;
+            
+            const collected = gameState.correct % chapter.goal;
+            document.getElementById('storyCount').textContent = `${collected}/${chapter.goal}`;
+            document.getElementById('storyProgressFill').style.width = `${(collected / chapter.goal) * 100}%`;
+        }
+        
+        function checkStoryProgress() {
+            if (!gameState.storyMode) return;
+            
+            const chapter = storyChapters[Math.min(gameState.storyProgress, storyChapters.length - 1)];
+            const collected = gameState.correct % chapter.goal;
+            
+            updateStoryBanner();
+            
+            if (collected === 0 && gameState.correct > 0) {
+                // Completed a chapter!
+                completeStoryChapter();
+            }
+        }
+        
+        function completeStoryChapter() {
+            const chapter = storyChapters[Math.min(gameState.storyProgress, storyChapters.length - 1)];
+            
+            // Reward XP
+            gameState.xp += chapter.reward;
+            gameState.score += chapter.reward;
+            
+            // Show completion message
+            showFeedback(true, `🎉 Chapter Complete! "${chapter.title}" +${chapter.reward} bonus XP!`);
+            playSound('evolution');
+            createConfetti();
+            
+            // Move to next chapter
+            gameState.storyProgress++;
+            
+            if (gameState.storyProgress >= storyChapters.length) {
+                // Completed all chapters!
+                setTimeout(() => {
+                    showFeedback(true, `🏆 STORY COMPLETE! You finished all chapters! Amazing!`);
+                    gameState.storyProgress = 0; // Reset to replay
+                }, 2000);
+            }
+            
+            setTimeout(() => {
+                updateStoryBanner();
+                checkEvolution();
+                updateScoreDisplay();
+            }, 500);
+        }
+        
+        // ============ BOSS BATTLES ============
+        function startBossBattle() {
+            const bossIndex = Math.min(Math.floor(gameState.totalCorrect / 20), bossData.length - 1);
+            const boss = bossData[bossIndex];
+            
+            gameState.bossActive = true;
+            gameState.bossHealth = boss.hp;
+            gameState.currentBoss = boss;
+            
+            document.getElementById('bossEmoji').textContent = boss.emoji;
+            document.getElementById('bossName').textContent = boss.name;
+            document.getElementById('bossHP').textContent = `${boss.hp}/${boss.hp}`;
+            document.getElementById('bossHealthFill').style.width = '100%';
+            document.getElementById('bossBanner').classList.add('active');
+            
+            playSound('meow');
+        }
+        
+        function damageBoss() {
+            if (!gameState.bossActive) return;
+            
+            gameState.bossHealth--;
+            const boss = gameState.currentBoss;
+            
+            document.getElementById('bossHP').textContent = `${gameState.bossHealth}/${boss.hp}`;
+            document.getElementById('bossHealthFill').style.width = `${(gameState.bossHealth / boss.hp) * 100}%`;
+            
+            // Boss shake effect
+            const bossEmoji = document.getElementById('bossEmoji');
+            bossEmoji.style.animation = 'none';
+            setTimeout(() => {
+                bossEmoji.style.animation = 'bossFloat 1s ease-in-out infinite';
+            }, 100);
+            
+            if (gameState.bossHealth <= 0) {
+                defeatBoss();
+            }
+        }
+        
+        function defeatBoss() {
+            const boss = gameState.currentBoss;
+            
+            gameState.bossActive = false;
+            gameState.xp += boss.reward;
+            gameState.score += boss.reward;
+            
+            document.getElementById('bossBanner').classList.remove('active');
+            
+            showFeedback(true, `🎉 BOSS DEFEATED! ${boss.name} is gone! +${boss.reward} XP!`);
+            playSound('evolution');
+            createConfetti();
+            
+            checkEvolution();
+            updateScoreDisplay();
+            
+            // Start new boss after delay
+            setTimeout(() => {
+                if (document.querySelector('.mode-btn.boss.active')) {
+                    startBossBattle();
+                }
+            }, 3000);
+        }
+        
+        // ============ CAT FACTS ============
+        function showCatFact() {
+            // Pick a random fact (different from last one)
+            let factIndex;
+            do {
+                factIndex = Math.floor(Math.random() * gameState.catFacts.length);
+            } while (factIndex === gameState.lastFactIndex && gameState.catFacts.length > 1);
+            
+            gameState.lastFactIndex = factIndex;
+            const fact = gameState.catFacts[factIndex];
+            
+            // Create popup if doesn't exist
+            let popup = document.getElementById('catFactPopup');
+            if (!popup) {
+                popup = document.createElement('div');
+                popup.id = 'catFactPopup';
+                popup.className = 'cat-fact-popup';
+                popup.innerHTML = `
+                    <div class="d-flex align-items-start">
+                        <span class="fs-3 me-2">🐱</span>
+                        <div>
+                            <div class="fw-bold text-purple small">Did you know?</div>
+                            <div id="catFactText"></div>
+                        </div>
+                        <button class="btn-close ms-2" onclick="hideCatFact()"></button>
+                    </div>
+                `;
+                document.body.appendChild(popup);
+            }
+            
+            document.getElementById('catFactText').textContent = fact;
+            popup.classList.add('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(hideCatFact, 5000);
+        }
+        
+        function hideCatFact() {
+            const popup = document.getElementById('catFactPopup');
+            if (popup) {
+                popup.classList.remove('show');
+            }
+        }
+        
+        // ============ MINI-GAMES ============
+        const miniGames = [
+            { id: 'mice', name: 'Catch the Mice!', emoji: '🐭', target: '🐭', decoys: ['🧀', '🕳️'], caught: 'mice', description: 'Click mice before they escape!', bg: 'linear-gradient(135deg, #8B4513 0%, #D2691E 100%)' },
+            { id: 'yarn', name: 'Yarn Ball Frenzy!', emoji: '🧶', target: '🧶', decoys: ['🎾', '⚽'], caught: 'yarn balls', description: 'Catch the bouncing yarn balls!', bg: 'linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%)' },
+            { id: 'fish', name: 'Fishing Fun!', emoji: '🐟', target: '🐟', decoys: ['🐠', '🦀', '🐚'], caught: 'fish', description: 'Catch fish swimming by!', bg: 'linear-gradient(180deg, #87CEEB 0%, #1E90FF 50%, #006994 100%)' },
+            { id: 'butterfly', name: 'Butterfly Chase!', emoji: '🦋', target: '🦋', decoys: ['🌸', '🌺', '🐝'], caught: 'butterflies', description: 'Catch colorful butterflies!', bg: 'linear-gradient(180deg, #87CEEB 0%, #98FB98 100%)' },
+            { id: 'treats', name: 'Treat Time!', emoji: '🍗', target: '🍗', decoys: ['🥦', '🥕', '🍋'], caught: 'treats', description: 'Catch yummy cat treats!', bg: 'linear-gradient(135deg, #FFF8DC 0%, #FFDAB9 100%)' },
+            { id: 'laser', name: 'Laser Pointer!', emoji: '🔴', target: '🔴', decoys: ['🟡', '🟢', '🔵'], caught: 'red dots', description: 'Catch the red laser dots!', bg: 'linear-gradient(135deg, #2C3E50 0%, #4A4A4A 100%)' }
+        ];
+        
+        function startMiniGame(specificGame = null) {
+            const game = specificGame || miniGames[Math.floor(Math.random() * miniGames.length)];
+            
+            gameState.miniGameActive = true;
+            gameState.miniGameScore = 0;
+            gameState.currentMiniGame = game;
+            
+            const overlay = document.createElement('div');
+            overlay.id = 'miniGameOverlay';
+            overlay.className = 'mini-game-overlay';
+            overlay.innerHTML = `
+                <div class="mini-game-container">
+                    <h4>${game.emoji} ${game.name}</h4>
+                    <p class="small">${game.description}</p>
+                    <div class="mini-game-area" id="miniGameArea" style="background: ${game.bg};">
+                        ${game.id === 'fish' ? '<div class="water-waves"></div>' : ''}
+                    </div>
+                    <div class="d-flex justify-content-around mt-2">
+                        <div>Score: <span class="fw-bold" id="miniGameScoreDisplay">0</span></div>
+                        <div>Time: <span class="fw-bold" id="miniGameTimer">10</span>s</div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            
+            const gameArea = document.getElementById('miniGameArea');
+            let timeLeft = 10;
+            
+            const spawnTarget = (isDecoy = false) => {
+                if (!gameState.miniGameActive) return;
+                
+                const target = document.createElement('div');
+                target.className = 'catch-target';
+                
+                // Decide if this is a decoy (30% chance)
+                const spawnDecoy = isDecoy || (Math.random() < 0.3 && game.decoys.length > 0);
+                const emoji = spawnDecoy ? game.decoys[Math.floor(Math.random() * game.decoys.length)] : game.target;
+                target.textContent = emoji;
+                target.dataset.isTarget = !spawnDecoy;
+                
+                // Game-specific spawn and animation
+                if (game.id === 'mice') {
+                    // Mice scurry across the screen
+                    const fromLeft = Math.random() > 0.5;
+                    const yPos = Math.random() * 60 + 20;
+                    target.style.top = yPos + '%';
+                    target.style.left = fromLeft ? '0%' : '100%';
+                    target.style.transform = fromLeft ? 'translateX(-100%) scaleX(1)' : 'translateX(0%) scaleX(-1)';
+                    
+                    setTimeout(() => {
+                        target.style.transition = 'left 2.5s linear';
+                        target.style.left = fromLeft ? '100%' : '0%';
+                        target.style.transform = fromLeft ? 'translateX(0%) scaleX(1)' : 'translateX(-100%) scaleX(-1)';
+                    }, 50);
+                    
+                    setTimeout(() => { if (target.parentNode) target.remove(); }, 2600);
+                    
+                } else if (game.id === 'fish') {
+                    // Fish swim across
+                    const fromLeft = Math.random() > 0.5;
+                    const yPos = Math.random() * 50 + 25;
+                    target.style.top = yPos + '%';
+                    target.style.left = fromLeft ? '0%' : '100%';
+                    target.style.transform = fromLeft ? 'translateX(-100%) scaleX(1)' : 'translateX(0%) scaleX(-1)';
+                    target.classList.add('swimming');
+                    
+                    setTimeout(() => {
+                        target.style.transition = 'left 3s linear';
+                        target.style.left = fromLeft ? '100%' : '0%';
+                        target.style.transform = fromLeft ? 'translateX(0%) scaleX(1)' : 'translateX(-100%) scaleX(-1)';
+                    }, 50);
+                    
+                    setTimeout(() => { if (target.parentNode) target.remove(); }, 3100);
+                    
+                } else if (game.id === 'yarn') {
+                    // Yarn bounces across
+                    const fromLeft = Math.random() > 0.5;
+                    target.style.top = '55%';
+                    target.style.left = fromLeft ? '0%' : '100%';
+                    target.style.transform = fromLeft ? 'translateX(-100%)' : 'translateX(0%)';
+                    target.classList.add('bouncing');
+                    
+                    setTimeout(() => {
+                        target.style.transition = 'left 2.5s linear';
+                        target.style.left = fromLeft ? '100%' : '0%';
+                        target.style.transform = fromLeft ? 'translateX(0%)' : 'translateX(-100%)';
+                    }, 50);
+                    
+                    setTimeout(() => { if (target.parentNode) target.remove(); }, 2600);
+                    
+                } else if (game.id === 'butterfly') {
+                    // Butterflies float smoothly across the screen
+                    const fromLeft = Math.random() > 0.5;
+                    const yPos = Math.random() * 50 + 25;
+                    target.style.top = yPos + '%';
+                    target.style.left = fromLeft ? '0%' : '100%';
+                    target.style.transform = fromLeft ? 'translateX(-100%)' : 'translateX(0%)';
+                    target.classList.add('floating');
+                    
+                    setTimeout(() => {
+                        target.style.transition = 'left 3.5s linear';
+                        target.style.left = fromLeft ? '100%' : '0%';
+                        target.style.transform = fromLeft ? 'translateX(0%)' : 'translateX(-100%)';
+                    }, 50);
+                    
+                    setTimeout(() => { if (target.parentNode) target.remove(); }, 3600);
+                    
+                } else if (game.id === 'treats') {
+                    // Treats fall from the top
+                    const xPos = Math.random() * 80 + 10;
+                    target.style.left = xPos + '%';
+                    target.style.top = '0%';
+                    target.style.transform = 'translateY(-100%)';
+                    target.classList.add('falling');
+                    
+                    setTimeout(() => {
+                        target.style.transition = 'top 2.5s linear';
+                        target.style.top = '100%';
+                        target.style.transform = 'translateY(0%)';
+                    }, 50);
+                    
+                    setTimeout(() => { if (target.parentNode) target.remove(); }, 2600);
+                    
+                } else if (game.id === 'laser') {
+                    // Laser dots zip around erratically
+                    const xPos = Math.random() * 70 + 15;
+                    const yPos = Math.random() * 60 + 20;
+                    target.style.left = xPos + '%';
+                    target.style.top = yPos + '%';
+                    target.classList.add('laser-dot');
+                    
+                    // Move to new position after a moment
+                    setTimeout(() => {
+                        target.style.transition = 'left 0.8s ease-out, top 0.8s ease-out';
+                        target.style.left = (Math.random() * 70 + 15) + '%';
+                        target.style.top = (Math.random() * 60 + 20) + '%';
+                    }, 50);
+                    
+                    // Move again
+                    setTimeout(() => {
+                        target.style.left = (Math.random() * 70 + 15) + '%';
+                        target.style.top = (Math.random() * 60 + 20) + '%';
+                    }, 900);
+                    
+                    // Move one more time
+                    setTimeout(() => {
+                        target.style.left = (Math.random() * 70 + 15) + '%';
+                        target.style.top = (Math.random() * 60 + 20) + '%';
+                    }, 1800);
+                    
+                    setTimeout(() => { if (target.parentNode) target.remove(); }, 2700);
+                }
+                
+                target.onclick = (e) => {
+                    e.stopPropagation();
+                    if (target.dataset.isTarget === 'true') {
+                        // Correct target!
+                        gameState.miniGameScore++;
+                        document.getElementById('miniGameScoreDisplay').textContent = gameState.miniGameScore;
+                        target.textContent = '✨';
+                        playSound('correct');
+                    } else {
+                        // Decoy - wrong!
+                        target.textContent = '❌';
+                        playSound('incorrect');
+                    }
+                    target.style.animation = 'none';
+                    target.style.transition = 'none';
+                    target.onclick = null;
+                    setTimeout(() => target.remove(), 200);
+                };
+                
+                gameArea.appendChild(target);
+            };
+            
+            const spawnRate = game.id === 'yarn' ? 800 : game.id === 'butterfly' ? 900 : 700;
+            const spawnInterval = setInterval(() => spawnTarget(false), spawnRate);
+            
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                const timerEl = document.getElementById('miniGameTimer');
+                if (timerEl) timerEl.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(spawnInterval);
+                    clearInterval(timerInterval);
+                    endMiniGame();
+                }
+            }, 1000);
+            
+            // Initial spawn - just one to start
+            spawnTarget(false);
+        }
+        
+        function endMiniGame() {
+            gameState.miniGameActive = false;
+            const game = gameState.currentMiniGame;
+            
+            const bonus = gameState.miniGameScore * 2;
+            gameState.xp += bonus;
+            gameState.score += bonus;
+            
+            // Determine rating
+            let rating = '⭐';
+            let message = 'Good try!';
+            if (gameState.miniGameScore >= 15) {
+                rating = '⭐⭐⭐';
+                message = 'AMAZING!';
+            } else if (gameState.miniGameScore >= 10) {
+                rating = '⭐⭐';
+                message = 'Great job!';
+            }
+            
+            const overlay = document.getElementById('miniGameOverlay');
+            overlay.innerHTML = `
+                <div class="mini-game-container">
+                    <h4>🎉 ${message}</h4>
+                    <div class="fs-1 my-3">${game.emoji}</div>
+                    <p>You caught <strong>${gameState.miniGameScore}</strong> ${game.caught}!</p>
+                    <div class="fs-4 mb-2">${rating}</div>
+                    <p class="text-warning fw-bold">+${bonus} bonus XP!</p>
+                    <button class="btn btn-light mt-2" onclick="closeMiniGame()">Continue</button>
+                </div>
+            `;
+            
+            playSound('evolution');
+            checkEvolution();
+            updateScoreDisplay();
+        }
+        
+        function closeMiniGame() {
+            const overlay = document.getElementById('miniGameOverlay');
+            if (overlay) overlay.remove();
+        }
+        
+        function offerMiniGame() {
+            const game = miniGames[Math.floor(Math.random() * miniGames.length)];
+            
+            const popup = document.createElement('div');
+            popup.id = 'miniGameOffer';
+            popup.className = 'mini-game-overlay';
+            popup.innerHTML = `
+                <div class="mini-game-container" style="max-width: 350px;">
+                    <h4>🎮 Bonus Game!</h4>
+                    <div class="fs-1 my-3">${game.emoji}</div>
+                    <p class="fw-bold">${game.name}</p>
+                    <p class="small">${game.description}</p>
+                    <p class="small text-warning">Earn bonus XP!</p>
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+                        <button class="btn btn-success" onclick="acceptMiniGame('${game.id}')">Play!</button>
+                        <button class="btn btn-secondary" onclick="declineMiniGame()">Skip</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(popup);
+        }
+        
+        function acceptMiniGame(gameId) {
+            const popup = document.getElementById('miniGameOffer');
+            if (popup) popup.remove();
+            
+            const game = miniGames.find(g => g.id === gameId);
+            startMiniGame(game);
+        }
+        
+        function declineMiniGame() {
+            const popup = document.getElementById('miniGameOffer');
+            if (popup) popup.remove();
+        }
+        
+        // ============ MULTIPLE CATS ============
+        function addNewCat() {
+            if (gameState.cats.length >= 5) {
+                alert('Maximum 5 cats!');
+                return;
+            }
+            
+            // Save current cat
+            saveCatData();
+            
+            // Create new cat
+            const newCat = {
+                name: 'Kitty ' + (gameState.cats.length + 1),
+                color: ['#FFB347', '#808080', '#333333', '#FFF8DC', '#8B4513', '#9B59B6', '#3498DB'][Math.floor(Math.random() * 7)],
+                xp: 0,
+                stage: 0,
+                score: 0,
+                totalCorrect: 0
+            };
+            
+            gameState.cats.push(newCat);
+            gameState.currentCatIndex = gameState.cats.length - 1;
+            
+            loadCatData(gameState.currentCatIndex);
+            updateCatsSelector();
+            
+            // Show start screen for new cat
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('gamePlay').style.display = 'none';
+        }
+        
+        function saveCatData() {
+            if (gameState.cats.length === 0) {
+                gameState.cats.push({});
+            }
+            
+            gameState.cats[gameState.currentCatIndex] = {
+                name: gameState.catName,
+                color: gameState.catColor,
+                xp: gameState.xp,
+                stage: gameState.stage,
+                score: gameState.score,
+                totalCorrect: gameState.totalCorrect
+            };
+        }
+        
+        function loadCatData(index) {
+            if (index >= gameState.cats.length) return;
+            
+            const cat = gameState.cats[index];
+            gameState.catName = cat.name;
+            gameState.catColor = cat.color;
+            gameState.xp = cat.xp;
+            gameState.stage = cat.stage;
+            gameState.score = cat.score;
+            gameState.totalCorrect = cat.totalCorrect || 0;
+            gameState.currentCatIndex = index;
+            
+            updateCatDisplay();
+            updateEvolutionDisplay();
+            updateScoreDisplay();
+        }
+        
+        function switchCat(index) {
+            saveCatData();
+            loadCatData(index);
+            updateCatsSelector();
+        }
+        
+        function updateCatsSelector() {
+            // Only show selector if more than one cat
+            let selector = document.getElementById('catsSelector');
+            
+            if (gameState.cats.length <= 1) {
+                if (selector) selector.style.display = 'none';
+                return;
+            }
+            
+            if (!selector) {
+                selector = document.createElement('div');
+                selector.id = 'catsSelector';
+                selector.className = 'cats-selector';
+                const evolutionCard = document.querySelector('.evolution-card');
+                if (evolutionCard) {
+                    evolutionCard.parentNode.insertBefore(selector, evolutionCard);
+                }
+            }
+            
+            selector.style.display = 'flex';
+            selector.innerHTML = gameState.cats.map((cat, i) => `
+                <div class="cat-tab ${i === gameState.currentCatIndex ? 'active' : ''}" onclick="switchCat(${i})">
+                    ${cat.name || 'Cat ' + (i+1)}
+                </div>
+            `).join('') + `
+                <div class="cat-tab add-new" onclick="addNewCat()">+ New Cat</div>
+            `;
+        }
+        
+        // ============ ADDITIONAL EXPRESSIONS ============
+        function setExpression(expression) {
+            const catSvg = document.querySelector('.cat-svg');
+            if (!catSvg) return;
+            
+            catSvg.classList.remove('curious', 'excited');
+            
+            if (expression === 'curious' || expression === 'excited') {
+                catSvg.classList.add(expression);
+            }
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+    
+    <!-- Cat Fact Popup -->
+    <div class="cat-fact-popup" id="catFactPopup">
+        <div class="d-flex align-items-start">
+            <span class="fs-3 me-2">🐱</span>
+            <div>
+                <div class="fw-bold small" style="color: var(--primary-purple);">Did you know?</div>
+                <div id="catFactText"></div>
+            </div>
+            <button class="btn-close ms-2" onclick="hideCatFact()"></button>
+        </div>
+    </div>
+</body>
+</html>
